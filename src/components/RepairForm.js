@@ -16,12 +16,11 @@ import {
     Label,
     TextArea,
     Switch,
-    Radio,
-    Checkbox,
     Select,
-    VCode,
-    Agreement,
-    Toptips
+    Toptips,
+    Uploader,
+    Gallery,
+    GalleryDelete
 } from '../../packages';
 import Page from '../components/page';
 
@@ -30,8 +29,41 @@ class RepairForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            gallery: false,
+            demoFiles: [
+                {
+                    url: '',
+                }
+            ]
         };
+    }
+    renderGallery() {
+        if (!this.state.gallery) return false;
+
+        let srcs = this.state.demoFiles.map(file => file.url)
+
+        return (
+            <Gallery
+                src={srcs}
+                show
+                defaultIndex={this.state.gallery.id}
+                onClick={e => {
+                    //avoid click background item
+                    e.preventDefault()
+                    e.stopPropagation();
+                    this.setState({ gallery: false })
+                }}
+            >
+
+                <GalleryDelete onClick={(e, id) => {
+                    this.setState({
+                        demoFiles: this.state.demoFiles.filter((e, i) => i != id),
+                        gallery: this.state.demoFiles.length <= 1 ? true : false
+                    })
+                }} />
+
+            </Gallery>
+        )
     }
 
 
@@ -39,7 +71,7 @@ class RepairForm extends Component {
 
         return (
             <div>
-                <Page className="input" title="报修保单录入" subTitle="信息输入">
+                <Page className="input" title="报修保单录入">
 
                     <CellsTitle>基本信息</CellsTitle>
                     <Form>
@@ -155,6 +187,23 @@ class RepairForm extends Component {
                         </FormCell>
                         <FormCell>
                             <CellHeader>
+                                <Label>寄付帐单地址:</Label>
+                            </CellHeader>
+                            <CellBody>
+                                <Input type="tel" placeholder="输入寄付帐单地址" />
+                            </CellBody>
+                        </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <Label>详细公司地址:</Label>
+                            </CellHeader>
+                            <CellBody>
+                                <Input type="tel" placeholder="输入详细公司地址" />
+                            </CellBody>
+                        </FormCell>
+                        <CellsTitle>设备信息</CellsTitle>
+                        <FormCell>
+                            <CellHeader>
                                 <Label>产品序列号:</Label>
                             </CellHeader>
                             <CellBody>
@@ -203,30 +252,47 @@ class RepairForm extends Component {
                                 <Input type="tel" placeholder="输入产品序列号" />
                             </CellBody>
                         </FormCell>
-                        <FormCell>
-                            <CellHeader>
-                                <Label>寄付帐单地址:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Input type="tel" placeholder="输入寄付帐单地址" />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell>
-                            <CellHeader>
-                                <Label>详细公司地址:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Input type="tel" placeholder="输入详细公司地址" />
-                            </CellBody>
-                        </FormCell>
+
                     </Form>
                     {/* <CellsTips>Form Footer Tips</CellsTips> */}
-
                     <CellsTitle>故障细节</CellsTitle>
                     <Form>
                         <FormCell>
                             <CellBody>
                                 <TextArea placeholder="输入故障细节" rows="3"></TextArea>
+                            </CellBody>
+                        </FormCell>
+                    </Form>
+                    <CellsTitle>上传照片</CellsTitle>
+                    {this.renderGallery()}
+                    <Form>
+                        <FormCell>
+                            <CellBody>
+                                <Uploader
+                                    maxCount={9}
+                                    files={this.state.demoFiles}
+                                    onError={msg => alert(msg)}
+                                    onChange={(file, e) => {
+                                        let newFiles = [...this.state.demoFiles, { url: file.data }];
+                                        this.setState({
+                                            demoFiles: newFiles
+                                        });
+                                    }}
+                                    onFileClick={
+                                        (e, file, i) => {
+                                            console.log('file click', file, i)
+                                            this.setState({
+                                                gallery: {
+                                                    url: file.url,
+                                                    id: i
+                                                }
+                                            })
+                                        }
+                                    }
+                                    lang={{
+                                        maxError: maxCount => `最多上传 ${maxCount} 张照片`
+                                    }}
+                                />
                             </CellBody>
                         </FormCell>
                     </Form>
