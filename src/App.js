@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import RepairSubmit from './views/RepairSubmit';
+import Menu from './views/Menu';
 import './style.less';
 import 'weui';
 import '../packages/react-weui.css';
@@ -23,6 +24,11 @@ class App extends Component {
     routes = [
       {
         path: '/',
+        exact: true,
+        main: () => <Menu/>,
+      },
+      {
+        path: '/repairsubmit',
         exact: true,
         main: () => <RepairSubmit/>,
       }
