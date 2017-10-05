@@ -5,7 +5,10 @@ import './style.less';
 import 'weui';
 import '../packages/react-weui.css';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-
+import StatusQuery from './views/StatusQuery';
+import StatusQueryItem from './views/StatusQueryItem';
+import RepairManagement from './views/RepairManagement';
+import RepairManagementItems from './views/RepairManagementItems';
 
 import './App.css';
 import {
@@ -31,6 +34,26 @@ class App extends Component {
         path: '/repairsubmit',
         exact: true,
         main: () => <RepairSubmit/>,
+      },
+      {
+        path: '/statusquery',
+        exact: true,
+        main: () => <StatusQuery/>,
+      },
+      {
+        path: '/statusqueryitem',
+        exact: true,
+        main: () => <StatusQueryItem/>,
+      },
+      {
+        path: '/repairmanagement',
+        exact: true,
+        main: () => <RepairManagement/>,
+      },
+      {
+        path: '/repairmanagementitems',
+        exact: true,
+        main: () => <RepairManagementItems/>,
       }
       // { path: '',
       //     main: () => <NotFoundPage />,
