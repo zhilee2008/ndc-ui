@@ -20,7 +20,8 @@ import {
     Toptips,
     Uploader,
     Gallery,
-    GalleryDelete
+    GalleryDelete,
+    Dialog,
 } from '../../packages';
 import Page from '../components/page';
 
@@ -29,6 +30,15 @@ class RepairForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            showIOS1: false,
+            style1: {
+                buttons: [
+                    {
+                        label: 'Ok',
+                        onClick: this.hideDialog.bind(this)
+                    }
+                ]
+            },
             gallery: false,
             demoFiles: [
                 {
@@ -64,6 +74,11 @@ class RepairForm extends Component {
 
             </Gallery>
         )
+    }
+    hideDialog() {
+        this.setState({
+            showIOS1: false,
+        });
     }
 
 
@@ -297,10 +312,15 @@ class RepairForm extends Component {
                         </FormCell>
                     </Form>
                     <ButtonArea>
-                        <Button>
+                        <Button onClick={ e=> this.setState({ showIOS1: true}) }>
                             提交
                         </Button>
                     </ButtonArea>
+                    <Dialog type="ios" title={this.state.style1.title} buttons={this.state.style1.buttons} show={this.state.showIOS1}>
+                        <b>提示</b>
+                        <p>您的保修单已生成,请截屏记录</p>
+                        报修单号:{'123456'}
+                </Dialog>
 
                 </Page>
             </div>

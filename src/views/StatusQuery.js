@@ -4,23 +4,10 @@ import {
     ButtonArea,
     Button,
     CellsTitle,
-    CellsTips,
-    Cell,
-    CellHeader,
     CellBody,
-    CellFooter,
     Form,
     FormCell,
-    Icon,
     Input,
-    Label,
-    TextArea,
-    Switch,
-    Select,
-    Toptips,
-    Uploader,
-    Gallery,
-    GalleryDelete
 } from '../../packages';
 import Page from '../components/page';
 
@@ -53,10 +40,10 @@ class StatusQuery extends Component {
                         </FormCell>
                     </Form>
                     <ButtonArea>
-                    <Button onClick={this.queryItemClick.bind(this,'id')}>
-                        查询
+                        <Button onClick={this.queryItemClick.bind(this, 'id')}>
+                            查询
                         </Button>
-                </ButtonArea>
+                    </ButtonArea>
                 </Page>
             </div>
         );
