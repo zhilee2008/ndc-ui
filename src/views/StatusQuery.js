@@ -8,6 +8,7 @@ import {
     Form,
     FormCell,
     Input,
+    FooterText,
 } from '../../packages';
 import Page from '../components/page';
 
@@ -16,35 +17,47 @@ class StatusQuery extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            userId: '131***1212',
+            itemId: '',
         };
     }
 
-    queryItemClick = (pageId) => {
-        let path = '/statusqueryitem';
+    queryItemClick = () => {
+        if (this.state.itemId) {
+            const path = '/statusqueryitem';
+            this.props.history.push(path);
+        } else {
 
-        this.props.history.push(path);
+        }
     };
+
+    handleChangeItemId = (event) => {
+        this.setState({
+            itemId: event.target.value
+        });
+    }
 
     render() {
         return (
-            <div>
-                <Page className="input" title="状态查询">
+            <div style={{ textAlign: 'center' }}>
+                <div>
+                    <img style={{ width: '100%' }} src="/images/queryimage.png" />
+                    <FooterText>{this.state.userId}</FooterText>
+                </div>
 
-                    <CellsTitle>报修单号</CellsTitle>
-                    <Form>
-                        <FormCell>
-                            <CellBody>
-                                <Input type="tel" placeholder="输入报修单号" />
-                            </CellBody>
-                        </FormCell>
-                    </Form>
-                    <ButtonArea>
-                        <Button onClick={this.queryItemClick.bind(this, 'id')}>
-                            查询
+                <Form>
+                    <FormCell>
+                        <CellBody>
+                            <Input value={this.state.itemId}
+                                onChange={this.handleChangeItemId} type="text" placeholder="输入报修单号" />
+                        </CellBody>
+                    </FormCell>
+                </Form>
+                <ButtonArea>
+                    <Button onClick={this.queryItemClick.bind(this)}>
+                        查询
                         </Button>
-                    </ButtonArea>
-                </Page>
+                </ButtonArea>
             </div>
         );
     }

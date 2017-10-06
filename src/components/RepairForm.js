@@ -95,7 +95,7 @@ class RepairForm extends Component {
                                 <Label>公司名称:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input type="tel" placeholder="输入公司名称" />
+                                <Input type="text" placeholder="输入公司名称" />
                             </CellBody>
                         </FormCell>
                         <FormCell select selectPos="after">
@@ -120,7 +120,7 @@ class RepairForm extends Component {
                                 <Label>姓名:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input type="tel" placeholder="输入姓名" />
+                                <Input type="text" placeholder="输入姓名" />
                             </CellBody>
                         </FormCell>
                         <FormCell vcode>
@@ -136,7 +136,7 @@ class RepairForm extends Component {
                                 <Label>邮箱:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input type="tel" placeholder="输入邮箱" />
+                                <Input type="text" placeholder="输入邮箱" />
                             </CellBody>
                         </FormCell>
                         <FormCell select selectPos="after" >
@@ -205,7 +205,7 @@ class RepairForm extends Component {
                                 <Label>寄付帐单地址:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input type="tel" placeholder="输入寄付帐单地址" />
+                                <Input type="text" placeholder="输入寄付帐单地址" />
                             </CellBody>
                         </FormCell>
                         <FormCell>
@@ -213,7 +213,7 @@ class RepairForm extends Component {
                                 <Label>详细公司地址:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input type="tel" placeholder="输入详细公司地址" />
+                                <Input type="text" placeholder="输入详细公司地址" />
                             </CellBody>
                         </FormCell>
                         <CellsTitle>设备信息</CellsTitle>
@@ -222,7 +222,7 @@ class RepairForm extends Component {
                                 <Label>产品序列号:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input type="tel" placeholder="输入产品序列号" />
+                                <Input type="text" placeholder="输入产品序列号" />
                             </CellBody>
                         </FormCell>
                         <FormCell select selectPos="after">
@@ -264,7 +264,7 @@ class RepairForm extends Component {
                                 <Label>产品序列号:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input type="tel" placeholder="输入产品序列号" />
+                                <Input type="text" placeholder="输入产品序列号" />
                             </CellBody>
                         </FormCell>
 
