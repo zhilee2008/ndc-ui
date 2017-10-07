@@ -3,14 +3,12 @@ import { withRouter } from 'react-router-dom'
 import {
     ButtonArea,
     Button,
-    CellsTitle,
     CellBody,
     Form,
     FormCell,
     Input,
     FooterText,
 } from '../../packages';
-import Page from '../components/page';
 
 class StatusQuery extends Component {
 

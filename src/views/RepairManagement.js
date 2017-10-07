@@ -23,6 +23,12 @@ class RepairManagement extends Component {
         if(pageId==='1'){
             path = '/repairmanagementitems';
         }
+        if(pageId==='2'){
+            path = '/repairmanagementitems';
+        }
+        if(pageId==='3'){
+            path = '/repairmanagementitems';
+        }
         
         this.props.history.push(path);
       };

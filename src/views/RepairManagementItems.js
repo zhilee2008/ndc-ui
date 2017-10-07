@@ -16,7 +16,7 @@ class RepairManagementItems extends Component {
             super(props)
     
             this.state = {
-                items: [...Array(20).keys()]
+                items: [...Array(10).keys()]
             }
         }
         detailsItemClick = (pageId) => {
@@ -31,7 +31,7 @@ class RepairManagementItems extends Component {
                     onLoadMore={ (resolve, finish) => {
                         //mock request
                         setTimeout( ()=> {
-                            if(this.state.items.length > 22){
+                            if(this.state.items.length > 5){
                                 finish()
                             }else{
                                 this.setState({

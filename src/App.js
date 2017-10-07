@@ -9,6 +9,8 @@ import StatusQuery from './views/StatusQuery';
 import StatusQueryItem from './views/StatusQueryItem';
 import RepairManagement from './views/RepairManagement';
 import RepairManagementItems from './views/RepairManagementItems';
+import OrderDetails from './views/OrderDetails';
+import OrderDetailsUpdate from './views/OrderDetailsUpdate';
 
 import './App.css';
 import {
@@ -54,6 +56,16 @@ class App extends Component {
         path: '/repairmanagementitems',
         exact: true,
         main: () => <RepairManagementItems/>,
+      },
+      {
+        path: '/orderdetails',
+        exact: true,
+        main: () => <OrderDetails/>,
+      },
+      {
+        path: '/orderdetailsupdate',
+        exact: true,
+        main: () => <OrderDetailsUpdate/>,
       }
       // { path: '',
       //     main: () => <NotFoundPage />,
@@ -98,11 +110,6 @@ const DevelopingPage = ({ location }) => (
     <h3><code>{location}</code>正在加班加点开发中 :)。。。。</h3>
   </div>
 )
-// const NotFoundPage = ({ location }) => (
-//   <div>
-//     <h3>No match for <code>{location.pathname}</code></h3>
-//   </div>
-// )
 
 
 export default App;
