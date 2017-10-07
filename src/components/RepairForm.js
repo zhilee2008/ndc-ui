@@ -458,8 +458,10 @@ class RepairForm extends Component {
                 </Cell>
                 <div className={"repair-header-wrapper"}>
                     <img src={"/images/header-1.svg"} className={"repair-header"}/>
-
+                    <img src={"/images/24H@2x.png"} className={"relative-header"}/>
+                    <span className={"relative-title"}>请完整填写以下报修信息</span>
                 </div>
+
                 <Page className="input" >
                     <Form>
                         <div className={"RepairBorder"}>
