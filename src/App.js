@@ -77,9 +77,7 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <div style={{ display: 'flex', paddingTop: '60px', height: '100%' }}>
-            
-            <div style={{ flex: 1, maxWidth: '100%', height: '100%', }}>
+            <div style={{ maxWidth: '100%', height: '100%', }}>
               {routes.map((route, index) => (
                 <Route
                   key={index}
@@ -90,7 +88,6 @@ class App extends Component {
               ))}
             </div>
 
-          </div>
         </Router>
 
       </div>
