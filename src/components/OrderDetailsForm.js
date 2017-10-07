@@ -19,20 +19,10 @@ import {
     GalleryDelete,
     Dialog,
     CellsTips,
+    Cell,
 } from '../../packages';
 import Page from '../components/page';
-
-
-
-
-const productTypeItems = [];
-
-
-const productTypeItemsI = [];
-const productTypeItemsII = [];
-const productTypeItemsIII = [];
-
-
+import './orderdetailsform.css'
 
 class OrderDetailsForm extends Component {
 
@@ -55,117 +45,45 @@ class OrderDetailsForm extends Component {
             billAddress: '',
             companyAddress: '',
             troubleDetail: '',
-            showIOS1: false,
-            style1: {
-                buttons: [
-                    {
-                        label: '确定',
-                        onClick: this.hideDialog.bind(this)
-                    }
-                ]
-            },
-            showWarn: false,
-            gallery: false,
-            demoFiles: [
-                {
-                    url: '',
-                }
-            ],
+
         };
     }
-    renderGallery() {
-        if (!this.state.gallery) return false;
-
-        let srcs = this.state.demoFiles.map(file => file.url)
-
-        return (
-            <Gallery
-                src={srcs}
-                show
-                defaultIndex={this.state.gallery.id}
-                onClick={e => {
-                    //avoid click background item
-                    e.preventDefault()
-                    e.stopPropagation();
-                    this.setState({ gallery: false })
-                }}
-            >
-
-                <GalleryDelete onClick={(e, id) => {
-                    this.setState({
-                        demoFiles: this.state.demoFiles.filter((e, i) => i !== id),
-                        gallery: this.state.demoFiles.length <= 1 ? true : false
-                    })
-                }} />
-
-            </Gallery>
-        )
-    }
-    hideDialog() {
-        this.setState({
-            showIOS1: false,
-        });
-        this.props.history.push('/');
-    }
-
-    handleChange(e) {
-        let prop = e.target.name;
-        console.log(e.target.name)
-        this.setState({
-            [prop]: e.target.value
-        });
-        console.log(this.state)
-    }
-
-    handleChangeIndustry = (e) => {
-        // 订单生成首字母T 1
-        // 订单生成首字母P 2
-        // 订单生成首字母P 3
-        // 订单生成首字母T 4
-        // 订单生成首字母M 5
-        // 订单生成首字母T 6
-        // 订单生成首字母P 7
-        // 订单生成首字母C 8
-        // 订单生成首字母P 9
-        // 订单生成首字母T 10
-        // 订单生成首字母C 11
-        // 订单生成首字母O 12
-        // console.log(e.target.value)
-        this.setState({
-            industry: e.target.value
-        });
-    }
-
-    handleChangeProductTypeI = (e) => {
-        this.setState({
-            productTypeItemsI: e.target.value,
-            productTypeItemsArrII: productTypeItems
-        });
-    }
-    handleChangeProductTypeII = (e) => {
-        this.setState({
-            productTypeItemsII: e.target.value,
-            productTypeItemsArrIII: productTypeItems
-        });
-    }
-    handleChangeProductTypeIII = (e) => {
-        this.setState({
-            productTypeItemsIII: e.target.value
-        });
-    }
-
 
     render() {
 
         return (
-            <div>
-                <Page className="input" title={this.state.title}>
+            <div className={'orderbackground'}>
+                <Page className="input">
+                    <Cell className={'titlebar'}>
+                        <CellHeader style={{ height: '65px', marginTop: '25px' }} >
+                            <img style={{ float: 'left' }} src='/images/jiantu@2x.png' />
+                            <div className={'titlebarback'}>
+                                返回
+                     </div>
+                        </CellHeader>
 
-                    <CellsTitle>基本信息</CellsTitle>
-                    <Form>
+                        <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
+                            报修状态查询
+                  </CellBody>
+                        <CellFooter style={{ width: '20%' }} >
+                            <img src='/images/menu12@2x.png' />
+                        </CellFooter>
+                    </Cell>
+                    {/* <img src='/images/touying@2x.png' /> */}
+                    <div className={'touying'}>
+                        <img className={'dian'} src='/images/dian@2x.png' />
+                        <div style={{ color: '#1887fc', }} className={'diancontent'}>您的报修单号</div>
+                        <div style={{ color: 'lightgrey', }} className={'diancontentright'}>M20112223123123123</div>
+                    </div>
+                    <Form className={'orderborder'}>
                         <FormCell>
                             <CellHeader>
-                                <Label>公司名称:</Label>
+                                <Label style={{ color: '#000' }}>订单信息</Label>
+                            </CellHeader>
+                        </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: '#000' }}>公司名称:</Label>
                             </CellHeader>
                             <CellBody>
                                 {this.state.companyName}
@@ -174,15 +92,15 @@ class OrderDetailsForm extends Component {
 
                         <FormCell>
                             <CellHeader>
-                                <Label>姓名:</Label>
+                                <Label style={{ color: '#000' }}>姓名:</Label>
                             </CellHeader>
                             <CellBody>
                                 {this.state.name}
                             </CellBody>
                         </FormCell>
-                        <FormCell vcode>
+                        <FormCell>
                             <CellHeader>
-                                <Label>手机号:</Label>
+                                <Label style={{ color: '#000' }}>手机号:</Label>
                             </CellHeader>
                             <CellBody>
                                 {this.state.mobile}
@@ -190,7 +108,7 @@ class OrderDetailsForm extends Component {
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                                <Label>邮箱:</Label>
+                                <Label style={{ color: '#000' }}>邮箱:</Label>
                             </CellHeader>
                             <CellBody>
                                 {this.state.email}
@@ -198,15 +116,15 @@ class OrderDetailsForm extends Component {
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                                <Label>产品序列号:</Label>
+                                <Label style={{ color: '#000' }}>产品序列号:</Label>
                             </CellHeader>
                             <CellBody>
                                 {this.state.productId}
                             </CellBody>
                         </FormCell>
-                        <FormCell select selectPos="after">
+                        <FormCell>
                             <CellHeader>
-                                <Label>设备类型:</Label>
+                                <Label style={{ color: '#000' }}>设备类型:</Label>
                             </CellHeader>
                             <CellBody>
                                 {this.state.productType}
@@ -214,7 +132,37 @@ class OrderDetailsForm extends Component {
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                                <Label>详细公司地址:</Label>
+                                <Label style={{ color: '#000' }}>详细公司地址:</Label>
+                            </CellHeader>
+                            <CellBody>
+                                {this.state.companyAddress}
+                            </CellBody>
+                        </FormCell>
+                    </Form>
+                    <Form className={'orderborder'}>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: '#000' }}>详细公司地址:</Label>
+                            </CellHeader>
+                        </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: 'lightgrey' }}>公司地址</Label>
+                            </CellHeader>
+                            <CellBody>
+                                {this.state.companyAddress}
+                            </CellBody>
+                        </FormCell>
+                    </Form>
+                    <Form className={'orderborder'}>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: '#000' }}>订单故障描述:</Label>
+                            </CellHeader>
+                        </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: 'lightgrey' }}>故障描述</Label>
                             </CellHeader>
                             <CellBody>
                                 {this.state.companyAddress}
@@ -223,10 +171,10 @@ class OrderDetailsForm extends Component {
                     </Form>
                     {/* <CellsTips>Form Footer Tips</CellsTips> */}
                     {/* <CellsTitle>故障细节</CellsTitle> */}
-                    <Form>
+                    <Form className={'orderborder'}>
                         <FormCell>
                             <CellHeader>
-                                <Label>报修单号:</Label>
+                                <Label style={{ color: '#000' }}>工程师姓名:</Label>
                             </CellHeader>
                             <CellBody>
                                 {this.state.companyAddress}
@@ -234,41 +182,20 @@ class OrderDetailsForm extends Component {
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                                <Label>工程师:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                {this.state.companyAddress}
-                            </CellBody>
-                        </FormCell>
-                        <FormCell>
-                            <CellHeader>
-                                <Label>上门时间:</Label>
+                                <Label style={{ color: '#000' }}>上门时间:</Label>
                             </CellHeader>
                             <CellBody>
                                 {this.state.companyAddress}
                             </CellBody>
                         </FormCell>
                     </Form>
-                    <CellsTitle>备注</CellsTitle>
-                    <Form>
-                        <FormCell>
-                            <CellBody>
-                                <TextArea name='troubleDetail'
-                                    value={this.state.troubleDetail}
-                                    rows="3"></TextArea>
-                            </CellBody>
-                        </FormCell>
-                    </Form>
+
                     <ButtonArea>
-                        <Button onClick={e => this.setState({ showWarn: true, showIOS1: true })}>
-                            更新
+                        <Button>
+                            我知道了
                         </Button>
                     </ButtonArea>
-                    <Dialog type="ios" title={this.state.style1.title} buttons={this.state.style1.buttons} show={this.state.showIOS1}>
-                        <b>提示</b>
-                        <p>您的保修单已生成,请截屏记录</p>
-                        报修单号:{'123456'}
-                    </Dialog>
+
 
                 </Page>
             </div>
