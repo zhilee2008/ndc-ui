@@ -7,9 +7,9 @@ import {
     MediaBoxTitle
 } from '../../packages';
 
-const repairsubmiticon = <img src="/images/repairsubmit.png" />
-const statusqueryicon = <img src="/images/statusquery.png" />
-const repairmanagementicon = <img src="/images/repairmanagement.png" />
+const repairsubmiticon = <img src="/images/baoxiu-@2x.png" />
+const statusqueryicon = <img src="/images/cahxun@2x.png" />
+const repairmanagementicon = <img src="/images/guanli-@2x.png" />
 
 class Menu extends Component {
 

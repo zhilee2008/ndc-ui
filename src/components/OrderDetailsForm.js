@@ -6,6 +6,7 @@ import {
     CellsTitle,
     CellHeader,
     CellBody,
+    CellFooter,
     Form,
     FormCell,
     Input,
@@ -17,6 +18,7 @@ import {
     Gallery,
     GalleryDelete,
     Dialog,
+    CellsTips,
 } from '../../packages';
 import Page from '../components/page';
 
@@ -26,9 +28,9 @@ import Page from '../components/page';
 const productTypeItems = [];
 
 
-const productTypeItemsI=[];
-const productTypeItemsII=[];
-const productTypeItemsIII=[];
+const productTypeItemsI = [];
+const productTypeItemsII = [];
+const productTypeItemsIII = [];
 
 
 
@@ -37,7 +39,7 @@ class OrderDetailsForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            title: '我要报修',
+            title: '订单信息',
             companyName: '',
             name: '',
             mobile: '',
@@ -166,36 +168,16 @@ class OrderDetailsForm extends Component {
                                 <Label>公司名称:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input name='companyName'
-                                    value={this.state.companyName}
-                                    onChange={this.handleChange.bind(this)} type="text" placeholder="输入公司名称" />
+                                {this.state.companyName}
                             </CellBody>
                         </FormCell>
-                        {/* <FormCell select selectPos="after">
-                            <CellHeader>
-                                <Label>区域:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Select data={[
-                                    {
-                                        value: 1,
-                                        label: '中国'
-                                    },
-                                    {
-                                        value: 2,
-                                        label: '海外'
-                                    }
-                                ]} />
-                            </CellBody>
-                        </FormCell> */}
+
                         <FormCell>
                             <CellHeader>
                                 <Label>姓名:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input name='name'
-                                    value={this.state.name}
-                                    onChange={this.handleChange.bind(this)} type="text" placeholder="输入姓名" />
+                                {this.state.name}
                             </CellBody>
                         </FormCell>
                         <FormCell vcode>
@@ -203,9 +185,7 @@ class OrderDetailsForm extends Component {
                                 <Label>手机号:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input name='mobile'
-                                    value={this.state.mobile}
-                                    onChange={this.handleChange.bind(this)} type="number" placeholder="输入手机号码" />
+                                {this.state.mobile}
                             </CellBody>
                         </FormCell>
                         <FormCell>
@@ -213,81 +193,23 @@ class OrderDetailsForm extends Component {
                                 <Label>邮箱:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input name='email'
-                                    value={this.state.email}
-                                    onChange={this.handleChange.bind(this)} type="number" type="text" placeholder="输入邮箱" />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell select selectPos="after" >
-                            <CellHeader>
-                                <Label>行业:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Toptips type="warn" show={this.state.showWarn}>请选择行业</Toptips>
-                                <Select defaultValue="0" onChange={this.handleChangeIndustry} data={[
-                                    {
-                                        value: 0,
-                                        label: '请选择行业'
-                                    },
-                                    {
-                                        value: 1,
-                                        label: '化工品和药品'
-                                    },
-                                    {
-                                        value: 2,
-                                        label: '涂布复合'
-                                    },
-                                    {
-                                        value: 3,
-                                        label: '薄膜和片材挤出'
-                                    },
-                                    {
-                                        value: 4,
-                                        label: '食品加工'
-                                    },
-                                    {
-                                        value: 5,
-                                        label: '冶金工业'
-                                    },
-                                    {
-                                        value: 6,
-                                        label: '矿石和松散物'
-                                    },
-                                    {
-                                        value: 7,
-                                        label: '无纺布和纺织品'
-                                    },
-                                    {
-                                        value: 8,
-                                        label: '软管及管材'
-                                    },
-                                    {
-                                        value: 9,
-                                        label: '橡胶和乙烯基压延'
-                                    },
-                                    {
-                                        value: 10,
-                                        label: '烟草加工'
-                                    },
-                                    {
-                                        value: 11,
-                                        label: '电线，电缆和光纤'
-                                    },
-                                    {
-                                        value: 12,
-                                        label: '其他'
-                                    }
-                                ]} />
+                                {this.state.email}
                             </CellBody>
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                                <Label>寄付帐单地址:</Label>
+                                <Label>产品序列号:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input name='billAddress'
-                                    value={this.state.billAddress}
-                                    onChange={this.handleChange.bind(this)} type="text" placeholder="输入寄付帐单地址" />
+                                {this.state.productId}
+                            </CellBody>
+                        </FormCell>
+                        <FormCell select selectPos="after">
+                            <CellHeader>
+                                <Label>设备类型:</Label>
+                            </CellHeader>
+                            <CellBody>
+                                {this.state.productType}
                             </CellBody>
                         </FormCell>
                         <FormCell>
@@ -295,94 +217,51 @@ class OrderDetailsForm extends Component {
                                 <Label>详细公司地址:</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input name='companyAddress'
-                                    value={this.state.companyAddress}
-                                    onChange={this.handleChange.bind(this)} type="text" placeholder="输入详细公司地址" />
-                            </CellBody>
-                        </FormCell>
-                        <CellsTitle>设备信息</CellsTitle>
-                        <FormCell>
-                            <CellHeader>
-                                <Label>产品序列号:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Input name='productId'
-                                    value={this.state.productId}
-                                    onChange={this.handleChange.bind(this)} type="text" placeholder="输入产品序列号" />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell select selectPos="after">
-                            <CellHeader>
-                                <Label>设备类型I:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Select onChange={this.handleChangeProductTypeI.bind(this)} data={productTypeItems} />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell select selectPos="after">
-                            <CellHeader>
-                                <Label>设备类型II:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Select onChange={this.handleChangeProductTypeII.bind(this)} data={this.state.productTypeItemsArrII} />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell select selectPos="after">
-                            <CellHeader>
-                                <Label>设备类型III:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Select onChange={this.handleChangeProductTypeIII.bind(this)} data={this.state.productTypeItemsArrIII} />
+                                {this.state.companyAddress}
                             </CellBody>
                         </FormCell>
                     </Form>
                     {/* <CellsTips>Form Footer Tips</CellsTips> */}
-                    <CellsTitle>故障细节</CellsTitle>
+                    {/* <CellsTitle>故障细节</CellsTitle> */}
+                    <Form>
+                        <FormCell>
+                            <CellHeader>
+                                <Label>报修单号:</Label>
+                            </CellHeader>
+                            <CellBody>
+                                {this.state.companyAddress}
+                            </CellBody>
+                        </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <Label>工程师:</Label>
+                            </CellHeader>
+                            <CellBody>
+                                {this.state.companyAddress}
+                            </CellBody>
+                        </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <Label>上门时间:</Label>
+                            </CellHeader>
+                            <CellBody>
+                                {this.state.companyAddress}
+                            </CellBody>
+                        </FormCell>
+                    </Form>
+                    <CellsTitle>备注</CellsTitle>
                     <Form>
                         <FormCell>
                             <CellBody>
                                 <TextArea name='troubleDetail'
                                     value={this.state.troubleDetail}
-                                    onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
-                            </CellBody>
-                        </FormCell>
-                    </Form>
-                    <CellsTitle>上传照片</CellsTitle>
-                    {this.renderGallery()}
-                    <Form>
-                        <FormCell>
-                            <CellBody>
-                                <Uploader
-                                    maxCount={9}
-                                    files={this.state.demoFiles}
-                                    onError={msg => alert(msg)}
-                                    onChange={(file, e) => {
-                                        let newFiles = [...this.state.demoFiles, { url: file.data }];
-                                        this.setState({
-                                            demoFiles: newFiles
-                                        });
-                                    }}
-                                    onFileClick={
-                                        (e, file, i) => {
-                                            console.log('file click', file, i)
-                                            this.setState({
-                                                gallery: {
-                                                    url: file.url,
-                                                    id: i
-                                                }
-                                            })
-                                        }
-                                    }
-                                    lang={{
-                                        maxError: maxCount => `最多上传 ${maxCount} 张照片`
-                                    }}
-                                />
+                                    rows="3"></TextArea>
                             </CellBody>
                         </FormCell>
                     </Form>
                     <ButtonArea>
                         <Button onClick={e => this.setState({ showWarn: true, showIOS1: true })}>
-                            提交
+                            更新
                         </Button>
                     </ButtonArea>
                     <Dialog type="ios" title={this.state.style1.title} buttons={this.state.style1.buttons} show={this.state.showIOS1}>
