@@ -3,12 +3,17 @@ import { withRouter } from 'react-router-dom'
 import {
     ButtonArea,
     Button,
-    CellBody,
     Form,
     FormCell,
     Input,
     FooterText,
+    CellHeader,
+    CellBody,
+    CellFooter,
+    Cell
 } from '../../packages';
+import './statusquery.css';
+import './menu.css';
 
 class StatusQuery extends Component {
 
@@ -38,22 +43,37 @@ class StatusQuery extends Component {
     render() {
         return (
             <div style={{ textAlign: 'center' }}>
-                <div>
-                    <img style={{ width: '100%' }} src="/images/queryimage.png" />
+                 <Cell className={'titlebar'}>
+                    <CellHeader style={{ height: '65px',marginTop:'25px' }} >
+                        <img style={{ float: 'left' }} src='/images/jiantu@2x.png' />
+                        <div className={'titlebarback'}>
+                            返回
+                     </div>
+                    </CellHeader>
+
+                    <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
+                        报修状态查询
+                  </CellBody>
+                    <CellFooter style={{ width: '20%' }} >
+                        <img src='/images/menu12@2x.png' />
+                    </CellFooter>
+                </Cell>
+                <div style={{marginTop:'95px'}}>
+                    <img style={{ width: '30%' }} src="/images/touxiang@2x.png" />
                     <FooterText>{this.state.userId}</FooterText>
                 </div>
 
                 <Form>
                     <FormCell>
                         <CellBody>
-                            <Input value={this.state.itemId}
+                            <Input className={'queryinput'} value={this.state.itemId}
                                 onChange={this.handleChangeItemId} type="text" placeholder="输入报修单号" />
                         </CellBody>
                     </FormCell>
                 </Form>
-                <ButtonArea>
-                    <Button onClick={this.queryItemClick.bind(this)}>
-                        查询
+                <ButtonArea >
+                    <Button style={{marginTop:'100px'}} onClick={this.queryItemClick.bind(this)}>
+                        提交
                         </Button>
                 </ButtonArea>
             </div>
