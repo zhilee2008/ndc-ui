@@ -43,12 +43,13 @@ class Menu extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader style={{ height: '65px' }} >
-                        <img src='/images/jiantu@2x.png' />
-                    </CellHeader>
-                    <div style={{ width: '20%' }} className={'titlebarcontent'}>
-                        返回
+                    <CellHeader style={{ height: '65px',marginTop:'25px' }} >
+                        <img style={{ float: 'left' }} src='/images/jiantu@2x.png' />
+                        <div className={'titlebarback'}>
+                            返回
                      </div>
+                    </CellHeader>
+
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
                         NDC在线报修
                   </CellBody>
