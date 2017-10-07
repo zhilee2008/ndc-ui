@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import {
+    Cell,
+    CellFooter,
     ButtonArea,
     Button,
     CellsTitle,
@@ -21,6 +23,7 @@ import {
 import Page from '../components/page';
 
 import './RepairForm.css'
+
 
 
 
@@ -438,6 +441,25 @@ class RepairForm extends Component {
 
         return (
             <div>
+                <Cell className={'titlebar'}>
+                    <CellHeader style={{ height: '65px',marginTop:'25px' }} >
+                        <img style={{ float: 'left' }} src='/images/jiantu@2x.png' />
+                        <div className={'titlebarback'}>
+                            返回
+                        </div>
+                    </CellHeader>
+
+                    <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
+                        我要报修
+                    </CellBody>
+                    <CellFooter style={{ width: '20%' }} >
+                        <img src='/images/menu12@2x.png' />
+                    </CellFooter>
+                </Cell>
+                <div className={"repair-header-wrapper"}>
+                    <img src={"/images/header-1.svg"} className={"repair-header"}/>
+
+                </div>
                 <Page className="input" >
                     <Form>
                         <div className={"RepairBorder"}>
@@ -646,6 +668,18 @@ class RepairForm extends Component {
                                 <TextArea name='troubleDetail'
                                           value={this.state.troubleDetail}
                                           onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
+                                </CellBody>
+                            </FormCell>
+                        </div>
+                        <div className={"RepairBorder"}>
+                            <FormCell className={"weui-label-align-top"}>
+                                <CellHeader>
+                                    <Label>附件文档:</Label>
+                                </CellHeader>
+                                <CellBody>
+                                <TextArea name='troubleDetail'
+                                          value={this.state.troubleDetail}
+                                          onChange={this.handleChange.bind(this)} placeholder="上传相关文件与视频" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
                         </div>
