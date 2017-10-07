@@ -20,6 +20,7 @@ import {
 } from '../../packages';
 import Page from '../components/page';
 
+import './RepairForm.css'
 
 
 
@@ -437,20 +438,20 @@ class RepairForm extends Component {
 
         return (
             <div>
-                <Page className="input" title={this.state.title}>
-
-                    <CellsTitle>基本信息</CellsTitle>
+                <Page className="input" >
                     <Form>
-                        <FormCell>
-                            <CellHeader>
-                                <Label>公司名称:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Input name='companyName'
-                                    value={this.state.companyName}
-                                    onChange={this.handleChange.bind(this)} type="text" placeholder="输入公司名称" />
-                            </CellBody>
-                        </FormCell>
+                        <div className={"RepairBorder"}>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label>公司名称:</Label>
+                                </CellHeader>
+                                <CellBody>
+                                    <Input name='companyName'
+                                        value={this.state.companyName}
+                                        onChange={this.handleChange.bind(this)} type="text" placeholder="输入公司名称" />
+                                </CellBody>
+                            </FormCell>
+                        </div>
                         {/* <FormCell select selectPos="after">
                             <CellHeader>
                                 <Label>区域:</Label>
@@ -468,198 +469,188 @@ class RepairForm extends Component {
                                 ]} />
                             </CellBody>
                         </FormCell> */}
-                        <FormCell>
-                            <CellHeader>
-                                <Label>姓名:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Input name='name'
-                                    value={this.state.name}
-                                    onChange={this.handleChange.bind(this)} type="text" placeholder="输入姓名" />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell vcode>
-                            <CellHeader>
-                                <Label>手机号:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Input name='mobile'
-                                    value={this.state.mobile}
-                                    onChange={this.handleChange.bind(this)} type="number" placeholder="输入手机号码" />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell>
-                            <CellHeader>
-                                <Label>邮箱:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Input name='email'
-                                    value={this.state.email}
-                                    onChange={this.handleChange.bind(this)} type="number" type="text" placeholder="输入邮箱" />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell select selectPos="after" >
-                            <CellHeader>
-                                <Label>行业:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Toptips type="warn" show={this.state.showWarn}>请选择行业</Toptips>
-                                <Select defaultValue="0" onChange={this.handleChangeIndustry} data={[
-                                    {
+                        <div className={"RepairBorder"}>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label>真实姓名:</Label>
+                                </CellHeader>
+                                <CellBody>
+                                    <Input name='name'
+                                        value={this.state.name}
+                                        onChange={this.handleChange.bind(this)} type="text" placeholder="输入姓名" />
+                                </CellBody>
+                            </FormCell>
+                        </div>
+                        <div className={"RepairBorder"}>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label>手机号码:</Label>
+                                </CellHeader>
+                                <CellBody>
+                                    <Input name='mobile'
+                                        value={this.state.mobile}
+                                        onChange={this.handleChange.bind(this)} type="text" placeholder="输入手机号码" />
+                                </CellBody>
+                            </FormCell>
+                        </div>
+                        <div className={"RepairBorder"}>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label>电子邮箱:</Label>
+                                </CellHeader>
+                                <CellBody>
+                                    <Input name='email'
+                                           value={this.state.email}
+                                           onChange={this.handleChange.bind(this)} type="number" type="text" placeholder="输入邮箱" />
+                                </CellBody>
+                            </FormCell>
+                        </div>
+                        <div className={"RepairBorder"}>
+                            <FormCell select selectPos="after" >
+                                <CellHeader>
+                                    <Label>行业:</Label>
+                                </CellHeader>
+                                <CellBody>
+                                    <Toptips type="warn" show={this.state.showWarn}>请选择行业</Toptips>
+                                    <Select defaultValue="0" onChange={this.handleChangeIndustry} data={[
+                                      {
                                         value: 0,
                                         label: '请选择行业'
-                                    },
-                                    {
+                                      },
+                                      {
                                         value: 1,
                                         label: '化工品和药品'
-                                    },
-                                    {
+                                      },
+                                      {
                                         value: 2,
                                         label: '涂布复合'
-                                    },
-                                    {
+                                      },
+                                      {
                                         value: 3,
                                         label: '薄膜和片材挤出'
-                                    },
-                                    {
+                                      },
+                                      {
                                         value: 4,
                                         label: '食品加工'
-                                    },
-                                    {
+                                      },
+                                      {
                                         value: 5,
                                         label: '冶金工业'
-                                    },
-                                    {
+                                      },
+                                      {
                                         value: 6,
                                         label: '矿石和松散物'
-                                    },
-                                    {
+                                      },
+                                      {
                                         value: 7,
                                         label: '无纺布和纺织品'
-                                    },
-                                    {
+                                      },
+                                      {
                                         value: 8,
                                         label: '软管及管材'
-                                    },
-                                    {
+                                      },
+                                      {
                                         value: 9,
                                         label: '橡胶和乙烯基压延'
-                                    },
-                                    {
+                                      },
+                                      {
                                         value: 10,
                                         label: '烟草加工'
-                                    },
-                                    {
+                                      },
+                                      {
                                         value: 11,
                                         label: '电线，电缆和光纤'
-                                    },
-                                    {
+                                      },
+                                      {
                                         value: 12,
                                         label: '其他'
-                                    }
-                                ]} />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell>
-                            <CellHeader>
-                                <Label>寄付帐单地址:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Input name='billAddress'
-                                    value={this.state.billAddress}
-                                    onChange={this.handleChange.bind(this)} type="text" placeholder="输入寄付帐单地址" />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell>
-                            <CellHeader>
-                                <Label>详细公司地址:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Input name='companyAddress'
-                                    value={this.state.companyAddress}
-                                    onChange={this.handleChange.bind(this)} type="text" placeholder="输入详细公司地址" />
-                            </CellBody>
-                        </FormCell>
-                        <CellsTitle>设备信息</CellsTitle>
-                        <FormCell>
-                            <CellHeader>
-                                <Label>产品序列号:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Input name='productId'
-                                    value={this.state.productId}
-                                    onChange={this.handleChange.bind(this)} type="text" placeholder="输入产品序列号" />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell select selectPos="after">
-                            <CellHeader>
-                                <Label>设备类型I:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Select onChange={this.handleChangeProductTypeI.bind(this)} data={productTypeItems} />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell select selectPos="after">
-                            <CellHeader>
-                                <Label>设备类型II:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Select onChange={this.handleChangeProductTypeII.bind(this)} data={this.state.productTypeItemsArrII} />
-                            </CellBody>
-                        </FormCell>
-                        <FormCell select selectPos="after">
-                            <CellHeader>
-                                <Label>设备类型III:</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Select onChange={this.handleChangeProductTypeIII.bind(this)} data={this.state.productTypeItemsArrIII} />
-                            </CellBody>
-                        </FormCell>
-                    </Form>
-                    {/* <CellsTips>Form Footer Tips</CellsTips> */}
-                    <CellsTitle>故障细节</CellsTitle>
-                    <Form>
-                        <FormCell>
-                            <CellBody>
+                                      }
+                                    ]} />
+                                </CellBody>
+                            </FormCell>
+                        </div>
+                        <div className={"RepairBorder"}>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label>产品序列号:</Label>
+                                </CellHeader>
+                                <CellBody>
+                                    <Input name='email'
+                                           value={this.state.email}
+                                           onChange={this.handleChange.bind(this)} type="number" type="text" placeholder="输入邮箱" />
+                                </CellBody>
+                            </FormCell>
+                        </div>
+
+                        <div className={"RepairBorder"}>
+                            <FormCell select selectPos="after">
+                                <CellHeader>
+                                    <Label>报修设备类型I:</Label>
+                                </CellHeader>
+                                <CellBody>
+                                    <Select onChange={this.handleChangeProductTypeI.bind(this)} data={productTypeItems} />
+                                </CellBody>
+                            </FormCell>
+                        </div>
+                        <div className={"RepairBorder"}>
+                            <FormCell select selectPos="after">
+                                <CellHeader>
+                                    <Label>报修设备类型II:</Label>
+                                </CellHeader>
+                                <CellBody>
+                                    <Select onChange={this.handleChangeProductTypeII.bind(this)} data={this.state.productTypeItemsArrII} />
+                                </CellBody>
+                            </FormCell>
+                        </div>
+                        <div className={"RepairBorder"}>
+                            <FormCell select selectPos="after">
+                                <CellHeader>
+                                    <Label>报修设备类型III:</Label>
+                                </CellHeader>
+                                <CellBody>
+                                    <Select onChange={this.handleChangeProductTypeIII.bind(this)} data={this.state.productTypeItemsArrIII} />
+                                </CellBody>
+                            </FormCell>
+                        </div>
+
+                        <div className={"RepairBorder"}>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label>寄付帐单地址:</Label>
+                                </CellHeader>
+                                <CellBody>
+                                    <Input name='billAddress'
+                                           value={this.state.billAddress}
+                                           onChange={this.handleChange.bind(this)} type="text" placeholder="输入寄付帐单地址" />
+                                </CellBody>
+                            </FormCell>
+                        </div>
+                        <div className={"RepairBorder"}>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label>详细公司地址:</Label>
+                                </CellHeader>
+                                <CellBody>
+                                    <Input name='companyAddress'
+                                           value={this.state.companyAddress}
+                                           onChange={this.handleChange.bind(this)} type="text" placeholder="输入详细公司地址" />
+                                </CellBody>
+                            </FormCell>
+                        </div>
+                        <div className={"RepairBorder"}>
+                            <FormCell className={"weui-label-align-top"}>
+                                <CellHeader>
+                                    <Label>故障细节:</Label>
+                                </CellHeader>
+                                <CellBody>
                                 <TextArea name='troubleDetail'
-                                    value={this.state.troubleDetail}
-                                    onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
-                            </CellBody>
-                        </FormCell>
+                                          value={this.state.troubleDetail}
+                                          onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
+                                </CellBody>
+                            </FormCell>
+                        </div>
                     </Form>
-                    <CellsTitle>上传照片</CellsTitle>
-                    {this.renderGallery()}
-                    <Form>
-                        <FormCell>
-                            <CellBody>
-                                <Uploader
-                                    maxCount={9}
-                                    files={this.state.demoFiles}
-                                    onError={msg => alert(msg)}
-                                    onChange={(file, e) => {
-                                        let newFiles = [...this.state.demoFiles, { url: file.data }];
-                                        this.setState({
-                                            demoFiles: newFiles
-                                        });
-                                    }}
-                                    onFileClick={
-                                        (e, file, i) => {
-                                            console.log('file click', file, i)
-                                            this.setState({
-                                                gallery: {
-                                                    url: file.url,
-                                                    id: i
-                                                }
-                                            })
-                                        }
-                                    }
-                                    lang={{
-                                        maxError: maxCount => `最多上传 ${maxCount} 张照片`
-                                    }}
-                                />
-                            </CellBody>
-                        </FormCell>
-                    </Form>
+
                     <ButtonArea>
                         <Button onClick={e => this.setState({ showWarn: true, showIOS1: true })}>
                             提交

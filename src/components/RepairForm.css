@@ -1,0 +1,54 @@
+.weui-btn {
+  background-color: #1887fc !important;
+
+}
+
+.weui-cells:before {
+  border-top: none !important;
+}
+.weui-cells:after {
+  border-bottom: none !important;
+}
+
+.RepairBorder {
+  border: 1px solid lightgrey;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border-radius: 4px 4px 4px 4px
+}
+
+.weui-label {
+  width: 100% !important;
+  /*margin-left: 10px;*/
+  /*margin-top: 10px;*/
+  font-family: 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Noto Sans CJK SC', Sathu, 'EucrosiaUPC', sans-serif !important;
+  font-size: 16px;
+  color: #1887fc;
+}
+.weui-input {
+  width: 90% !important;
+  margin-left: 10px !important;
+  font-family: 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Noto Sans CJK SC', Sathu, 'EucrosiaUPC', sans-serif !important;
+  font-size: 14px !important;
+  color: red !important;
+
+}
+.weui-label-align-top {
+  align-items: flex-start !important;
+}
+
+.weui-cell_select-after .weui-select {
+  padding-left: 10px !important;
+}
+
+.weui-select {
+  font-family: 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Noto Sans CJK SC', Sathu, 'EucrosiaUPC', sans-serif !important;
+  font-size: 14px !important;
+}
+
+.weui-textarea {
+  font-family: 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei UI', 'Microsoft YaHei', 'Noto Sans CJK SC', Sathu, 'EucrosiaUPC', sans-serif !important;
+  font-size: 14px !important;
+  padding-left: 10px !important;
+}
