@@ -14,6 +14,7 @@ import {
     CellFooter,
 } from '../../packages';
 import './menu.css';
+import './statusqueryitem.css';
 const baoxiuicon = <img src="/images/baoxiu-@2x.png" />
 const fuwuicon = <img src="/images/fuwu@2x.png" />
 const gongchengshiicon = <img src="/images/gongchengshi@2x.png" />
@@ -31,7 +32,7 @@ class StatusQueryItem extends Component {
     }
 
     detailsItemClick = () => {
-        let path = '/repairsubmit';
+        let path = '/orderdetails';
         this.props.history.push(path);
     };
 
@@ -53,6 +54,12 @@ class StatusQueryItem extends Component {
                         <img src='/images/menu12@2x.png' />
                     </CellFooter>
                 </Cell>
+                {/* <img src='/images/touying@2x.png' /> */}
+                <div className={'touying'}>
+                    <img className={'dian'} src='/images/dian@2x.png'/>
+                    <div style={{color: '#1887fc',}} className={'diancontent'}>您的报修单号</div>
+                    <div style={{color: 'lightgrey',}} className={'diancontentright'}>M20112223123123123</div>
+                </div>
                 <MediaBox key={1} type="appmsg" href="javascript:void(0);" >
                     <MediaBoxHeader>{baoxiuicon}</MediaBoxHeader>
                     <MediaBoxBody>

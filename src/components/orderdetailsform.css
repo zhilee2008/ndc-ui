@@ -1,0 +1,11 @@
+.orderbackground {
+  background-color: #F4F4F4
+}
+.orderborder {
+  border: 1px solid lightgrey;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px 4px 4px 4px;
+  margin-top: 0px;
+}
