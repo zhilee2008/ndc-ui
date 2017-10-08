@@ -184,7 +184,7 @@ class OrderDetailsUpdate extends Component {
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>报修单号</Label>
                             </CellHeader>
-                            <CellBody style={{ marginLeft: '20px', color: 'lightgray' }}>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                               {this.state.orderId}
                         </CellBody>
                         </FormCell>

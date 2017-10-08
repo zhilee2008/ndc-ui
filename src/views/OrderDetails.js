@@ -134,7 +134,7 @@ class OrderDetails extends Component {
                     <div className={'touying'}>
                         <img className={'dian'} src='/images/dian@2x.png' />
                         <div style={{ color: '#1887fc', }} className={'diancontent'}>您的报修单号</div>
-                        <div style={{ color: 'lightgrey', }} className={'diancontentright'}>{this.state.itemId}</div>
+                        <div style={{ color: 'grey', }} className={'diancontentright'}>{this.state.itemId}</div>
                     </div>
                     <Form className={'orderborder'}>
                         <FormCell>
@@ -146,7 +146,7 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>公司名称:</Label>
                             </CellHeader>
-                            <CellBody>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.companyName}
                             </CellBody>
                         </FormCell>
@@ -155,7 +155,7 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>姓名:</Label>
                             </CellHeader>
-                            <CellBody>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.name}
                             </CellBody>
                         </FormCell>
@@ -163,7 +163,7 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>手机号:</Label>
                             </CellHeader>
-                            <CellBody>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.mobile}
                             </CellBody>
                         </FormCell>
@@ -171,7 +171,7 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>邮箱:</Label>
                             </CellHeader>
-                            <CellBody>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.email}
                             </CellBody>
                         </FormCell>
@@ -179,7 +179,7 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>产品序列号:</Label>
                             </CellHeader>
-                            <CellBody>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.productId}
                             </CellBody>
                         </FormCell>
@@ -187,7 +187,7 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>设备类型I:</Label>
                             </CellHeader>
-                            <CellBody>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.productTypeI}
                             </CellBody>
                         </FormCell>
@@ -195,15 +195,15 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>设备类型II:</Label>
                             </CellHeader>
-                            <CellBody>
-                                {this.state.productTypeII}-
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                {this.state.productTypeII}
                             </CellBody>
                         </FormCell>
                         <FormCell>
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>设备类型III:</Label>
                             </CellHeader>
-                            <CellBody>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.productTypeIII}
                             </CellBody>
                         </FormCell>
@@ -211,7 +211,7 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>详细公司地址:</Label>
                             </CellHeader>
-                            <CellBody>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.companyAddress}
                             </CellBody>
                         </FormCell>
@@ -226,7 +226,7 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <Label style={{ color: 'lightgrey' }}>公司地址</Label>
                             </CellHeader>
-                            <CellBody>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.companyAddress}
                             </CellBody>
                         </FormCell>
@@ -241,7 +241,7 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <Label style={{ color: 'lightgrey' }}>故障描述</Label>
                             </CellHeader>
-                            <CellBody>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.troubleDetail}
                             </CellBody>
                         </FormCell>
@@ -253,7 +253,7 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>工程师姓名:</Label>
                             </CellHeader>
-                            <CellBody>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.engineerName}
                             </CellBody>
                         </FormCell>
@@ -261,7 +261,7 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>上门时间:</Label>
                             </CellHeader>
-                            <CellBody>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.homeServiceTime}
                             </CellBody>
                         </FormCell>

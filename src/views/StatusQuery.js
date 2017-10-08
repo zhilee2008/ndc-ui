@@ -10,11 +10,13 @@ import {
     CellHeader,
     CellBody,
     CellFooter,
-    Cell
+    Cell,
+    Dialog
 } from '../../packages';
 
 import './statusquery.css';
 import './menu.css';
+import $ from 'jquery';
 
 class StatusQuery extends Component {
 
@@ -23,16 +25,23 @@ class StatusQuery extends Component {
         this.state = {
             userId: '131***1212',
             itemId: '',
+            warningStyle: {
+                buttons: [
+                    {
+                        label: '确定',
+                        onClick: this.hideWarningDialog
+                    }
+                ]
+            },
+            showWarningDialog: false,
+            validElement: '',
         };
     }
 
-    queryItemClick = () => {
-        if (this.state.itemId) {
-            const path = '/statusqueryitem/'+this.state.itemId;
-            this.props.history.push(path);
-        } else {
-
-        }
+    hideWarningDialog = () => {
+        this.setState({
+            showWarningDialog: false
+        });
     };
 
     handleChangeItemId = (event) => {
@@ -40,6 +49,38 @@ class StatusQuery extends Component {
             itemId: event.target.value
         });
     }
+
+    queryItemClick = () => {
+        let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/status/" + this.state.itemId;
+        var request = $.ajax({
+            url: url,
+            method: "GET",
+            contentType: "application/json; charset=utf-8"
+        });
+
+        var self = this;
+
+        request.done(function (msg) {
+            if (msg) {
+                const path = '/statusqueryitem/' + this.state.itemId;
+                self.props.history.push(path);
+            } else {
+                self.setState({
+                    validElement: '订单号有误请重试',
+                    showWarningDialog: true
+                });
+                return;
+            }
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            self.setState({
+                validElement: '订单号有误请重试',
+                showWarningDialog: true
+            });
+            return;
+        });
+    };
 
     render() {
         return (
@@ -72,6 +113,9 @@ class StatusQuery extends Component {
                         </CellBody>
                     </FormCell>
                 </Form>
+                <Dialog type="ios" title={'警告'} buttons={this.state.warningStyle.buttons} show={this.state.showWarningDialog}>
+                        {this.state.validElement}
+                    </Dialog>
                 <ButtonArea >
                     <Button style={{ marginTop: '100px' }} onClick={this.queryItemClick.bind(this)}>
                         提交

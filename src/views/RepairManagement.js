@@ -12,13 +12,17 @@ import {
 } from '../../packages';
 import './RepairManagement.css'
 import './menu.css'
+import $ from 'jquery';
 
 class RepairManagement extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-
+            errorMsg: '',
+            newcount: 0,
+            handlingcount: 0,
+            completecount: 0,
         };
     }
 
@@ -36,6 +40,101 @@ class RepairManagement extends Component {
 
         this.props.history.push(path);
     };
+
+    componentDidMount() {
+        this.getNewCount();
+        this.getHandlingCount();
+        this.getCompleteCount();
+    }
+
+    getNewCount = () => {
+        let urlnew = process.env.REACT_APP_HTTP_PREFIX + "/repairs/list/new";
+        var request = $.ajax({
+            url: urlnew,
+            method: "GET",
+            contentType: "application/json; charset=utf-8"
+        });
+
+        var self = this;
+
+        request.done(function (msg) {
+            if (msg) {
+                const orderdetails = JSON.parse(msg);
+                if (orderdetails) {
+                    self.setState({
+                        newcount: orderdetails.length,
+                    });
+                }
+
+            }
+
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            self.setState({
+                handlingcount: 0,
+            });
+        });
+    };
+    getHandlingCount = () => {
+        let urlnew = process.env.REACT_APP_HTTP_PREFIX + "/repairs/list/handling";
+        var request = $.ajax({
+            url: urlnew,
+            method: "GET",
+            contentType: "application/json; charset=utf-8"
+        });
+
+        var self = this;
+
+        request.done(function (msg) {
+            if (msg) {
+                const orderdetails = JSON.parse(msg);
+                if (orderdetails) {
+                    self.setState({
+                        handlingcount: orderdetails.length,
+                    });
+                }
+
+            }
+
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            self.setState({
+                handlingcount: 0,
+            });
+        });
+    };
+    getCompleteCount = () => {
+        let urlnew = process.env.REACT_APP_HTTP_PREFIX + "/repairs/list/complete";
+        var request = $.ajax({
+            url: urlnew,
+            method: "GET",
+            contentType: "application/json; charset=utf-8"
+        });
+
+        var self = this;
+
+        request.done(function (msg) {
+            if (msg) {
+                const orderdetails = JSON.parse(msg);
+                if (orderdetails) {
+                    self.setState({
+                        completecount: orderdetails.length,
+                    });
+                }
+            }
+
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            self.setState({
+                handlingcount: 0,
+            });
+        });
+    };
+
+
 
     render() {
         return (
@@ -62,7 +161,7 @@ class RepairManagement extends Component {
                     <MediaBoxBody>
                         <MediaBoxTitle>
                             <div className={'repair-big-title'}>{'待接单'}</div>
-                            <div className={'repair-small-title'}>等待接单10</div>
+                            <div className={'repair-small-title'}>等待接单{this.state.newcount}</div>
                         </MediaBoxTitle>
                     </MediaBoxBody>
                     <div>
@@ -76,7 +175,7 @@ class RepairManagement extends Component {
                     <MediaBoxBody>
                         <MediaBoxTitle>
                             <div className={'repair-big-title'}>{'处理中'}</div>
-                            <div className={'repair-small-title'}>等待处理21</div>
+                            <div className={'repair-small-title'}>等待处理{this.state.handlingcount}</div>
                         </MediaBoxTitle>
 
                     </MediaBoxBody>
@@ -91,7 +190,7 @@ class RepairManagement extends Component {
                     <MediaBoxBody>
                         <MediaBoxTitle>
                             <div className={'repair-big-title'}>{'已完成'}</div>
-                            <div className={'repair-small-title'}>已完成订单101</div>
+                            <div className={'repair-small-title'}>已完成订单{this.state.completecount}</div>
                         </MediaBoxTitle>
                     </MediaBoxBody>
                     <div>
