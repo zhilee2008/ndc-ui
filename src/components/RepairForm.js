@@ -336,6 +336,7 @@ class RepairForm extends Component {
             billAddress: '',
             companyAddress: '',
             bugDetail: '',
+            orderId: '',
 
             showIOS1: false,
             style1: {
@@ -391,10 +392,14 @@ class RepairForm extends Component {
     request.done(function( msg ) {
 
       if(msg){
-          alert(msg);
-        self.setState({
-
-        });
+          self.setState({
+            orderId: msg
+          }, ()=>{
+            self.setState({
+              showWarn: false,
+              showIOS1: true
+            });
+          });
       }
 
     });
@@ -768,7 +773,7 @@ class RepairForm extends Component {
                     <Dialog type="ios" title={this.state.style1.title} buttons={this.state.style1.buttons} show={this.state.showIOS1}>
                         <b>提示</b>
                         <p>您的保修单已生成,请截屏记录</p>
-                        报修单号:{'123456'}
+                        报修单号:{this.state.orderId}
                     </Dialog>
 
                 </Page>
