@@ -12,6 +12,7 @@ import {
     CellFooter,
     Cell
 } from '../../packages';
+
 import './statusquery.css';
 import './menu.css';
 
@@ -27,7 +28,7 @@ class StatusQuery extends Component {
 
     queryItemClick = () => {
         if (this.state.itemId) {
-            const path = '/statusqueryitem';
+            const path = '/statusqueryitem/'+this.state.itemId;
             this.props.history.push(path);
         } else {
 

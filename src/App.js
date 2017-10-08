@@ -43,7 +43,7 @@ class App extends Component {
         main: () => <StatusQuery/>,
       },
       {
-        path: '/statusqueryitem',
+        path: '/statusqueryitem/:id',
         exact: true,
         main: () => <StatusQueryItem/>,
       },
