@@ -46,17 +46,16 @@ class RepairManagementItems extends Component {
                 <Page className="infinite" >
                     <Cell className={'titlebar'}>
                         <CellHeader style={{ height: '65px', marginTop: '25px' }} >
-                            <img style={{ float: 'left' }} src='/images/jiantu@2x.png' />
+                            <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                             <div className={'titlebarback'}>
                                 返回
                      </div>
                         </CellHeader>
-
                         <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
                             报修状态查询
                   </CellBody>
                         <CellFooter style={{ width: '20%' }} >
-                            <img src='/images/menu12@2x.png' />
+                            <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
                         </CellFooter>
                     </Cell>
                     {/* <img src='/images/touying@2x.png' /> */}

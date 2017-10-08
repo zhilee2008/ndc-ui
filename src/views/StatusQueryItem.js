@@ -40,33 +40,33 @@ class StatusQueryItem extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader style={{ height: '65px',marginTop:'25px' }} >
-                        <img style={{ float: 'left' }} src='/images/jiantu@2x.png' />
+                    <CellHeader style={{ height: '65px', marginTop: '25px' }} >
+                        <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回
-                     </div>
+                 </div>
                     </CellHeader>
 
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
                         报修状态查询
                   </CellBody>
                     <CellFooter style={{ width: '20%' }} >
-                        <img src='/images/menu12@2x.png' />
+                        <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
                     </CellFooter>
                 </Cell>
                 {/* <img src='/images/touying@2x.png' /> */}
                 <div className={'touying'}>
-                    <img className={'dian'} src='/images/dian@2x.png'/>
-                    <div style={{color: '#1887fc',}} className={'diancontent'}>您的报修单号</div>
-                    <div style={{color: 'lightgrey',}} className={'diancontentright'}>M20112223123123123</div>
+                    <img className={'dian'} src='/images/dian@2x.png' />
+                    <div style={{ color: '#1887fc', }} className={'diancontent'}>您的报修单号</div>
+                    <div style={{ color: 'lightgrey', }} className={'diancontentright'}>M20112223123123123</div>
                 </div>
                 <MediaBox key={1} type="appmsg" href="javascript:void(0);" >
                     <MediaBoxHeader>{baoxiuicon}</MediaBoxHeader>
                     <MediaBoxBody>
                         <MediaBoxTitle>{'报修'}</MediaBoxTitle>
-                        <div style={{ marginTop: '5px',}}>
+                        <div style={{ marginTop: '5px', }}>
                             <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src='/images/shijian---huise@2x.png' />
-                            <div style={{ color: '#999999', fontSize: '13px',marginLeft:'22px' }}>
+                            <div style={{ color: '#999999', fontSize: '13px', marginLeft: '22px' }}>
                                 完成时间
                              </div>
                         </div>
@@ -78,9 +78,9 @@ class StatusQueryItem extends Component {
                     <MediaBoxHeader>{fuwuicon}</MediaBoxHeader>
                     <MediaBoxBody>
                         <MediaBoxTitle>{'服务中心'}</MediaBoxTitle>
-                        <div style={{ marginTop: '5px',}}>
+                        <div style={{ marginTop: '5px', }}>
                             <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src='/images/shijian---huise@2x.png' />
-                            <div style={{ color: '#999999', fontSize: '13px',marginLeft:'22px' }}>
+                            <div style={{ color: '#999999', fontSize: '13px', marginLeft: '22px' }}>
                                 完成时间
                              </div>
                         </div>
@@ -92,9 +92,9 @@ class StatusQueryItem extends Component {
                     <MediaBoxHeader>{gongchengshiicon}</MediaBoxHeader>
                     <MediaBoxBody>
                         <MediaBoxTitle>{'工程师'}</MediaBoxTitle>
-                        <div style={{ marginTop: '5px',}}>
+                        <div style={{ marginTop: '5px', }}>
                             <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src='/images/shijian---huise@2x.png' />
-                            <div style={{ color: '#999999', fontSize: '13px',marginLeft:'22px' }}>
+                            <div style={{ color: '#999999', fontSize: '13px', marginLeft: '22px' }}>
                                 完成时间
                              </div>
                         </div>
@@ -106,9 +106,9 @@ class StatusQueryItem extends Component {
                     <MediaBoxHeader>{shangmenicon}</MediaBoxHeader>
                     <MediaBoxBody>
                         <MediaBoxTitle>{'上门服务'}</MediaBoxTitle>
-                        <div style={{ marginTop: '5px',}}>
+                        <div style={{ marginTop: '5px', }}>
                             <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src='/images/shijian---huise@2x.png' />
-                            <div style={{ color: '#999999', fontSize: '13px',marginLeft:'22px' }}>
+                            <div style={{ color: '#999999', fontSize: '13px', marginLeft: '22px' }}>
                                 完成时间
                              </div>
                         </div>
@@ -120,9 +120,9 @@ class StatusQueryItem extends Component {
                     <MediaBoxHeader>{weixiuicon}</MediaBoxHeader>
                     <MediaBoxBody>
                         <MediaBoxTitle>{'维修完成'}</MediaBoxTitle>
-                        <div style={{ marginTop: '5px',}}>
+                        <div style={{ marginTop: '5px', }}>
                             <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src='/images/shijian---huise@2x.png' />
-                            <div style={{ color: '#999999', fontSize: '13px',marginLeft:'22px' }}>
+                            <div style={{ color: '#999999', fontSize: '13px', marginLeft: '22px' }}>
                                 完成时间
                              </div>
                         </div>

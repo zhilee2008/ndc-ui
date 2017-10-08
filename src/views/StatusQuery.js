@@ -43,22 +43,22 @@ class StatusQuery extends Component {
     render() {
         return (
             <div style={{ textAlign: 'center' }}>
-                 <Cell className={'titlebar'}>
-                    <CellHeader style={{ height: '65px',marginTop:'25px' }} >
-                        <img style={{ float: 'left' }} src='/images/jiantu@2x.png' />
+                <Cell className={'titlebar'}>
+                    <CellHeader style={{ height: '65px', marginTop: '25px' }} >
+                        <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回
-                     </div>
+                  </div>
                     </CellHeader>
 
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
                         报修状态查询
                   </CellBody>
                     <CellFooter style={{ width: '20%' }} >
-                        <img src='/images/menu12@2x.png' />
+                        <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
                     </CellFooter>
                 </Cell>
-                <div style={{marginTop:'95px'}}>
+                <div style={{ marginTop: '95px' }}>
                     <img style={{ width: '30%' }} src="/images/touxiang@2x.png" />
                     <FooterText>{this.state.userId}</FooterText>
                 </div>
@@ -72,7 +72,7 @@ class StatusQuery extends Component {
                     </FormCell>
                 </Form>
                 <ButtonArea >
-                    <Button style={{marginTop:'100px'}} onClick={this.queryItemClick.bind(this)}>
+                    <Button style={{ marginTop: '100px' }} onClick={this.queryItemClick.bind(this)}>
                         提交
                         </Button>
                 </ButtonArea>

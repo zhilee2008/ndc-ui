@@ -44,8 +44,8 @@ class Menu extends Component {
             <div>
                 <Cell className={'titlebar'}>
                     <CellHeader style={{ height: '65px',marginTop:'25px' }} >
-                        <img style={{ float: 'left' }} src='/images/jiantu@2x.png' />
-                        <div className={'titlebarback'}>
+                    <img style={{ float: 'left',height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
+                    <div className={'titlebarback'}>
                             返回
                      </div>
                     </CellHeader>
@@ -54,7 +54,7 @@ class Menu extends Component {
                         NDC在线报修
                   </CellBody>
                     <CellFooter style={{ width: '20%' }} >
-                        <img src='/images/menu12@2x.png' />
+                        <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
                     </CellFooter>
                 </Cell>
 

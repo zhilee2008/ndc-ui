@@ -32,7 +32,7 @@ class OrderDetailsUpdate extends Component {
                 <Page className="input">
                     <Cell className={'titlebar'}>
                         <CellHeader style={{ height: '65px', marginTop: '25px' }} >
-                            <img style={{ float: 'left' }} src='/images/jiantu@2x.png' />
+                            <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                             <div className={'titlebarback'}>
                                 返回
                      </div>
@@ -42,7 +42,7 @@ class OrderDetailsUpdate extends Component {
                             处理中
                   </CellBody>
                         <CellFooter style={{ width: '20%' }} >
-                            <img src='/images/menu12@2x.png' />
+                            <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
                         </CellFooter>
                     </Cell>
 
@@ -52,7 +52,7 @@ class OrderDetailsUpdate extends Component {
                                 <Label style={{ color: '#000' }}>报修单号</Label>
                             </CellHeader>
                             <CellBody style={{ marginLeft: '20px', color: 'lightgray' }}>
-                            T1234567
+                                T1234567
                         </CellBody>
                         </FormCell>
                         <FormCell>

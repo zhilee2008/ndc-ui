@@ -310,9 +310,9 @@ const productTypeItems = [
 ];
 
 
-const productTypeItemsI=[];
-const productTypeItemsII=[];
-const productTypeItemsIII=[];
+const productTypeItemsI = [];
+const productTypeItemsII = [];
+const productTypeItemsIII = [];
 
 
 
@@ -442,8 +442,8 @@ class RepairForm extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader style={{ height: '65px',marginTop:'25px' }} >
-                        <img style={{ float: 'left' }} src='/images/jiantu@2x.png' />
+                    <CellHeader style={{ height: '65px', marginTop: '25px' }} >
+                        <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回
                         </div>
@@ -453,12 +453,12 @@ class RepairForm extends Component {
                         我要报修
                     </CellBody>
                     <CellFooter style={{ width: '20%' }} >
-                        <img src='/images/menu12@2x.png' />
+                        <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
                     </CellFooter>
                 </Cell>
                 <div className={"repair-header-wrapper"}>
-                    <img src={"/images/header-1.svg"} className={"repair-header"}/>
-                    <img src={"/images/24H@2x.png"} className={"relative-header"}/>
+                    <img src={"/images/header-1.svg"} className={"repair-header"} />
+                    <img src={"/images/24H@2x.png"} className={"relative-header"} />
                     <span className={"relative-title"}>请完整填写以下报修信息</span>
                 </div>
 
@@ -524,8 +524,8 @@ class RepairForm extends Component {
                                 </CellHeader>
                                 <CellBody>
                                     <Input name='email'
-                                           value={this.state.email}
-                                           onChange={this.handleChange.bind(this)} type="number" type="text" placeholder="输入邮箱" />
+                                        value={this.state.email}
+                                        onChange={this.handleChange.bind(this)} type="number" type="text" placeholder="输入邮箱" />
                                 </CellBody>
                             </FormCell>
                         </div>
@@ -537,58 +537,58 @@ class RepairForm extends Component {
                                 <CellBody>
                                     <Toptips type="warn" show={this.state.showWarn}>请选择行业</Toptips>
                                     <Select defaultValue="0" onChange={this.handleChangeIndustry} data={[
-                                      {
-                                        value: 0,
-                                        label: '请选择行业'
-                                      },
-                                      {
-                                        value: 1,
-                                        label: '化工品和药品'
-                                      },
-                                      {
-                                        value: 2,
-                                        label: '涂布复合'
-                                      },
-                                      {
-                                        value: 3,
-                                        label: '薄膜和片材挤出'
-                                      },
-                                      {
-                                        value: 4,
-                                        label: '食品加工'
-                                      },
-                                      {
-                                        value: 5,
-                                        label: '冶金工业'
-                                      },
-                                      {
-                                        value: 6,
-                                        label: '矿石和松散物'
-                                      },
-                                      {
-                                        value: 7,
-                                        label: '无纺布和纺织品'
-                                      },
-                                      {
-                                        value: 8,
-                                        label: '软管及管材'
-                                      },
-                                      {
-                                        value: 9,
-                                        label: '橡胶和乙烯基压延'
-                                      },
-                                      {
-                                        value: 10,
-                                        label: '烟草加工'
-                                      },
-                                      {
-                                        value: 11,
-                                        label: '电线，电缆和光纤'
-                                      },
-                                      {
-                                        value: 12,
-                                        label: '其他'
-                                      }
+                                        {
+                                            value: 0,
+                                            label: '请选择行业'
+                                        },
+                                        {
+                                            value: 1,
+                                            label: '化工品和药品'
+                                        },
+                                        {
+                                            value: 2,
+                                            label: '涂布复合'
+                                        },
+                                        {
+                                            value: 3,
+                                            label: '薄膜和片材挤出'
+                                        },
+                                        {
+                                            value: 4,
+                                            label: '食品加工'
+                                        },
+                                        {
+                                            value: 5,
+                                            label: '冶金工业'
+                                        },
+                                        {
+                                            value: 6,
+                                            label: '矿石和松散物'
+                                        },
+                                        {
+                                            value: 7,
+                                            label: '无纺布和纺织品'
+                                        },
+                                        {
+                                            value: 8,
+                                            label: '软管及管材'
+                                        },
+                                        {
+                                            value: 9,
+                                            label: '橡胶和乙烯基压延'
+                                        },
+                                        {
+                                            value: 10,
+                                            label: '烟草加工'
+                                        },
+                                        {
+                                            value: 11,
+                                            label: '电线，电缆和光纤'
+                                        },
+                                        {
+                                            value: 12,
+                                            label: '其他'
+                                        }
                                     ]} />
                                 </CellBody>
                             </FormCell>
@@ -600,8 +600,8 @@ class RepairForm extends Component {
                                 </CellHeader>
                                 <CellBody>
                                     <Input name='email'
-                                           value={this.state.email}
-                                           onChange={this.handleChange.bind(this)} type="number" type="text" placeholder="输入邮箱" />
+                                        value={this.state.email}
+                                        onChange={this.handleChange.bind(this)} type="number" type="text" placeholder="输入邮箱" />
                                 </CellBody>
                             </FormCell>
                         </div>
@@ -644,8 +644,8 @@ class RepairForm extends Component {
                                 </CellHeader>
                                 <CellBody>
                                     <Input name='billAddress'
-                                           value={this.state.billAddress}
-                                           onChange={this.handleChange.bind(this)} type="text" placeholder="输入寄付帐单地址" />
+                                        value={this.state.billAddress}
+                                        onChange={this.handleChange.bind(this)} type="text" placeholder="输入寄付帐单地址" />
                                 </CellBody>
                             </FormCell>
                         </div>
@@ -656,8 +656,8 @@ class RepairForm extends Component {
                                 </CellHeader>
                                 <CellBody>
                                     <Input name='companyAddress'
-                                           value={this.state.companyAddress}
-                                           onChange={this.handleChange.bind(this)} type="text" placeholder="输入详细公司地址" />
+                                        value={this.state.companyAddress}
+                                        onChange={this.handleChange.bind(this)} type="text" placeholder="输入详细公司地址" />
                                 </CellBody>
                             </FormCell>
                         </div>
@@ -667,9 +667,9 @@ class RepairForm extends Component {
                                     <Label>故障细节:</Label>
                                 </CellHeader>
                                 <CellBody>
-                                <TextArea name='troubleDetail'
-                                          value={this.state.troubleDetail}
-                                          onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
+                                    <TextArea name='troubleDetail'
+                                        value={this.state.troubleDetail}
+                                        onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
                         </div>
@@ -679,9 +679,9 @@ class RepairForm extends Component {
                                     <Label>附件文档:</Label>
                                 </CellHeader>
                                 <CellBody>
-                                <TextArea name='troubleDetail'
-                                          value={this.state.troubleDetail}
-                                          onChange={this.handleChange.bind(this)} placeholder="上传相关文件与视频" rows="3"></TextArea>
+                                    <TextArea name='troubleDetail'
+                                        value={this.state.troubleDetail}
+                                        onChange={this.handleChange.bind(this)} placeholder="上传相关文件与视频" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
                         </div>
