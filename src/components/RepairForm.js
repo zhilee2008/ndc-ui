@@ -24,10 +24,12 @@ import Page from '../components/page';
 
 import './RepairForm.css'
 
+import $ from 'jquery';
 
 
 
-const productTypeItems = [
+
+const firstDeviceTypetems = [
     {
         value: 0,
         label: '选择产品',
@@ -310,9 +312,9 @@ const productTypeItems = [
 ];
 
 
-const productTypeItemsI = [];
-const productTypeItemsII = [];
-const productTypeItemsIII = [];
+const firstDeviceTypetemsI = [];
+const firstDeviceTypetemsII = [];
+const firstDeviceTypetemsIII = [];
 
 
 
@@ -322,21 +324,19 @@ class RepairForm extends Component {
         super(props);
         this.state = {
             title: '我要报修',
-            companyName: '',
+            company: '',
             name: '',
             mobile: '',
             email: '',
             industry: 0,
-            productId: '',
-            productTypeI: '',
-            productTypeII: '',
-            productTypeIII: '',
-            productTypeArrI: '',
-            productTypeArrII: '',
-            productTypeArrIII: '',
+            serial: '',
+            firstDeviceType: '',
+            secondDeviceType: '',
+            thirdDeviceType: '',
             billAddress: '',
             companyAddress: '',
-            troubleDetail: '',
+            bugDetail: '',
+
             showIOS1: false,
             style1: {
                 buttons: [
@@ -355,8 +355,64 @@ class RepairForm extends Component {
                 }
             ],
         };
+
     }
-    renderGallery() {
+
+  addRepairForm = () => {
+
+    console.log('添加保修单');
+    var payload = {
+      company: this.state.company,
+      name: this.state.name,
+      mobile: this.state.mobile,
+      email: this.state.email,
+      industry: this.state.industry,
+      serial: this.state.serial,
+      firstDeviceType: this.state.firstDeviceType,
+      secondDeviceType: this.state.secondDeviceType,
+      thirdDeviceType: this.state.thirdDeviceType,
+      billAddress: this.state.billAddress,
+      companyAddress: this.state.companyAddress,
+      bugDetail: this.state.bugDetail
+
+    };
+
+    let requestUrl = process.env.REACT_APP_HTTP_PREFIX + "/repairs/add";
+
+    var request = $.ajax({
+      url: requestUrl,
+      method: "POST",
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(payload),
+      dataType: "json"
+    });
+
+    var self = this;
+
+    request.done(function( msg ) {
+
+      if(msg){
+          alert(msg);
+        self.setState({
+
+        });
+      }
+
+    });
+
+    request.fail(function( jqXHR, textStatus ) {
+        console.log(jqXHR);
+        console.log(textStatus);
+      self.setState({
+
+      });
+      console.log("Request failed: " + textStatus)
+    });
+
+
+  };
+
+  renderGallery() {
         if (!this.state.gallery) return false;
 
         let srcs = this.state.demoFiles.map(file => file.url)
@@ -420,21 +476,21 @@ class RepairForm extends Component {
         });
     }
 
-    handleChangeProductTypeI = (e) => {
+    handleChangefirstDeviceType = (e) => {
         this.setState({
-            productTypeItemsI: e.target.value,
-            productTypeItemsArrII: productTypeItems
+            firstDeviceTypetemsI: e.target.value,
+            firstDeviceTypetemsArrII: firstDeviceTypetems
         });
     }
-    handleChangeProductTypeII = (e) => {
+    handleChangesecondDeviceType = (e) => {
         this.setState({
-            productTypeItemsII: e.target.value,
-            productTypeItemsArrIII: productTypeItems
+            firstDeviceTypetemsII: e.target.value,
+            firstDeviceTypetemsArrIII: firstDeviceTypetems
         });
     }
-    handleChangeProductTypeIII = (e) => {
+    handleChangethirdDeviceType = (e) => {
         this.setState({
-            productTypeItemsIII: e.target.value
+            firstDeviceTypetemsIII: e.target.value
         });
     }
 
@@ -488,8 +544,8 @@ class RepairForm extends Component {
                                     <Label>公司名称:</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <Input name='companyName'
-                                        value={this.state.companyName}
+                                    <Input name='company'
+                                        value={this.state.company}
                                         onChange={this.handleChange.bind(this)} type="text" placeholder="输入公司名称" />
                                 </CellBody>
                             </FormCell>
@@ -554,57 +610,57 @@ class RepairForm extends Component {
                                 </CellHeader>
                                 <CellBody>
                                     <Toptips type="warn" show={this.state.showWarn}>请选择行业</Toptips>
-                                    <Select defaultValue="0" onChange={this.handleChangeIndustry} data={[
+                                    <Select defaultValue="" onChange={this.handleChangeIndustry} data={[
                                         {
-                                            value: 0,
+                                            value: '',
                                             label: '请选择行业'
                                         },
                                         {
-                                            value: 1,
+                                            value: '化工品和药品',
                                             label: '化工品和药品'
                                         },
                                         {
-                                            value: 2,
+                                            value: '涂布复合',
                                             label: '涂布复合'
                                         },
                                         {
-                                            value: 3,
+                                            value: '薄膜和片材挤出',
                                             label: '薄膜和片材挤出'
                                         },
                                         {
-                                            value: 4,
+                                            value: '食品加工',
                                             label: '食品加工'
                                         },
                                         {
-                                            value: 5,
+                                            value: '冶金工业',
                                             label: '冶金工业'
                                         },
                                         {
-                                            value: 6,
+                                            value: '矿石和松散物',
                                             label: '矿石和松散物'
                                         },
                                         {
-                                            value: 7,
+                                            value: '无纺布和纺织品',
                                             label: '无纺布和纺织品'
                                         },
                                         {
-                                            value: 8,
+                                            value: '软管及管材',
                                             label: '软管及管材'
                                         },
                                         {
-                                            value: 9,
+                                            value: '橡胶和乙烯基压延',
                                             label: '橡胶和乙烯基压延'
                                         },
                                         {
-                                            value: 10,
+                                            value: '烟草加工',
                                             label: '烟草加工'
                                         },
                                         {
-                                            value: 11,
+                                            value: '电线，电缆和光纤',
                                             label: '电线，电缆和光纤'
                                         },
                                         {
-                                            value: 12,
+                                            value: '其他',
                                             label: '其他'
                                         }
                                     ]} />
@@ -617,8 +673,8 @@ class RepairForm extends Component {
                                     <Label>产品序列号:</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <Input name='productId'
-                                        value={this.state.productId}
+                                    <Input name='serial'
+                                        value={this.state.serial}
                                         onChange={this.handleChange.bind(this)} type="text" placeholder="产品序列号" />
                                 </CellBody>
                             </FormCell>
@@ -627,30 +683,30 @@ class RepairForm extends Component {
                         <div className={"RepairBorder"}>
                             <FormCell select selectPos="after">
                                 <CellHeader>
-                                    <Label>报修设备类型I:</Label>
+                                    <Label>设备类型I:</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <Select onChange={this.handleChangeProductTypeI.bind(this)} data={productTypeItems} />
+                                    <Select onChange={this.handleChangefirstDeviceType.bind(this)} data={firstDeviceTypetems} />
                                 </CellBody>
                             </FormCell>
                         </div>
                         <div className={"RepairBorder"}>
                             <FormCell select selectPos="after">
                                 <CellHeader>
-                                    <Label>报修设备类型II:</Label>
+                                    <Label>设备类型II:</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <Select onChange={this.handleChangeProductTypeII.bind(this)} data={this.state.productTypeItemsArrII} />
+                                    <Select onChange={this.handleChangesecondDeviceType.bind(this)} data={this.state.firstDeviceTypetemsArrII} />
                                 </CellBody>
                             </FormCell>
                         </div>
                         <div className={"RepairBorder"}>
                             <FormCell select selectPos="after">
                                 <CellHeader>
-                                    <Label>报修设备类型III:</Label>
+                                    <Label>设备类型III:</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <Select onChange={this.handleChangeProductTypeIII.bind(this)} data={this.state.productTypeItemsArrIII} />
+                                    <Select onChange={this.handleChangethirdDeviceType.bind(this)} data={this.state.firstDeviceTypetemsArrIII} />
                                 </CellBody>
                             </FormCell>
                         </div>
@@ -685,8 +741,8 @@ class RepairForm extends Component {
                                     <Label>故障细节:</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <TextArea name='troubleDetail'
-                                        value={this.state.troubleDetail}
+                                    <TextArea name='bugDetail'
+                                        value={this.state.bugDetail}
                                         onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
@@ -698,7 +754,7 @@ class RepairForm extends Component {
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='files'
-                                        value={this.state.troubleDetail}
+                                        value={this.state.bugDetail}
                                         onChange={this.handleChange.bind(this)} placeholder="上传相关文件与视频" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
@@ -706,7 +762,7 @@ class RepairForm extends Component {
                     </Form>
 
                     <ButtonArea>
-                        <Button onClick={this.handleSubmit.bind(this)}>
+                        <Button onClick={this.addRepairForm}>
                             提交
                         </Button>
                     </ButtonArea>
