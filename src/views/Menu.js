@@ -39,13 +39,28 @@ class Menu extends Component {
         this.props.history.push(path);
     };
 
+    closePage = () => {
+        var userAgent = navigator.userAgent;
+        if (userAgent.indexOf("Firefox") != -1 || userAgent.indexOf("Chrome") != -1) {
+            window.location.href = "about:blank";
+        } else if (userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1) {
+            window.opener = null; window.open('about:blank', '_self', '').close();
+        } else {
+            window.opener = null;
+            window.open("about:blank", "_self");
+            window.close();
+        }
+
+
+    }
+
     render() {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader style={{ height: '65px',marginTop:'25px' }} >
-                    <img style={{ float: 'left',height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
-                    <div className={'titlebarback'}>
+                    <CellHeader onClick={this.closePage.bind(this)} style={{ height: '65px', marginTop: '25px' }} >
+                        <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
+                        <div className={'titlebarback'}>
                             返回
                      </div>
                     </CellHeader>

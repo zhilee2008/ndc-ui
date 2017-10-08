@@ -142,11 +142,11 @@ const firstDeviceTypetems = [
             value: 'Infralab e-series',
             label: 'Infralab e-series',
         },
-          {
+        {
             value: 'MX8000',
             label: 'MX8000'
-          },
-          {
+        },
+        {
             value: '710系列红外反向散射传感器',
             label: '710系列红外反向散射传感器',
             children: [{
@@ -347,19 +347,19 @@ class RepairForm extends Component {
             showWarningDialog: false,
             validElement: '',
 
-          firstDeviceData: [],
-          secondDeviceData: [],
-          thirdDeviceData: [],
+            firstDeviceData: [],
+            secondDeviceData: [],
+            thirdDeviceData: [],
 
             warningStyle: {
-              buttons: [
-                {
-                  label: '确定',
-                  onClick: this.hideWarningDialog
-                }
-              ]
+                buttons: [
+                    {
+                        label: '确定',
+                        onClick: this.hideWarningDialog
+                    }
+                ]
             },
-          showIOS1: false,
+            showIOS1: false,
             style1: {
                 buttons: [
                     {
@@ -380,127 +380,127 @@ class RepairForm extends Component {
 
     };
 
-  validRepairForm = () => {
-      if (this.state.company === ''){
-        this.setState({
-          validElement: '请填写公司名称',
-          showWarningDialog: true
-        });
-        return;
-      }
-      if (this.state.name === ''){
-        this.setState({
-          validElement: '请填写姓名',
-          showWarningDialog: true
-        });
-        return;
-      }
-      if (this.state.mobile === ''){
-        this.setState({
-          validElement: '请填写手机号',
-          showWarningDialog: true
-        });
-        return;
-      }
-      if (this.state.email === ''){
-        this.setState({
-          validElement: '请填写邮箱',
-          showWarningDialog: true
-        });
-        return;
-      }
-      if (this.state.industry === ''){
-        this.setState({
-          validElement: '请选择行业',
-          showWarningDialog: true
-        });
-        return;
-      }
-      if (this.state.serial === ''){
-        this.setState({
-          validElement: '请填写产品序列号',
-          showWarningDialog: true
-        });
-        return;
-      }
-      if (this.state.firstDeviceType === ''){
-        this.setState({
-          validElement: '请选择设备类型',
-          showWarningDialog: true
-        });
-        return;
-      }
-      if (this.state.companyAddress === ''){
-        this.setState({
-          validElement: '请填写公司详细地址',
-          showWarningDialog: true
-        });
-        return;
-      }
-      this.addRepairForm();
-  }
-  addRepairForm = () => {
+    validRepairForm = () => {
+        if (this.state.company === '') {
+            this.setState({
+                validElement: '请填写公司名称',
+                showWarningDialog: true
+            });
+            return;
+        }
+        if (this.state.name === '') {
+            this.setState({
+                validElement: '请填写姓名',
+                showWarningDialog: true
+            });
+            return;
+        }
+        if (this.state.mobile === '') {
+            this.setState({
+                validElement: '请填写手机号',
+                showWarningDialog: true
+            });
+            return;
+        }
+        if (this.state.email === '') {
+            this.setState({
+                validElement: '请填写邮箱',
+                showWarningDialog: true
+            });
+            return;
+        }
+        if (this.state.industry === '') {
+            this.setState({
+                validElement: '请选择行业',
+                showWarningDialog: true
+            });
+            return;
+        }
+        if (this.state.serial === '') {
+            this.setState({
+                validElement: '请填写产品序列号',
+                showWarningDialog: true
+            });
+            return;
+        }
+        if (this.state.firstDeviceType === '') {
+            this.setState({
+                validElement: '请选择设备类型',
+                showWarningDialog: true
+            });
+            return;
+        }
+        if (this.state.companyAddress === '') {
+            this.setState({
+                validElement: '请填写公司详细地址',
+                showWarningDialog: true
+            });
+            return;
+        }
+        this.addRepairForm();
+    }
+    addRepairForm = () => {
 
-    this.setState({
-      showLoading: true
-    });
-    console.log('添加保修单');
-    var payload = {
-      company: this.state.company,
-      name: this.state.name,
-      mobile: this.state.mobile,
-      email: this.state.email,
-      industry: this.state.industry,
-      serial: this.state.serial,
-      firstDeviceType: this.state.firstDeviceType,
-      secondDeviceType: this.state.secondDeviceType,
-      thirdDeviceType: this.state.thirdDeviceType,
-      billAddress: this.state.billAddress,
-      companyAddress: this.state.companyAddress,
-      bugDetail: this.state.bugDetail
+        this.setState({
+            showLoading: true
+        });
+        console.log('添加保修单');
+        var payload = {
+            company: this.state.company,
+            name: this.state.name,
+            mobile: this.state.mobile,
+            email: this.state.email,
+            industry: this.state.industry,
+            serial: this.state.serial,
+            firstDeviceType: this.state.firstDeviceType,
+            secondDeviceType: this.state.secondDeviceType,
+            thirdDeviceType: this.state.thirdDeviceType,
+            billAddress: this.state.billAddress,
+            companyAddress: this.state.companyAddress,
+            bugDetail: this.state.bugDetail
+
+        };
+
+        let requestUrl = process.env.REACT_APP_HTTP_PREFIX + "/repairs/add";
+
+        var request = $.ajax({
+            url: requestUrl,
+            method: "POST",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(payload),
+        });
+
+        var self = this;
+
+        request.done(function (msg) {
+
+            if (msg) {
+                self.setState({
+                    orderId: msg,
+                    showLoading: false
+                }, () => {
+                    self.setState({
+                        showWarn: false,
+                        showIOS1: true
+                    });
+                });
+            }
+
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            console.log(jqXHR);
+            console.log(textStatus);
+            self.setState({
+
+            });
+            console.log("Request failed: " + textStatus)
+        });
+
 
     };
 
-    let requestUrl = process.env.REACT_APP_HTTP_PREFIX + "/repairs/add";
-
-    var request = $.ajax({
-      url: requestUrl,
-      method: "POST",
-      contentType:"application/json; charset=utf-8",
-      data: JSON.stringify(payload),
-    });
-
-    var self = this;
-
-    request.done(function( msg ) {
-
-      if(msg){
-          self.setState({
-            orderId: msg,
-            showLoading: false
-          }, ()=>{
-            self.setState({
-              showWarn: false,
-              showIOS1: true
-            });
-          });
-      }
-
-    });
-
-    request.fail(function( jqXHR, textStatus ) {
-        console.log(jqXHR);
-        console.log(textStatus);
-      self.setState({
-
-      });
-      console.log("Request failed: " + textStatus)
-    });
-
-
-  };
-
-  renderGallery() {
+    renderGallery() {
         if (!this.state.gallery) return false;
 
         let srcs = this.state.demoFiles.map(file => file.url)
@@ -528,11 +528,11 @@ class RepairForm extends Component {
             </Gallery>
         )
     }
-  hideWarningDialog = () => {
-    this.setState({
-      showWarningDialog: false
-    });
-  };
+    hideWarningDialog = () => {
+        this.setState({
+            showWarningDialog: false
+        });
+    };
     hideDialog() {
         this.setState({
             showIOS1: false,
@@ -572,9 +572,9 @@ class RepairForm extends Component {
     handleChangefirstDeviceType = (e) => {
         let deviceType = e.target.value;
         let children = []
-        for (var i =0; i< firstDeviceTypetems.length; i++){
+        for (var i = 0; i < firstDeviceTypetems.length; i++) {
             let child = firstDeviceTypetems[i];
-            if (child['value']=== deviceType){
+            if (child['value'] === deviceType) {
                 children = child['children'];
                 break;
             }
@@ -585,15 +585,15 @@ class RepairForm extends Component {
         });
     }
     handleChangesecondDeviceType = (e) => {
-      let deviceType = e.target.value;
-      let children = []
-      for (var i=0; i< this.state.secondDeviceData.length; i++){
-          let child = this.state.secondDeviceData[i];
-        if (child['value'] === deviceType){
-          children = child['children'];
-          break;
+        let deviceType = e.target.value;
+        let children = []
+        for (var i = 0; i < this.state.secondDeviceData.length; i++) {
+            let child = this.state.secondDeviceData[i];
+            if (child['value'] === deviceType) {
+                children = child['children'];
+                break;
+            }
         }
-      }
 
         this.setState({
             secondDeviceType: deviceType,
@@ -611,8 +611,8 @@ class RepairForm extends Component {
             this.setState({
                 showWarn: true,
             })
-            this.state.warnTimer = setTimeout(()=> {
-                this.setState({showWarn: false});
+            this.state.warnTimer = setTimeout(() => {
+                this.setState({ showWarn: false });
             }, 2000);
         } else {
             this.setState({
@@ -882,7 +882,7 @@ class RepairForm extends Component {
                         报修单号:{this.state.orderId}
                     </Dialog>
                     <Dialog type="ios" title={'警告'} buttons={this.state.warningStyle.buttons} show={this.state.showWarningDialog}>
-                      {this.state.validElement}
+                        {this.state.validElement}
                     </Dialog>
                     <Toast icon="loading" show={this.state.showLoading}>上传中...</Toast>
                 </Page>
