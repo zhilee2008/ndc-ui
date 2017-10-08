@@ -25,13 +25,13 @@ class RepairManagement extends Component {
     menuItemClick = (pageId) => {
         let path = '/';
         if (pageId === '1') {
-            path = '/repairmanagementitems';
+            path = '/repairmanagementitems/new';
         }
         if (pageId === '2') {
-            path = '/repairmanagementitems';
+            path = '/repairmanagementitems/handling';
         }
         if (pageId === '3') {
-            path = '/repairmanagementitems';
+            path = '/repairmanagementitems/complete';
         }
 
         this.props.history.push(path);
