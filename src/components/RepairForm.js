@@ -384,7 +384,6 @@ class RepairForm extends Component {
       method: "POST",
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(payload),
-      dataType: "json"
     });
 
     var self = this;
