@@ -11,6 +11,7 @@ import {
     Label
 } from '../../packages';
 import Page from '../components/page';
+import $ from 'jquery';
 
 class RepairManagementItems extends Component {
 
@@ -18,11 +19,60 @@ class RepairManagementItems extends Component {
         super(props)
 
         this.state = {
-            items: ['T12311123', 'T24223423', 'T34212343']
+            items: []
         }
     }
-    detailsItemClick = (pageId) => {
-        let path = '/orderdetails';
+
+    componentDidMount() {
+        // console.log(this.props.match.params.id);
+        this.setState({
+            status: this.props.match.params.status
+        });
+        let status = this.props.match.params.status;
+        this.getListByStatus(status);
+    }
+
+
+    getListByStatus = (status) => {
+        let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/list/" + status;
+        var request = $.ajax({
+            url: url,
+            method: "GET",
+            contentType: "application/json; charset=utf-8"
+        });
+
+        var self = this;
+
+        request.done(function (msg) {
+            if (msg) {
+                const orderlist = JSON.parse(msg);
+                // console.log(Util.timeStamp2String(orderlog.servicecenter.time))
+                const items = [];
+                if (orderlist) {
+                    orderlist.forEach(function (item) {
+                        items.push(item.orderid);
+                    });
+                    self.setState({
+                        items: items
+                    });
+                }
+            }
+
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            self.setState({
+                errorMsg: '出错了，请刷新重试，或者联系管理员'
+            });
+            alert('出错了，请刷新重试，或者联系管理员');
+            console.log("Request failed: " + textStatus)
+        });
+    };
+
+
+
+    detailsItemClick = (itemId) => {
+        let path = '/orderdetails/' + itemId;
 
         this.props.history.push(path);
     };
@@ -64,14 +114,14 @@ class RepairManagementItems extends Component {
                     </div>
                     <Cells style={{ marginTop: '0px' }}>
                         {
-                            this.state.items.map((item, i) => {
+                            this.state.items.map((itemId, i) => {
                                 return (
-                                    <Cell onClick={this.detailsItemClick.bind(this)} href="javascript:;" key={i} access>
+                                    <Cell onClick={this.detailsItemClick.bind(this, itemId)} href="javascript:;" key={i} access>
                                         <CellHeader>
                                             <Label>订单编号</Label>
                                         </CellHeader>
                                         <CellBody style={{ marginLeft: '20px', color: 'lightgray' }}>
-                                            {item}
+                                            {itemId}
                                         </CellBody>
                                     </Cell>
                                 )

@@ -53,7 +53,7 @@ class App extends Component {
         main: () => <RepairManagement/>,
       },
       {
-        path: '/repairmanagementitems',
+        path: '/repairmanagementitems/:status',
         exact: true,
         main: () => <RepairManagementItems/>,
       },
