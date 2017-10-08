@@ -347,6 +347,7 @@ class RepairForm extends Component {
                 ]
             },
             showWarn: false,
+            warnTimer: null,
             gallery: false,
             demoFiles: [
                 {
@@ -413,6 +414,7 @@ class RepairForm extends Component {
         // 订单生成首字母C 11
         // 订单生成首字母O 12
         // console.log(e.target.value)
+
         this.setState({
             industry: e.target.value
         });
@@ -436,13 +438,29 @@ class RepairForm extends Component {
         });
     }
 
+    handleSubmit(e) {
+        if (this.state.industry === 0) {
+            this.setState({
+                showWarn: true,
+            })
+            this.state.warnTimer = setTimeout(()=> {
+                this.setState({showWarn: false});
+            }, 2000);
+        } else {
+            this.setState({
+                showWarn: false,
+                showIOS1: true
+            })
+        }
+
+    }
 
     render() {
 
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader style={{ height: '65px', marginTop: '25px' }} >
+                    <CellHeader onClick={e => this.props.history.push('/')} style={{ height: '65px', marginTop: '25px' }} >
                         <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回
@@ -525,7 +543,7 @@ class RepairForm extends Component {
                                 <CellBody>
                                     <Input name='email'
                                         value={this.state.email}
-                                        onChange={this.handleChange.bind(this)} type="number" type="text" placeholder="输入邮箱" />
+                                        onChange={this.handleChange.bind(this)} type="text" placeholder="输入邮箱" />
                                 </CellBody>
                             </FormCell>
                         </div>
@@ -599,9 +617,9 @@ class RepairForm extends Component {
                                     <Label>产品序列号:</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <Input name='email'
-                                        value={this.state.email}
-                                        onChange={this.handleChange.bind(this)} type="number" type="text" placeholder="输入邮箱" />
+                                    <Input name='productId'
+                                        value={this.state.productId}
+                                        onChange={this.handleChange.bind(this)} type="text" placeholder="产品序列号" />
                                 </CellBody>
                             </FormCell>
                         </div>
@@ -679,7 +697,7 @@ class RepairForm extends Component {
                                     <Label>附件文档:</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <TextArea name='troubleDetail'
+                                    <TextArea name='files'
                                         value={this.state.troubleDetail}
                                         onChange={this.handleChange.bind(this)} placeholder="上传相关文件与视频" rows="3"></TextArea>
                                 </CellBody>
@@ -688,7 +706,7 @@ class RepairForm extends Component {
                     </Form>
 
                     <ButtonArea>
-                        <Button onClick={e => this.setState({ showWarn: true, showIOS1: true })}>
+                        <Button onClick={this.handleSubmit.bind(this)}>
                             提交
                         </Button>
                     </ButtonArea>
