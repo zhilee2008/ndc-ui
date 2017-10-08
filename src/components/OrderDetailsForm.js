@@ -49,8 +49,13 @@ class OrderDetailsForm extends Component {
         };
     }
 
-    render() {
+    detailsUpdate = (pageId) => {
+        let path = '/orderdetailsupdate';
 
+        this.props.history.push(path);
+    };
+    render() {
+        
         return (
             <div className={'orderbackground'}>
                 <Page className="input">
@@ -191,7 +196,7 @@ class OrderDetailsForm extends Component {
                     </Form>
 
                     <ButtonArea>
-                        <Button>
+                        <Button  onClick={this.detailsUpdate.bind(this)}>
                             我知道了
                         </Button>
                     </ButtonArea>

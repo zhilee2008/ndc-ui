@@ -10,6 +10,7 @@ import StatusQueryItem from './views/StatusQueryItem';
 import RepairManagement from './views/RepairManagement';
 import RepairManagementItems from './views/RepairManagementItems';
 import OrderDetails from './views/OrderDetails';
+import OrderDetailsUpdate from './views/OrderDetailsUpdate';
 
 import './App.css';
 import {
@@ -60,6 +61,11 @@ class App extends Component {
         path: '/orderdetails',
         exact: true,
         main: () => <OrderDetails/>,
+      },
+      {
+        path: '/orderdetailsupdate',
+        exact: true,
+        main: () => <OrderDetailsUpdate/>,
       }
       // { path: '',
       //     main: () => <NotFoundPage />,
