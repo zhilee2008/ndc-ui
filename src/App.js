@@ -63,7 +63,7 @@ class App extends Component {
         main: () => <OrderDetails/>,
       },
       {
-        path: '/orderdetailsupdate',
+        path: '/orderdetailsupdate/:id',
         exact: true,
         main: () => <OrderDetailsUpdate/>,
       }

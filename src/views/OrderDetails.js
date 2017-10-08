@@ -50,8 +50,8 @@ class OrderDetails extends Component {
         };
     }
 
-    detailsUpdate = (pageId) => {
-        let path = '/orderdetailsupdate';
+    detailsUpdate = () => {
+        let path = '/orderdetailsupdate/'+this.state.itemId;
 
         this.props.history.push(path);
     };
@@ -116,7 +116,7 @@ class OrderDetails extends Component {
             <div className={'orderbackground'}>
                 <Page className="input">
                     <Cell className={'titlebar'}>
-                        <CellHeader style={{ height: '65px', marginTop: '25px' }} >
+                        <CellHeader onClick={() => {window.history.go(-1)}} style={{ height: '65px', marginTop: '25px' }} >
                             <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                             <div className={'titlebarback'}>
                                 返回
@@ -185,11 +185,25 @@ class OrderDetails extends Component {
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                                <Label style={{ color: '#000' }}>设备类型:</Label>
+                                <Label style={{ color: '#000' }}>设备类型I:</Label>
                             </CellHeader>
                             <CellBody>
-                                {this.state.productTypeI}-
+                                {this.state.productTypeI}
+                            </CellBody>
+                        </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: '#000' }}>设备类型II:</Label>
+                            </CellHeader>
+                            <CellBody>
                                 {this.state.productTypeII}-
+                            </CellBody>
+                        </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: '#000' }}>设备类型III:</Label>
+                            </CellHeader>
+                            <CellBody>
                                 {this.state.productTypeIII}
                             </CellBody>
                         </FormCell>

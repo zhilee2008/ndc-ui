@@ -119,7 +119,7 @@ class StatusQueryItem extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader style={{ height: '65px', marginTop: '25px' }} >
+                    <CellHeader onClick={() => {window.history.go(-1)}} style={{ height: '65px', marginTop: '25px' }} >
                         <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回
