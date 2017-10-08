@@ -46,8 +46,13 @@ class StatusQueryItem extends Component {
     }
 
     detailsItemClick = () => {
-        let path = '/orderdetails';
-        this.props.history.push(path);
+
+        if (this.state.itemId) {
+            const path = '/orderdetails/'+this.state.itemId;
+            this.props.history.push(path);
+        } else {
+
+        }
     };
 
 
@@ -74,7 +79,7 @@ class StatusQueryItem extends Component {
             if (msg) {
                 const orderdetails = JSON.parse(msg);
                 const orderlog = orderdetails.orderlog;
-                console.log(Util.timeStamp2String(orderlog.servicecenter.time))
+                // console.log(Util.timeStamp2String(orderlog.servicecenter.time))
                 self.setState({
                     reporttime:orderlog.report.time,
                     reportcomplete:orderlog.report.complete,
@@ -94,21 +99,7 @@ class StatusQueryItem extends Component {
                     //need change
                     completetime:orderlog.engineer.time,
                 });
-                // if (msg === 'success') {
-                //     console.log(msg);
-                //     //   self.setState({
-                //     //     totalLetureHall: msg.detail.count,
-                //     //     pages: msg.detail.pages,
-                //     //     errorMsg: ''
-                //     //   });
-                // } else if (msg.result === 'error') {
-                //     self.setState({
-                //         // totalLetureHall: 0,
-                //         // pages: 0,
-                //         errorMsg: '出错了，请刷新重试，或者联系管理员'
-                //     });
-
-                // }
+                
             }
 
         });

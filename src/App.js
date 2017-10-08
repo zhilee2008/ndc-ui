@@ -58,7 +58,7 @@ class App extends Component {
         main: () => <RepairManagementItems/>,
       },
       {
-        path: '/orderdetails',
+        path: '/orderdetails/:id',
         exact: true,
         main: () => <OrderDetails/>,
       },
