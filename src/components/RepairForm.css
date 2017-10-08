@@ -95,3 +95,7 @@
 
 .weui-dialog__btn {
   color: #1887fc !important; }
+
+.must-input-label {
+  font-size: 12px;
+  color: grey; }

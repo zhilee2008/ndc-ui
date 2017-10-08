@@ -32,279 +32,284 @@ import $ from 'jquery';
 
 const firstDeviceTypetems = [
     {
-        value: 0,
+        value: '',
         label: '选择产品',
     },
     {
-        value: 1,
+        value: '冶金工业系列产品(Accuray, IRM)',
         label: '冶金工业系列产品(Accuray, IRM)',
         children: [{
-            value: 1,
-            label: 'FVXR-1（43kv）',
+            value: 'FVXR-1(43kv)',
+            label: 'FVXR-1(43kv)',
 
         }, {
-            value: 2,
+            value: 'Rometer',
             label: 'Rometer',
 
         }, {
-            value: 3,
+            value: 'T100',
             label: 'T100',
 
         }, {
-            value: 4,
+            value: 'THAM-2（Am-241）',
             label: 'THAM-2（Am-241）',
 
         }, {
-            value: 5,
+            value: 'TLXR-2（less than 10kv）',
             label: 'TLXR-2（less than 10kv）',
 
         }, {
-            value: 6,
+            value: 'TM-5（Sr-90）',
             label: 'TM-5（Sr-90）',
 
         }, {
-            value: 7,
+            value: 'TM-6（Sr-90）',
             label: 'TM-6（Sr-90）',
 
         }, {
-            value: 8,
+            value: 'TVXR-1（up to 50 kv）',
             label: 'TVXR-1（up to 50 kv）',
 
         }, {
-            value: 9,
+            value: 'TVXR-2（up to 130KV）',
             label: 'TVXR-2（up to 130KV）',
 
         }, {
-            value: 10,
+            value: 'UNI 500（QNX4）',
             label: 'UNI 500（QNX4）',
 
         }, {
-            value: 11,
+            value: 'UNI 600（QNX6）',
             label: 'UNI 600（QNX6）',
 
         }, {
-            value: 12,
+            value: 'UNI 700 TDI',
             label: 'UNI 700 TDI',
 
         }, {
-            value: 13,
+            value: 'W10',
             label: 'W10',
 
         }, {
-            value: 14,
+            value: 'W100',
             label: 'W100',
 
         }, {
-            value: 15,
+            value: 'W200',
             label: 'W200',
 
         }],
     },
     {
-        value: 2,
+        value: '系统选项',
         label: '系统选项',
         children: [{
-            value: 1,
+            value: '5000/6000 Microbric 系统',
             label: '5000/6000 Microbric 系统',
         }, {
-            value: 2,
+            value: '8000 Microbric 系统',
             label: '8000 Microbric 系统',
         }, {
-            value: 3,
+            value: '8000 TDI 系统',
             label: '8000 TDI 系统',
         }, {
-            value: 4,
+            value: 'Gamma射线传感器',
             label: 'Gamma射线传感器',
         }, {
-            value: 5,
+            value: '激光传感器',
             label: '激光传感器',
         }, {
-            value: 6,
+            value: 'Optimike',
             label: 'Optimike',
         }, {
-            value: 7,
+            value: 'Pronet',
             label: 'Pronet',
         }, {
-            value: 8,
+            value: 'PronetTDI',
             label: 'PronetTDI',
         }, {
-            value: 9,
+            value: 'X射线传感器',
             label: 'X射线传感器',
         }]
     },
     {
-        value: 3,
+        value: '红外传感器系列产品',
         label: '红外传感器系列产品',
         children: [{
-            value: 1,
+            value: 'Infralab 710',
             label: 'Infralab 710',
         }, {
-            value: 2,
+            value: 'Infralab e-series',
             label: 'Infralab e-series',
-        }, {
-            value: 3,
+        },
+          {
+            value: 'MX8000',
+            label: 'MX8000'
+          },
+          {
+            value: '710系列红外反向散射传感器',
             label: '710系列红外反向散射传感器',
             children: [{
-                value: 1,
+                value: 'MM710',
                 label: 'MM710'
 
             }, {
-                value: 2,
+                value: 'TM710',
                 label: 'TM710'
 
             }, {
-                value: 3,
+                value: 'FL710',
                 label: 'FL710'
 
             }, {
-                value: 4,
+                value: 'CM710',
                 label: 'CM710'
 
             }, {
-                value: 5,
+                value: 'SR710',
                 label: 'SR710'
 
             }, {
-                value: 6,
+                value: 'IG710',
                 label: 'IG710'
 
             }]
         }, {
-            value: 4,
+            value: '710系列红外穿透型传感器',
             label: '710系列红外穿透型传感器',
             children: [{
-                value: 1,
+                value: 'FG710',
                 label: 'FG710'
 
             }, {
-                value: 2,
+                value: 'TFG710',
                 label: 'TFG710'
 
             }, {
-                value: 3,
+                value: 'FS710',
                 label: 'FS710'
 
             }]
         }, {
-            value: 5,
+            value: '710e和710s系列红外反向散射传感器',
             label: '710e和710s系列红外反向散射传感器',
             children: [{
-                value: 1,
+                value: 'MM710e',
                 label: 'MM710e'
 
             }, {
-                value: 2,
+                value: 'TM710e',
                 label: 'TM710e'
 
             }, {
-                value: 3,
+                value: 'IG710e/s',
                 label: 'IG710e/s'
 
             }, {
-                value: 4,
+                value: 'SR710s',
                 label: 'SR710s'
 
             }, {
-                value: 5,
+                value: 'CM710e',
                 label: 'CM710e'
 
             }, {
-                value: 6,
+                value: 'FL710e',
                 label: 'FL710e'
 
             }]
         }, {
-            value: 6,
+            value: '710e和710s系列红外穿透性传感器',
             label: '710e和710s系列红外穿透性传感器',
             children: [{
-                value: 1,
+                value: 'FG710S',
                 label: 'FG710S'
 
             }, {
-                value: 2,
+                value: 'TFG710S',
                 label: 'TFG710S'
 
             }, {
-                value: 3,
+                value: 'FilmPro',
                 label: 'FilmPro'
 
             }]
         }]
     },
     {
-        value: 4,
+        value: 'Beta LaserMike和Zmike 系列产品',
         label: 'Beta LaserMike和Zmike 系列产品',
         children: [{
-            value: 1,
+            value: 'Benchmike',
             label: 'Benchmike',
         }, {
-            value: 2,
+            value: 'Beta传感器',
             label: 'Beta传感器',
         }, {
-            value: 3,
+            value: 'BLM软件工具',
             label: 'BLM软件工具',
         }, {
-            value: 4,
+            value: '电容仪',
             label: '电容仪',
         }, {
-            value: 5,
+            value: '偏心仪',
             label: '偏心仪',
         }, {
-            value: 6,
+            value: '控制系统',
             label: '控制系统',
             children: [{
-                value: 1,
+                value: 'DP500',
                 label: 'DP500',
             }]
         }, {
-            value: 7,
+            value: '直径仪',
             label: '直径仪',
             children: [{
-                value: 1,
+                value: '缺陷监测仪',
                 label: '缺陷监测仪'
 
             }, {
-                value: 2,
+                value: 'FLM101',
                 label: 'FLM101'
 
             }, {
-                value: 3,
+                value: 'I/O 模块',
                 label: 'I/O 模块'
 
             }, {
-                value: 4,
+                value: 'ICON',
                 label: 'ICON'
 
             }, {
-                value: 5,
+                value: 'Laserspeed MID系列',
                 label: 'Laserspeed MID系列'
 
             }, {
-                value: 6,
+                value: 'LS4000 系列',
                 label: 'LS4000 系列'
 
             }, {
-                value: 7,
+                value: 'LS8000 系列',
                 label: 'LS8000 系列'
 
             }, {
-                value: 8,
+                value: 'LS9000 系列',
                 label: 'LS9000 系列'
 
             }, {
-                value: 9,
+                value: 'Preheater预加热',
                 label: 'Preheater预加热'
 
             }, {
-                value: 10,
+                value: 'Sparktester火花测试机',
                 label: 'Sparktester火花测试机'
 
             }, {
-                value: 11,
+                value: '超声波测试仪',
                 label: '超声波测试仪'
 
             }, {
-                value: 12,
+                value: 'DCM',
                 label: 'DCM'
 
             }]
@@ -313,9 +318,9 @@ const firstDeviceTypetems = [
 ];
 
 
-const firstDeviceTypetemsI = [];
-const firstDeviceTypetemsII = [];
-const firstDeviceTypetemsIII = [];
+const firstDeviceElements = [];
+const secondDeviceElements = [];
+const thirdDeviceElements = [];
 
 
 
@@ -329,7 +334,7 @@ class RepairForm extends Component {
             name: '',
             mobile: '',
             email: '',
-            industry: 0,
+            industry: '',
             serial: '',
             firstDeviceType: '',
             secondDeviceType: '',
@@ -339,7 +344,21 @@ class RepairForm extends Component {
             bugDetail: '',
             orderId: '',
             showLoading: false,
+            showWarningDialog: false,
+            validElement: '',
 
+          firstDeviceData: [],
+          secondDeviceData: [],
+          thirdDeviceData: [],
+
+            warningStyle: {
+              buttons: [
+                {
+                  label: '确定',
+                  onClick: this.hideWarningDialog
+                }
+              ]
+            },
           showIOS1: false,
             style1: {
                 buttons: [
@@ -359,9 +378,69 @@ class RepairForm extends Component {
             ],
         };
 
-    }
+    };
 
+  validRepairForm = () => {
+      if (this.state.company === ''){
+        this.setState({
+          validElement: '请填写公司名称',
+          showWarningDialog: true
+        });
+        return;
+      }
+      if (this.state.name === ''){
+        this.setState({
+          validElement: '请填写姓名',
+          showWarningDialog: true
+        });
+        return;
+      }
+      if (this.state.mobile === ''){
+        this.setState({
+          validElement: '请填写手机号',
+          showWarningDialog: true
+        });
+        return;
+      }
+      if (this.state.email === ''){
+        this.setState({
+          validElement: '请填写邮箱',
+          showWarningDialog: true
+        });
+        return;
+      }
+      if (this.state.industry === ''){
+        this.setState({
+          validElement: '请选择行业',
+          showWarningDialog: true
+        });
+        return;
+      }
+      if (this.state.serial === ''){
+        this.setState({
+          validElement: '请填写产品序列号',
+          showWarningDialog: true
+        });
+        return;
+      }
+      if (this.state.firstDeviceType === ''){
+        this.setState({
+          validElement: '请选择设备类型',
+          showWarningDialog: true
+        });
+        return;
+      }
+      if (this.state.companyAddress === ''){
+        this.setState({
+          validElement: '请填写公司详细地址',
+          showWarningDialog: true
+        });
+        return;
+      }
+      this.addRepairForm();
+  }
   addRepairForm = () => {
+
     this.setState({
       showLoading: true
     });
@@ -449,6 +528,11 @@ class RepairForm extends Component {
             </Gallery>
         )
     }
+  hideWarningDialog = () => {
+    this.setState({
+      showWarningDialog: false
+    });
+  };
     hideDialog() {
         this.setState({
             showIOS1: false,
@@ -486,20 +570,39 @@ class RepairForm extends Component {
     }
 
     handleChangefirstDeviceType = (e) => {
+        let deviceType = e.target.value;
+        let children = []
+        for (var i =0; i< firstDeviceTypetems.length; i++){
+            let child = firstDeviceTypetems[i];
+            if (child['value']=== deviceType){
+                children = child['children'];
+                break;
+            }
+        }
         this.setState({
-            firstDeviceTypetemsI: e.target.value,
-            firstDeviceTypetemsArrII: firstDeviceTypetems
+            firstDeviceType: deviceType,
+            secondDeviceData: children
         });
     }
     handleChangesecondDeviceType = (e) => {
+      let deviceType = e.target.value;
+      let children = []
+      for (var i=0; i< this.state.secondDeviceData.length; i++){
+          let child = this.state.secondDeviceData[i];
+        if (child['value'] === deviceType){
+          children = child['children'];
+          break;
+        }
+      }
+
         this.setState({
-            firstDeviceTypetemsII: e.target.value,
-            firstDeviceTypetemsArrIII: firstDeviceTypetems
+            secondDeviceType: deviceType,
+            thirdDeviceData: children
         });
     }
     handleChangethirdDeviceType = (e) => {
         this.setState({
-            firstDeviceTypetemsIII: e.target.value
+            thirdDeviceType: e.target.value
         });
     }
 
@@ -550,7 +653,7 @@ class RepairForm extends Component {
                         <div className={"RepairBorder"}>
                             <FormCell>
                                 <CellHeader>
-                                    <Label>公司名称:</Label>
+                                    <Label>公司名称 <span className={'must-input-label'}>*</span></Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Input name='company'
@@ -579,7 +682,7 @@ class RepairForm extends Component {
                         <div className={"RepairBorder"}>
                             <FormCell>
                                 <CellHeader>
-                                    <Label>真实姓名:</Label>
+                                    <Label>真实姓名 <span className={'must-input-label'}>*</span></Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Input name='name'
@@ -591,7 +694,7 @@ class RepairForm extends Component {
                         <div className={"RepairBorder"}>
                             <FormCell>
                                 <CellHeader>
-                                    <Label>手机号码:</Label>
+                                    <Label>手机号码 <span className={'must-input-label'}>*</span></Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Input name='mobile'
@@ -603,7 +706,7 @@ class RepairForm extends Component {
                         <div className={"RepairBorder"}>
                             <FormCell>
                                 <CellHeader>
-                                    <Label>电子邮箱:</Label>
+                                    <Label>电子邮箱 <span className={'must-input-label'}>*</span></Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Input name='email'
@@ -615,7 +718,7 @@ class RepairForm extends Component {
                         <div className={"RepairBorder"}>
                             <FormCell select selectPos="after" >
                                 <CellHeader>
-                                    <Label>行业:</Label>
+                                    <Label>行业 <span className={'must-input-label'}>*</span></Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Toptips type="warn" show={this.state.showWarn}>请选择行业</Toptips>
@@ -679,7 +782,7 @@ class RepairForm extends Component {
                         <div className={"RepairBorder"}>
                             <FormCell>
                                 <CellHeader>
-                                    <Label>产品序列号:</Label>
+                                    <Label>产品序列号 <span className={'must-input-label'}>*</span></Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Input name='serial'
@@ -705,7 +808,7 @@ class RepairForm extends Component {
                                     <Label>设备类型II:</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <Select onChange={this.handleChangesecondDeviceType.bind(this)} data={this.state.firstDeviceTypetemsArrII} />
+                                    <Select onChange={this.handleChangesecondDeviceType.bind(this)} data={this.state.secondDeviceData} />
                                 </CellBody>
                             </FormCell>
                         </div>
@@ -715,7 +818,7 @@ class RepairForm extends Component {
                                     <Label>设备类型III:</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <Select onChange={this.handleChangethirdDeviceType.bind(this)} data={this.state.firstDeviceTypetemsArrIII} />
+                                    <Select onChange={this.handleChangethirdDeviceType.bind(this)} data={this.state.thirdDeviceData} />
                                 </CellBody>
                             </FormCell>
                         </div>
@@ -723,19 +826,19 @@ class RepairForm extends Component {
                         <div className={"RepairBorder"}>
                             <FormCell>
                                 <CellHeader>
-                                    <Label>寄付帐单地址:</Label>
+                                    <Label>寄付帐单地址</Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Input name='billAddress'
                                         value={this.state.billAddress}
-                                        onChange={this.handleChange.bind(this)} type="text" placeholder="输入寄付帐单地址" />
+                                        onChange={this.handleChange.bind(this)} type="text" placeholder="如与公司详细地址相同可不填" />
                                 </CellBody>
                             </FormCell>
                         </div>
                         <div className={"RepairBorder"}>
                             <FormCell>
                                 <CellHeader>
-                                    <Label>详细公司地址:</Label>
+                                    <Label>详细公司地址</Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Input name='companyAddress'
@@ -747,7 +850,7 @@ class RepairForm extends Component {
                         <div className={"RepairBorder"}>
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
-                                    <Label>故障细节:</Label>
+                                    <Label>故障细节</Label>
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='bugDetail'
@@ -759,19 +862,17 @@ class RepairForm extends Component {
                         <div className={"RepairBorder"}>
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
-                                    <Label>附件文档:</Label>
+                                    <Label>附件文档</Label>
                                 </CellHeader>
                                 <CellBody>
-                                    <TextArea name='files'
-                                        value={this.state.bugDetail}
-                                        onChange={this.handleChange.bind(this)} placeholder="上传相关文件与视频" rows="3"></TextArea>
+                                    <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
                         </div>
                     </Form>
 
                     <ButtonArea>
-                        <Button onClick={this.addRepairForm}>
+                        <Button onClick={this.validRepairForm}>
                             提交
                         </Button>
                     </ButtonArea>
@@ -779,6 +880,9 @@ class RepairForm extends Component {
                         <b>提示</b>
                         <p>您的保修单已生成,请截屏记录</p>
                         报修单号:{this.state.orderId}
+                    </Dialog>
+                    <Dialog type="ios" title={'警告'} buttons={this.state.warningStyle.buttons} show={this.state.showWarningDialog}>
+                      {this.state.validElement}
                     </Dialog>
                     <Toast icon="loading" show={this.state.showLoading}>上传中...</Toast>
                 </Page>
