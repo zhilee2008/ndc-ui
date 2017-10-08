@@ -4,7 +4,6 @@ import Menu from './views/Menu';
 import './style.less';
 import 'weui';
 import '../packages/react-weui.css';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import StatusQuery from './views/StatusQuery';
 import StatusQueryItem from './views/StatusQueryItem';
 import RepairManagement from './views/RepairManagement';
