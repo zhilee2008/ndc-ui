@@ -19,6 +19,7 @@ import {
     Gallery,
     GalleryDelete,
     Dialog,
+    Toast
 } from '../../packages';
 import Page from '../components/page';
 
@@ -337,8 +338,9 @@ class RepairForm extends Component {
             companyAddress: '',
             bugDetail: '',
             orderId: '',
+            showLoading: false,
 
-            showIOS1: false,
+          showIOS1: false,
             style1: {
                 buttons: [
                     {
@@ -360,7 +362,9 @@ class RepairForm extends Component {
     }
 
   addRepairForm = () => {
-
+    this.setState({
+      showLoading: true
+    });
     console.log('添加保修单');
     var payload = {
       company: this.state.company,
@@ -393,7 +397,8 @@ class RepairForm extends Component {
 
       if(msg){
           self.setState({
-            orderId: msg
+            orderId: msg,
+            showLoading: false
           }, ()=>{
             self.setState({
               showWarn: false,
@@ -775,7 +780,7 @@ class RepairForm extends Component {
                         <p>您的保修单已生成,请截屏记录</p>
                         报修单号:{this.state.orderId}
                     </Dialog>
-
+                    <Toast icon="loading" show={this.state.showLoading}>上传中...</Toast>
                 </Page>
             </div>
         );
