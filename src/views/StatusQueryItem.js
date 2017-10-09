@@ -81,15 +81,15 @@ class StatusQueryItem extends Component {
                 const orderlog = orderdetails.orderlog;
                 // console.log(Util.timeStamp2String(orderlog.servicecenter.time))
                 self.setState({
-                    reporttime:orderlog.report.time,
+                    reporttime:Util.timeStamp2String(orderlog.report.time),
                     reportcomplete:orderlog.report.complete,
                     servicecentertime:Util.timeStamp2String(orderlog.servicecenter.time),
                     servicecentercomplete:orderlog.servicecenter.complete,
-                    engineertime:orderlog.engineer.time,
+                    engineertime:Util.timeStamp2String(orderlog.engineer.time),
                     engineercomplete:orderlog.engineer.complete,
                     engineercompleteimg:orderlog.engineer.complete?<img src="/images/tijiai@2x.png" />: <img src="/images/tijiaohuise@2x.png" />,
                     engineercompletecolor:orderlog.engineer.complete?'#1887fc': '',
-                    homeservicetime:orderlog.engineer.homeservicetime,
+                    homeservicetime:Util.timeStamp2String(orderlog.engineer.homeservicetime),
                     homeservice:orderlog.engineer.homeservice,
                     homeserviceimg:orderlog.engineer.homeservice?<img src="/images/tijiai@2x.png" />: <img src="/images/tijiaohuise@2x.png" />,
                     homeservicecolor:orderlog.engineer.homeservice?'#1887fc': '',
@@ -97,7 +97,7 @@ class StatusQueryItem extends Component {
                     statusimg:orderdetails.status?<img src="/images/tijiai@2x.png" />: <img src="/images/tijiaohuise@2x.png" />,
                     statuscolor:orderdetails.status?'#1887fc': '',
                     //need change
-                    completetime:orderlog.engineer.time,
+                    completetime:Util.timeStamp2String(orderlog.engineer.time),
                 });
                 
             }
