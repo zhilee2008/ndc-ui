@@ -48,12 +48,12 @@
   padding-left: 10px !important; }
 
 .repair-header-wrapper {
-  line-height: 3;
-  height: 150px;
+  line-height: 2;
+  height: 125px;
   background-color: #1887f7; }
 
 .repair-header-wrapper-image {
-  height: 150px;
+  height: 100%;
   text-align: center;
   background-image: url(/images/header-1.svg);
   -moz-background-size: 100% 100%;
