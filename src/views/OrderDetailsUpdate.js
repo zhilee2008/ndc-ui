@@ -213,9 +213,9 @@ class OrderDetailsUpdate extends Component {
                                 <Label style={{ color: '#000' }}>上门时间</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input name='homeServiceTime'
+                                <Input type="datetime-local" name='homeServiceTime'
                                        value={this.state.homeServiceTime}
-                                       onChange={this.handleChange.bind(this)} type="text" placeholder="上门时间" />
+                                       onChange={this.handleChange.bind(this)} placeholder="上门时间" />
                             </CellBody>
                         </FormCell>
 
