@@ -42,13 +42,11 @@ class RepairManagement extends Component {
     };
 
     componentDidMount() {
-        this.getNewCount();
-        this.getHandlingCount();
-        this.getCompleteCount();
+        this.getStatusCount();
     }
 
-    getNewCount = () => {
-        let urlnew = process.env.REACT_APP_HTTP_PREFIX + "/repairs/list/new";
+    getStatusCount = () => {
+        let urlnew = process.env.REACT_APP_HTTP_PREFIX + "/repairs/list/status";
         var request = $.ajax({
             url: urlnew,
             method: "GET",
@@ -62,7 +60,9 @@ class RepairManagement extends Component {
                 const orderdetails = JSON.parse(msg);
                 if (orderdetails) {
                     self.setState({
-                        newcount: orderdetails.length,
+                        newcount: orderdetails.new ? orderdetails.new:0,
+                        handlingcount: orderdetails.handling ? orderdetails.handling:0,
+                        completecount: orderdetails.complete ? orderdetails.complete:0,
                     });
                 }
 
@@ -71,68 +71,12 @@ class RepairManagement extends Component {
         });
 
         request.fail(function (jqXHR, textStatus) {
-            self.setState({
-                handlingcount: 0,
-            });
+            // self.setState({
+            //     handlingcount: 0,
+            // });
         });
     };
-    getHandlingCount = () => {
-        let urlnew = process.env.REACT_APP_HTTP_PREFIX + "/repairs/list/handling";
-        var request = $.ajax({
-            url: urlnew,
-            method: "GET",
-            contentType: "application/json; charset=utf-8"
-        });
-
-        var self = this;
-
-        request.done(function (msg) {
-            if (msg) {
-                const orderdetails = JSON.parse(msg);
-                if (orderdetails) {
-                    self.setState({
-                        handlingcount: orderdetails.length,
-                    });
-                }
-
-            }
-
-        });
-
-        request.fail(function (jqXHR, textStatus) {
-            self.setState({
-                handlingcount: 0,
-            });
-        });
-    };
-    getCompleteCount = () => {
-        let urlnew = process.env.REACT_APP_HTTP_PREFIX + "/repairs/list/complete";
-        var request = $.ajax({
-            url: urlnew,
-            method: "GET",
-            contentType: "application/json; charset=utf-8"
-        });
-
-        var self = this;
-
-        request.done(function (msg) {
-            if (msg) {
-                const orderdetails = JSON.parse(msg);
-                if (orderdetails) {
-                    self.setState({
-                        completecount: orderdetails.length,
-                    });
-                }
-            }
-
-        });
-
-        request.fail(function (jqXHR, textStatus) {
-            self.setState({
-                handlingcount: 0,
-            });
-        });
-    };
+   
 
 
 
@@ -140,7 +84,7 @@ class RepairManagement extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader onClick={e => this.props.history.push('/')} style={{ height: '65px', marginTop: '25px' }} >
+                    <CellHeader onClick={e => this.props.history.push('/')} style={{width: '20%', height: '65px', marginTop: '25px' }} >
                         <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回
