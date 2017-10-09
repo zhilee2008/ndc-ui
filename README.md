@@ -1,6 +1,5 @@
 # React UI project
 
-good
 
 开发运行：npm start
 
