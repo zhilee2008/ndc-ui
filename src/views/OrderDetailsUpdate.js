@@ -75,7 +75,53 @@ class OrderDetailsUpdate extends Component {
           orderId: itemId
         });
     }
+    this.getStatusById(itemId);
   }
+  getStatusById = (itemId) => {
+    let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/query/" + itemId;
+    var request = $.ajax({
+        url: url,
+        method: "GET",
+        contentType: "application/json; charset=utf-8"
+    });
+
+    var self = this;
+
+    request.done(function (msg) {
+        if (msg) {
+            const orderdetails = JSON.parse(msg);
+            self.setState({
+                companyName: orderdetails.Company,
+                name: orderdetails.Name,
+                mobile: orderdetails.Mobile,
+                email: orderdetails.Email,
+                industry: orderdetails.Industry,
+                productId: orderdetails.Serial,
+                productTypeI: orderdetails.FirstDeviceType,
+                productTypeII: orderdetails.SecondDeviceType,
+                productTypeIII: orderdetails.ThirdDeviceType,
+                billAddress: orderdetails.BillAddress,
+                companyAddress: orderdetails.CompanyAddress,
+                troubleDetail: orderdetails.BugDetail,
+                engineerName:orderdetails.OrderLog.Engineer.Name,
+                engineerMobile:orderdetails.OrderLog.Engineer.Mobile,
+                homeServiceTime:orderdetails.OrderLog.Engineer.Homeservicetime,
+                fixCompleted:orderdetails.OrderLog.Engineer.Complete,
+                smsUser:orderdetails.OrderLog.Engineer.Smsuser,
+            });
+
+        }
+
+    });
+
+    request.fail(function (jqXHR, textStatus) {
+        self.setState({
+            errorMsg: '出错了，请刷新重试，或者联系管理员'
+        });
+        alert('出错了，请刷新重试，或者联系管理员');
+        console.log("Request failed: " + textStatus)
+    });
+};
   hideWarningDialog = () => {
     this.setState({
       showWarningDialog: false
