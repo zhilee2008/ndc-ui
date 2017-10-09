@@ -798,14 +798,14 @@ class RepairForm extends Component {
                         <div className={"RepairBorder"}>
                             <FormCell select selectPos="after">
                                 <CellHeader>
-                                    <Label>设备类型I:</Label>
+                                    <Label>报修设备类型:</Label>
                                 </CellHeader>
                                 <CellBody>
                                     <Select onChange={this.handleChangefirstDeviceType.bind(this)} data={firstDeviceTypetems} />
                                 </CellBody>
                             </FormCell>
                         </div>
-                        <div className={"RepairBorder"}>
+                        {/* <div className={"RepairBorder"}>
                             <FormCell select selectPos="after">
                                 <CellHeader>
                                     <Label>设备类型II:</Label>
@@ -824,7 +824,7 @@ class RepairForm extends Component {
                                     <Select onChange={this.handleChangethirdDeviceType.bind(this)} data={this.state.thirdDeviceData} />
                                 </CellBody>
                             </FormCell>
-                        </div>
+                        </div> */}
 
                         <div className={"RepairBorder"}>
                             <FormCell>
