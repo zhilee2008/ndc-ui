@@ -628,7 +628,7 @@ class RepairForm extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader onClick={e => this.props.history.push('/')} style={{ height: '65px', marginTop: '25px' }} >
+                    <CellHeader onClick={e => this.props.history.push('/')} style={{ width:'20%',height: '65px', marginTop: '25px' }} >
                         <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回
@@ -638,14 +638,17 @@ class RepairForm extends Component {
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
                         我要报修
                     </CellBody>
-                    <CellFooter style={{ width: '20%' }} >
+                    <CellFooter style={{ width:'20%', }} >
                         <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
                     </CellFooter>
                 </Cell>
                 <div className={"repair-header-wrapper"}>
-                    <img src={"/images/header-1.svg"} className={"repair-header"} />
-                    <img src={"/images/24H@2x.png"} className={"relative-header"} />
-                    <span className={"relative-title"}>请完整填写以下报修信息</span>
+                    <div className={"repair-header-wrapper-image"}>
+                        <div style={{textAlign: 'center'}}>
+                            <img src={"/images/24H@2x.png"} className={"relative-header-hours"} />
+                        </div>
+                        <span className={"relative-title"}>请完整填写以下报修信息</span>
+                    </div>
                 </div>
 
                 <Page className="input" >

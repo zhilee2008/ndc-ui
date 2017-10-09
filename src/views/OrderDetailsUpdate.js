@@ -164,7 +164,7 @@ class OrderDetailsUpdate extends Component {
             <div className={'orderbackground'}>
                 <Page className="input">
                     <Cell className={'titlebar'}>
-                        <CellHeader onClick={() => {window.history.go(-1)}} style={{ height: '65px', marginTop: '25px' }} >
+                        <CellHeader onClick={() => {window.history.go(-1)}} style={{width: '20%', height: '65px', marginTop: '25px' }} >
                             <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                             <div className={'titlebarback'}>
                                 返回

@@ -95,7 +95,7 @@ class RepairManagementItems extends Component {
             >
                 <Page className="infinite" >
                     <Cell className={'titlebar'}>
-                        <CellHeader onClick={e => this.props.history.push('/repairmanagement')} style={{ height: '65px', marginTop: '25px' }} >
+                        <CellHeader onClick={e => this.props.history.push('/repairmanagement')} style={{width: '20%', height: '65px', marginTop: '25px' }} >
                             <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                             <div className={'titlebarback'}>
                                 返回
