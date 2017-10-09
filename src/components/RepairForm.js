@@ -36,7 +36,7 @@ const firstDeviceTypetems = [
         label: '选择产品',
     },
     {
-        value: '冶金工业系列产品(Accuray, IRM)',
+        value: '冶金工业系列产品',
         label: '冶金工业系列产品(Accuray, IRM)',
         children: [{
             value: 'FVXR-1(43kv)',
