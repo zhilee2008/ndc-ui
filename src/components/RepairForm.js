@@ -36,7 +36,7 @@ const firstDeviceTypetems = [
         label: '选择产品',
     },
     {
-        value: '冶金工业系列产品(Accuray, IRM)',
+        value: '冶金工业系列产品',
         label: '冶金工业系列产品(Accuray, IRM)',
         children: [{
             value: 'FVXR-1(43kv)',
@@ -880,7 +880,7 @@ class RepairForm extends Component {
                     </ButtonArea>
                     <Dialog type="ios" title={this.state.style1.title} buttons={this.state.style1.buttons} show={this.state.showIOS1}>
                         <b>提示</b>
-                        <p>您的保修单已生成,请截屏记录</p>
+                        <p>您的保修单已生成,请截屏记录或保留短信</p>
                         报修单号:{this.state.orderId}
                     </Dialog>
                     <Dialog type="ios" title={'警告'} buttons={this.state.warningStyle.buttons} show={this.state.showWarningDialog}>
