@@ -7,7 +7,7 @@ function timeStamp2String(time) {
 
 function timeStamp2TString(time) {
   
-    return moment.unix(time).format("YYYY-MM-DDThh:mm");
+    return moment.unix(time).format("YYYY-MM-DD");
   };
 export default {
     timeStamp2String,

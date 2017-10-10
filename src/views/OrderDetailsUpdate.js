@@ -36,7 +36,8 @@ class OrderDetailsUpdate extends Component {
             orderId: '',
             engineerName: '',
             engineerMobile: '',
-            homeServiceTime: '',
+            homeServiceTime: 0,
+            repairTime:0,
             notes: '',
             fixCompleted: 'false',
             smsUser: 'false',
@@ -107,6 +108,7 @@ class OrderDetailsUpdate extends Component {
                     engineerName: orderdetails.OrderLog.Engineer.Name,
                     engineerMobile: orderdetails.OrderLog.Engineer.Mobile,
                     homeServiceTime: Util.timeStamp2TString(orderdetails.OrderLog.Engineer.Homeservicetime),
+                    repairTime: Util.timeStamp2TString(orderdetails.OrderLog.Engineer.RepairTime),
                     fixCompleted: orderdetails.OrderLog.Engineer.Complete,
                     smsUser: orderdetails.OrderLog.Engineer.Smsuser,
                     notes: orderdetails.OrderLog.Engineer.Notes,
@@ -162,6 +164,7 @@ class OrderDetailsUpdate extends Component {
             engineerName: this.state.engineerName,
             engineerMobile: this.state.engineerMobile,
             homeServiceTime: this.state.homeServiceTime,
+            repairTime: this.state.repairTime,
             notes: this.state.notes,
             fixcompleted: String(this.state.fixCompleted),
             smsUser: String(this.state.smsUser),
@@ -261,9 +264,19 @@ class OrderDetailsUpdate extends Component {
                                 <Label style={{ color: '#000' }}>上门时间</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input type="datetime-local" name='homeServiceTime'
+                                <Input type="date" name='homeServiceTime'
                                     value={this.state.homeServiceTime}
                                     onChange={this.handleChange.bind(this)} placeholder="上门时间" />
+                            </CellBody>
+                        </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: '#000' }}>维修时间</Label>
+                            </CellHeader>
+                            <CellBody>
+                                <Input type="date" name='repairTime'
+                                    value={this.state.repairTime}
+                                    onChange={this.handleChange.bind(this)} placeholder="维修时间" />
                             </CellBody>
                         </FormCell>
 

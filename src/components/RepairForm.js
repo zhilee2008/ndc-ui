@@ -409,13 +409,13 @@ class RepairForm extends Component {
             });
             return;
         }
-        if (this.state.industry === '') {
-            this.setState({
-                validElement: '请选择行业',
-                showWarningDialog: true
-            });
-            return;
-        }
+        // if (this.state.industry === '') {
+        //     this.setState({
+        //         validElement: '请选择行业',
+        //         showWarningDialog: true
+        //     });
+        //     return;
+        // }
         if (this.state.serial === '') {
             this.setState({
                 validElement: '请填写产品序列号',
@@ -450,7 +450,6 @@ class RepairForm extends Component {
             name: this.state.name,
             mobile: this.state.mobile,
             email: this.state.email,
-            industry: this.state.industry,
             serial: this.state.serial,
             firstDeviceType: this.state.firstDeviceType,
             secondDeviceType: this.state.secondDeviceType,
@@ -718,7 +717,7 @@ class RepairForm extends Component {
                                 </CellBody>
                             </FormCell>
                         </div>
-                        <div className={"RepairBorder"}>
+                        {/* <div className={"RepairBorder"}>
                             <FormCell select selectPos="after" >
                                 <CellHeader>
                                     <Label>行业 <span className={'must-input-label'}>*</span></Label>
@@ -781,7 +780,7 @@ class RepairForm extends Component {
                                     ]} />
                                 </CellBody>
                             </FormCell>
-                        </div>
+                        </div> */}
                         <div className={"RepairBorder"}>
                             <FormCell>
                                 <CellHeader>

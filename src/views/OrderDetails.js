@@ -24,6 +24,7 @@ import {
 import Page from '../components/page';
 import './orderdetails.css'
 import $ from 'jquery';
+import Util from '../utils/Util';
 
 class OrderDetails extends Component {
 
@@ -46,7 +47,8 @@ class OrderDetails extends Component {
             troubleDetail: '',
             errorMsg: '',
             engineerName:'',
-            homeServiceTime:'',
+            homeServiceTime:0,
+            repairTime:0,
         };
     }
 
@@ -92,7 +94,8 @@ class OrderDetails extends Component {
                     companyAddress: orderdetails.CompanyAddress,
                     troubleDetail: orderdetails.BugDetail,
                     engineerName:orderdetails.OrderLog.Engineer.Name,
-                    homeServiceTime:orderdetails.OrderLog.Engineer.Homeservicetime,
+                    homeServiceTime:Util.timeStamp2TString(orderdetails.OrderLog.Engineer.Homeservicetime),
+                    repairTime:Util.timeStamp2TString(orderdetails.OrderLog.Engineer.RepairTime),
                 });
 
             }
@@ -263,6 +266,14 @@ class OrderDetails extends Component {
                             </CellHeader>
                             <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.homeServiceTime}
+                            </CellBody>
+                        </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: '#000' }}>维修时间:</Label>
+                            </CellHeader>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                {this.state.repairTime}
                             </CellBody>
                         </FormCell>
                     </Form>
