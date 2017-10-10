@@ -105,13 +105,13 @@ class StatusQueryItem extends Component {
                     homeserviceimgshijian: orderlog.engineer.homeservice ? <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian@2x.png" /> : <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian---huise@2x.png" />,
                     homeservicecolor: orderlog.engineer.homeservice ? '#1887fc' : '',
                     homeservicetext: orderlog.engineer.homeservice ? '已提交' : '未提交',
-                    status: orderdetails.status,
-                    statusimg: orderdetails.status ? <img src="/images/tijiai@2x.png" /> : <img src="/images/tijiaohuise@2x.png" />,
-                    statusimgshijian: orderdetails.status ? <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian@2x.png" /> : <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian---huise@2x.png" />,
-                    statuscolor: orderdetails.status ? '#1887fc' : '',
-                    statustext: orderdetails.status ? '已提交' : '未提交',
+                    status: orderdetails.status=='completed'?true:false,
+                    statusimg: orderdetails.status=='completed'? <img src="/images/tijiai@2x.png" /> : <img src="/images/tijiaohuise@2x.png" />,
+                    statusimgshijian: orderdetails.status=='completed'? <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian@2x.png" /> : <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian---huise@2x.png" />,
+                    statuscolor: orderdetails.status=='completed'? '#1887fc' : '',
+                    statustext: orderdetails.status=='completed'? '已提交' : '未提交',
                     //need change
-                    completetime: Util.timeStamp2String(orderlog.engineer.time),
+                    completetime: Util.timeStamp2String(orderdetails.fixcompletedtime),
                 });
 
             }
@@ -217,7 +217,7 @@ class StatusQueryItem extends Component {
                         <div style={{ marginTop: '5px', }}>
                             {this.state.statusimgshijian}
                             <div style={{ color: '#999999', fontSize: '13px', marginLeft: '22px' }}>
-                                完成时间:{this.state.status}
+                                完成时间:{this.state.completetime}
                             </div>
                         </div>
                     </MediaBoxBody>
