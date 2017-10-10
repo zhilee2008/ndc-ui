@@ -194,7 +194,7 @@ class OrderDetails extends Component {
                                 {this.state.productTypeI}
                             </CellBody>
                         </FormCell>
-                        {/* <FormCell>
+                        <FormCell>
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>设备类型II:</Label>
                             </CellHeader>
@@ -209,7 +209,7 @@ class OrderDetails extends Component {
                             <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.productTypeIII}
                             </CellBody>
-                        </FormCell> */}
+                        </FormCell>
                         <FormCell>
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>详细公司地址:</Label>

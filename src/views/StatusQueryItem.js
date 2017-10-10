@@ -31,24 +31,32 @@ class StatusQueryItem extends Component {
         super(props);
         this.state = {
             itemId: '',
-            reporttime:'',
-            reportcomplete:'',
-            servicecentertime:'',
-            servicecentercomplete:'',
-            engineertime:'',
-            engineercomplete:'',
-            engineercompleteimg:'',
-            homeservicetime:'',
-            homeservice:'',
-            homeserviceimg:'',
-            completetime:'',
+            reporttime: '',
+            reportcomplete: '',
+            servicecentertime: '',
+            servicecentercomplete: '',
+            engineertime: '',
+            engineercomplete: '',
+            engineercompleteimg: '',
+            engineercompletetext: '',
+            homeservicetime: '',
+            homeservice: '',
+            homeserviceimg: '',
+            homeservicetext: '',
+            completetime: '',
+            statustext: '',
+            engineercompleteimgshijian: '',
+            homeserviceimgshijian: '',
+            statusimg: '',
+            statusimgshijian: '',
+            statuscolor:'',
         };
     }
 
     detailsItemClick = () => {
 
         if (this.state.itemId) {
-            const path = '/orderdetails/'+this.state.itemId;
+            const path = '/orderdetails/' + this.state.itemId;
             this.props.history.push(path);
         } else {
 
@@ -66,7 +74,7 @@ class StatusQueryItem extends Component {
     }
 
     getStatusById = (itemId) => {
-        let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/status/"+itemId;
+        let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/status/" + itemId;
         var request = $.ajax({
             url: url,
             method: "GET",
@@ -81,25 +89,31 @@ class StatusQueryItem extends Component {
                 const orderlog = orderdetails.orderlog;
                 // console.log(Util.timeStamp2String(orderlog.servicecenter.time))
                 self.setState({
-                    reporttime:Util.timeStamp2String(orderlog.report.time),
-                    reportcomplete:orderlog.report.complete,
-                    servicecentertime:Util.timeStamp2String(orderlog.servicecenter.time),
-                    servicecentercomplete:orderlog.servicecenter.complete,
-                    engineertime:Util.timeStamp2String(orderlog.engineer.time),
-                    engineercomplete:orderlog.engineer.complete,
-                    engineercompleteimg:orderlog.engineer.complete?<img src="/images/tijiai@2x.png" />: <img src="/images/tijiaohuise@2x.png" />,
-                    engineercompletecolor:orderlog.engineer.complete?'#1887fc': '',
-                    homeservicetime:Util.timeStamp2String(orderlog.engineer.homeservicetime),
-                    homeservice:orderlog.engineer.homeservice,
-                    homeserviceimg:orderlog.engineer.homeservice?<img src="/images/tijiai@2x.png" />: <img src="/images/tijiaohuise@2x.png" />,
-                    homeservicecolor:orderlog.engineer.homeservice?'#1887fc': '',
-                    status:orderdetails.status,
-                    statusimg:orderdetails.status?<img src="/images/tijiai@2x.png" />: <img src="/images/tijiaohuise@2x.png" />,
-                    statuscolor:orderdetails.status?'#1887fc': '',
+                    reporttime: Util.timeStamp2String(orderlog.report.time),
+                    reportcomplete: orderlog.report.complete,
+                    servicecentertime: Util.timeStamp2String(orderlog.servicecenter.time),
+                    servicecentercomplete: orderlog.servicecenter.complete,
+                    engineertime: Util.timeStamp2String(orderlog.engineer.time),
+                    engineercomplete: orderlog.engineer.name !== '' ? true : false,
+                    engineercompleteimg: orderlog.engineer.name !== '' ? <img src="/images/tijiai@2x.png" /> : <img src="/images/tijiaohuise@2x.png" />,
+                    engineercompleteimgshijian: orderlog.engineer.name !== '' ? <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian@2x.png" /> : <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian---huise@2x.png" />,
+                    engineercompletecolor: orderlog.engineer.name !== '' ? '#1887fc' : '',
+                    engineercompletetext: orderlog.engineer.name !== '' ? '已提交' : '未提交',
+                    homeservicetime: Util.timeStamp2String(orderlog.engineer.homeservicetime),
+                    homeservice: orderlog.engineer.homeservice,
+                    homeserviceimg: orderlog.engineer.homeservice ? <img src="/images/tijiai@2x.png" /> : <img src="/images/tijiaohuise@2x.png" />,
+                    homeserviceimgshijian: orderlog.engineer.homeservice ? <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian@2x.png" /> : <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian---huise@2x.png" />,
+                    homeservicecolor: orderlog.engineer.homeservice ? '#1887fc' : '',
+                    homeservicetext: orderlog.engineer.homeservice ? '已提交' : '未提交',
+                    status: orderdetails.status,
+                    statusimg: orderdetails.status ? <img src="/images/tijiai@2x.png" /> : <img src="/images/tijiaohuise@2x.png" />,
+                    statusimgshijian: orderdetails.status ? <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian@2x.png" /> : <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian---huise@2x.png" />,
+                    statuscolor: orderdetails.status ? '#1887fc' : '',
+                    statustext: orderdetails.status ? '已提交' : '未提交',
                     //need change
-                    completetime:Util.timeStamp2String(orderlog.engineer.time),
+                    completetime: Util.timeStamp2String(orderlog.engineer.time),
                 });
-                
+
             }
 
         });
@@ -119,7 +133,7 @@ class StatusQueryItem extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader onClick={() => {window.history.go(-1)}} style={{width: '20%', height: '65px', marginTop: '25px' }} >
+                    <CellHeader onClick={() => { window.history.go(-1) }} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
                         <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回
@@ -147,11 +161,11 @@ class StatusQueryItem extends Component {
                             <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src='/images/shijian@2x.png' />
                             <div style={{ color: '#999999', fontSize: '13px', marginLeft: '22px' }}>
                                 完成时间:{this.state.reporttime}
-                             </div>
+                            </div>
                         </div>
                     </MediaBoxBody>
                     <CellFooter><img src='/images/tijiai@2x.png' /></CellFooter>
-                    <CellFooter style={{color:'#1887fc'}}>已提交</CellFooter>
+                    <CellFooter style={{ color: '#1887fc' }}>已提交</CellFooter>
                 </MediaBox>
                 <MediaBox key={2} type="appmsg" href="javascript:void(0);" >
                     <MediaBoxHeader>{fuwuicon}</MediaBoxHeader>
@@ -160,55 +174,55 @@ class StatusQueryItem extends Component {
                         <div style={{ marginTop: '5px', }}>
                             <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src='/images/shijian@2x.png' />
                             <div style={{ color: '#999999', fontSize: '13px', marginLeft: '22px' }}>
-                            完成时间:{this.state.servicecentertime}
-                             </div>
+                                完成时间:{this.state.servicecentertime}
+                            </div>
                         </div>
                     </MediaBoxBody>
-                    
+
                     <CellFooter><img src='/images/tijiai@2x.png' /></CellFooter>
-                    <CellFooter style={{color:'#1887fc'}}>已提交</CellFooter>
+                    <CellFooter style={{ color: '#1887fc' }}>已提交</CellFooter>
                 </MediaBox>
                 <MediaBox key={3} type="appmsg" href="javascript:void(0);" >
                     <MediaBoxHeader>{gongchengshiicon}</MediaBoxHeader>
                     <MediaBoxBody>
                         <MediaBoxTitle>{'工程师'}</MediaBoxTitle>
                         <div style={{ marginTop: '5px', }}>
-                            <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src='/images/shijian---huise@2x.png' />
+                            {this.state.engineercompleteimgshijian}
                             <div style={{ color: '#999999', fontSize: '13px', marginLeft: '22px' }}>
                                 完成时间:{this.state.engineertime}
-                             </div>
+                            </div>
                         </div>
                     </MediaBoxBody>
                     <CellFooter>{this.state.engineercompleteimg}</CellFooter>
-                    <CellFooter style={{color:this.state.engineercompletecolor}}>已提交</CellFooter>
+                    <CellFooter style={{ color: this.state.engineercompletecolor }}>{this.state.engineercompletetext}</CellFooter>
                 </MediaBox>
                 <MediaBox key={4} type="appmsg" href="javascript:void(0);" >
                     <MediaBoxHeader>{shangmenicon}</MediaBoxHeader>
                     <MediaBoxBody>
                         <MediaBoxTitle>{'上门服务'}</MediaBoxTitle>
                         <div style={{ marginTop: '5px', }}>
-                            <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src='/images/shijian---huise@2x.png' />
+                            {this.state.homeserviceimgshijian}
                             <div style={{ color: '#999999', fontSize: '13px', marginLeft: '22px' }}>
                                 完成时间:{this.state.homeservicetime}
-                             </div>
+                            </div>
                         </div>
                     </MediaBoxBody>
                     <CellFooter>{this.state.homeserviceimg}</CellFooter>
-                    <CellFooter style={{color:this.state.homeservicecolor}}>已提交</CellFooter>
+                    <CellFooter style={{ color: this.state.homeservicecolor }}>{this.state.homeservicetext}</CellFooter>
                 </MediaBox>
                 <MediaBox key={5} type="appmsg" href="javascript:void(0);" >
                     <MediaBoxHeader>{weixiuicon}</MediaBoxHeader>
                     <MediaBoxBody>
                         <MediaBoxTitle>{'维修完成'}</MediaBoxTitle>
                         <div style={{ marginTop: '5px', }}>
-                            <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src='/images/shijian---huise@2x.png' />
+                            {this.state.statusimgshijian}
                             <div style={{ color: '#999999', fontSize: '13px', marginLeft: '22px' }}>
                                 完成时间:{this.state.status}
-                             </div>
+                            </div>
                         </div>
                     </MediaBoxBody>
                     <CellFooter>{this.state.statusimg}</CellFooter>
-                    <CellFooter style={{color:this.state.statuscolor}}>已提交</CellFooter>
+                    <CellFooter style={{ color: this.state.statuscolor }}>{this.state.statustext}</CellFooter>
                 </MediaBox>
                 <ButtonArea>
                     <Button onClick={this.detailsItemClick.bind(this)}>

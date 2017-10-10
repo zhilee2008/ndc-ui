@@ -11,6 +11,7 @@
   /* margin-left: 5px; } */ }
 
 .titlebarback {
+  text-align: left;
   margin-left: 20px;
   height: 60px;
   margin-top: -25px;
