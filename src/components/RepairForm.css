@@ -109,3 +109,18 @@
 .must-input-label {
   font-size: 12px;
   color: grey; }
+
+.radioimage {
+  background-image: url("/images/yuiyn@2x.png");
+  background-color: currentColor !important;
+  width: 31px !important;
+  height: 40px !important;
+  margin: 40px 0px 0px 20px; }
+
+.imagebutton {
+  margin: 62px 0px 0px 20px;
+  width: 20px; }
+
+.videoimage {
+  margin: 0px 0px 0px 0px;
+  width: 24px; }

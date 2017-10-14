@@ -22,7 +22,7 @@ import {
     Toast
 } from '../../packages';
 import Page from '../components/page';
-
+import wx from 'weixin-js-sdk'
 import './RepairForm.css'
 
 import $ from 'jquery';
@@ -346,11 +346,12 @@ class RepairForm extends Component {
             showLoading: false,
             showWarningDialog: false,
             validElement: '',
-
+            localId:'',
             firstDeviceData: [],
             secondDeviceData: [],
             thirdDeviceData: [],
-
+            displayDeviceTypeII:{display:"none"},
+            displayDeviceTypeIII:{display:"none"},
             warningStyle: {
                 buttons: [
                     {
@@ -379,6 +380,25 @@ class RepairForm extends Component {
         };
 
     };
+
+    componentDidMount() {
+        wx.config({
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: 'wx9d1e92e0ce5f8549', // 必填，公众号的唯一标识
+            // timestamp: 1415171822, // 必填，生成签名的时间戳
+            // nonceStr: '82zklqj7ycoywrk', // 必填，生成签名的随机串
+            // signature: '',// 必填，签名，见附录1
+            jsApiList: ['startRecord',
+                'stopRecord',
+                'onVoiceRecordEnd',
+                'playVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            jsapi_ticket: 'jsapi_ticket',
+            nonceStr: 'iuiypl8z0448ayo',
+            timestamp: '1507815707',
+            url: 'http://192.168.1.102:3000',
+            signature: '37de893d91d669cf9748ec8653926ce6800a785d'
+        });
+    }
 
     validRepairForm = () => {
         if (this.state.company === '') {
@@ -456,7 +476,8 @@ class RepairForm extends Component {
             thirdDeviceType: this.state.thirdDeviceType,
             billAddress: this.state.billAddress,
             companyAddress: this.state.companyAddress,
-            bugDetail: this.state.bugDetail
+            bugDetail: this.state.bugDetail,
+
 
         };
 
@@ -580,8 +601,17 @@ class RepairForm extends Component {
         }
         this.setState({
             firstDeviceType: deviceType,
-            secondDeviceData: children
+            secondDeviceData: children,
         });
+        if(children!==undefined && children.length>0){
+            this.setState({
+                displayDeviceTypeII:{display:"block"}
+            });
+        }else{
+            this.setState({
+                displayDeviceTypeII:{display:"none"}
+            });
+        }
     }
     handleChangesecondDeviceType = (e) => {
         let deviceType = e.target.value;
@@ -596,8 +626,18 @@ class RepairForm extends Component {
 
         this.setState({
             secondDeviceType: deviceType,
-            thirdDeviceData: children
+            thirdDeviceData: children,
+            
         });
+        if(children!==undefined && children.length>0){
+            this.setState({
+                displayDeviceTypeIII:{display:"block"}
+            });
+        }else{
+            this.setState({
+                displayDeviceTypeIII:{display:"none"}
+            });
+        }
     }
     handleChangethirdDeviceType = (e) => {
         this.setState({
@@ -621,6 +661,38 @@ class RepairForm extends Component {
         }
 
     }
+    startRadio(e) {
+        wx.startRecord();
+        alert('s');
+    }
+    endRadio(e) {
+        
+        var self = this;
+        wx.stopRecord({
+            success: function (res) {
+                alert('ppp');
+                var localId = res.localId;
+                self.setState({
+                    localId: localId,
+                })
+                alert(localId)
+            }
+        });
+    }
+    playRadio(e) {
+        wx.playVoice({
+            localId: this.state.localId 
+        });
+        
+    }
+    addImage(e) {
+        wx.playVoice({
+            localId: '' // 需要播放的音频的本地ID，由stopRecord接口获得
+        });
+    }
+    addVideo(e) {
+        
+    }
 
     render() {
 
@@ -638,7 +710,7 @@ class RepairForm extends Component {
                         我要报修
                     </CellBody>
                     <CellFooter style={{ width:'20%', }} >
-                        <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
+                        <img style={{ width: '30px',display:'none' }} src='/images/menu12@2x.png' />
                     </CellFooter>
                 </Cell>
                 <div className={"repair-header-wrapper"}>
@@ -804,7 +876,7 @@ class RepairForm extends Component {
                                 </CellBody>
                             </FormCell>
                         </div>
-                        <div className={"RepairBorder"}>
+                        <div className={"RepairBorder"} style={this.state.displayDeviceTypeII}>
                             <FormCell select selectPos="after">
                                 <CellHeader>
                                     <Label>设备类型II:</Label>
@@ -814,7 +886,7 @@ class RepairForm extends Component {
                                 </CellBody>
                             </FormCell>
                         </div>
-                        <div className={"RepairBorder"}>
+                        <div className={"RepairBorder"} style={this.state.displayDeviceTypeIII}>
                             <FormCell select selectPos="after">
                                 <CellHeader>
                                     <Label>设备类型III:</Label>
@@ -853,6 +925,10 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>故障细节</Label>
+                                    <Button onClick={this.startRadio.bind(this)} className={'radioimage'}/>
+                                    {/* <Button  onClick={this.endRadio.bind(this)} className={'radioimage'}/> */}
+                                    
+                                    {/* <Label><img src='/images/yuiyn@2x.png' ontouchend={this.endRadio.bind(this)} ontouchstart={this.startRadio.bind(this)} className={"radioimage"}/></Label> */}
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='bugDetail'
@@ -865,10 +941,13 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>附件文档</Label>
+                                    <img src='/images/tupian@2x.png' onClick={this.addImage.bind(this)} className={"imagebutton"}/>
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
-                                </CellBody>
+                                
+                                    <img src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"}/></CellBody>
+                                
                             </FormCell>
                         </div>
                     </Form>

@@ -103,7 +103,7 @@ class RepairManagement extends Component {
                         报修管理
                     </CellBody>
                     <CellFooter style={{ width: '20%' }} >
-                        <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
+                        <img style={{ width: '30px',display:'none' }} src='/images/menu12@2x.png' />
                     </CellFooter>
                 </Cell>
                 <MediaBox key={1} type="appmsg" href="javascript:void(0);" onClick={this.menuItemClick.bind(this, '1')}>
