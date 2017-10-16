@@ -26,8 +26,7 @@ import wx from 'weixin-js-sdk'
 import './RepairForm.css'
 
 import $ from 'jquery';
-
-
+import sign from '../utils/sign'
 
 
 const firstDeviceTypetems = [
@@ -346,12 +345,12 @@ class RepairForm extends Component {
             showLoading: false,
             showWarningDialog: false,
             validElement: '',
-            localId:'',
+            localId: '',
             firstDeviceData: [],
             secondDeviceData: [],
             thirdDeviceData: [],
-            displayDeviceTypeII:{display:"none"},
-            displayDeviceTypeIII:{display:"none"},
+            displayDeviceTypeII: { display: "none" },
+            displayDeviceTypeIII: { display: "none" },
             warningStyle: {
                 buttons: [
                     {
@@ -382,9 +381,12 @@ class RepairForm extends Component {
     };
 
     componentDidMount() {
+
+        const url = 'http://xn.geekx.cn';
+        const jsApiObject = sign('HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1IoWHbeJ8zz_843FzDl3CfG92Iepakr5Qc_V39F5owV_g', url);
         wx.config({
             debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            appId: 'wx9d1e92e0ce5f8549', // 必填，公众号的唯一标识
+            appId: 'wx457ecf3c803c3774', // 必填，公众号的唯一标识
             // timestamp: 1415171822, // 必填，生成签名的时间戳
             // nonceStr: '82zklqj7ycoywrk', // 必填，生成签名的随机串
             // signature: '',// 必填，签名，见附录1
@@ -392,11 +394,11 @@ class RepairForm extends Component {
                 'stopRecord',
                 'onVoiceRecordEnd',
                 'playVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            jsapi_ticket: 'jsapi_ticket',
-            nonceStr: 'iuiypl8z0448ayo',
-            timestamp: '1507815707',
-            url: 'http://192.168.1.102:3000',
-            signature: '37de893d91d669cf9748ec8653926ce6800a785d'
+            jsapi_ticket: jsApiObject.jsapi_ticket,
+            nonceStr: jsApiObject.nonceStr,
+            timestamp: jsApiObject.timestamp,
+            url: jsApiObject.url,
+            signature: jsApiObject.signature,
         });
     }
 
@@ -603,13 +605,13 @@ class RepairForm extends Component {
             firstDeviceType: deviceType,
             secondDeviceData: children,
         });
-        if(children!==undefined && children.length>0){
+        if (children !== undefined && children.length > 0) {
             this.setState({
-                displayDeviceTypeII:{display:"block"}
+                displayDeviceTypeII: { display: "block" }
             });
-        }else{
+        } else {
             this.setState({
-                displayDeviceTypeII:{display:"none"}
+                displayDeviceTypeII: { display: "none" }
             });
         }
     }
@@ -627,15 +629,15 @@ class RepairForm extends Component {
         this.setState({
             secondDeviceType: deviceType,
             thirdDeviceData: children,
-            
+
         });
-        if(children!==undefined && children.length>0){
+        if (children !== undefined && children.length > 0) {
             this.setState({
-                displayDeviceTypeIII:{display:"block"}
+                displayDeviceTypeIII: { display: "block" }
             });
-        }else{
+        } else {
             this.setState({
-                displayDeviceTypeIII:{display:"none"}
+                displayDeviceTypeIII: { display: "none" }
             });
         }
     }
@@ -666,7 +668,7 @@ class RepairForm extends Component {
         alert('s');
     }
     endRadio(e) {
-        
+
         var self = this;
         wx.stopRecord({
             success: function (res) {
@@ -681,9 +683,9 @@ class RepairForm extends Component {
     }
     playRadio(e) {
         wx.playVoice({
-            localId: this.state.localId 
+            localId: this.state.localId
         });
-        
+
     }
     addImage(e) {
         wx.playVoice({
@@ -691,7 +693,7 @@ class RepairForm extends Component {
         });
     }
     addVideo(e) {
-        
+
     }
 
     render() {
@@ -699,7 +701,7 @@ class RepairForm extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader onClick={e => this.props.history.push('/')} style={{ width:'20%',height: '65px', marginTop: '25px' }} >
+                    <CellHeader onClick={e => this.props.history.push('/')} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
                         <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回
@@ -709,13 +711,13 @@ class RepairForm extends Component {
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
                         我要报修
                     </CellBody>
-                    <CellFooter style={{ width:'20%', }} >
-                        <img style={{ width: '30px',display:'none' }} src='/images/menu12@2x.png' />
+                    <CellFooter style={{ width: '20%', }} >
+                        <img style={{ width: '30px', display: 'none' }} src='/images/menu12@2x.png' />
                     </CellFooter>
                 </Cell>
                 <div className={"repair-header-wrapper"}>
                     <div className={"repair-header-wrapper-image"}>
-                        <div style={{textAlign: 'center'}}>
+                        <div style={{ textAlign: 'center' }}>
                             <img src={"/images/24H@2x.png"} className={"relative-header-hours"} />
                         </div>
                         <span className={"relative-title"}>请完整填写以下报修信息</span>
@@ -925,9 +927,9 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>故障细节</Label>
-                                    <Button onClick={this.startRadio.bind(this)} className={'radioimage'}/>
+                                    <Button onClick={this.startRadio.bind(this)} className={'radioimage'} />
                                     {/* <Button  onClick={this.endRadio.bind(this)} className={'radioimage'}/> */}
-                                    
+
                                     {/* <Label><img src='/images/yuiyn@2x.png' ontouchend={this.endRadio.bind(this)} ontouchstart={this.startRadio.bind(this)} className={"radioimage"}/></Label> */}
                                 </CellHeader>
                                 <CellBody>
@@ -941,13 +943,13 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>附件文档</Label>
-                                    <img src='/images/tupian@2x.png' onClick={this.addImage.bind(this)} className={"imagebutton"}/>
+                                    <img src='/images/tupian@2x.png' onClick={this.addImage.bind(this)} className={"imagebutton"} />
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
-                                
-                                    <img src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"}/></CellBody>
-                                
+
+                                    <img src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /></CellBody>
+
                             </FormCell>
                         </div>
                     </Form>
