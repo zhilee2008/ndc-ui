@@ -391,14 +391,14 @@ class RepairForm extends Component {
             // nonceStr: '82zklqj7ycoywrk', // 必填，生成签名的随机串
             // signature: '',// 必填，签名，见附录1
             jsApiList: ['startRecord',
-                'stopRecord',
+                'stopRecord', 
                 'onVoiceRecordEnd',
                 'playVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            jsapi_ticket: jsApiObject.jsapi_ticket,
-            nonceStr: jsApiObject.nonceStr,
-            timestamp: jsApiObject.timestamp,
-            url: jsApiObject.url,
-            signature: jsApiObject.signature,
+                jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1LgcY-hx1t2Yq9S36yPlAKbdTAa5tuEq8_NGsM1eH4V3Q',
+                nonceStr: 'rklk5wgl3oznzzt',
+                timestamp: '1508156245',
+                url: 'http://xn.geekx.cn/repairsubmit',
+                signature: '24cf0f9b17294a70cc6d16010b5dc11ed36e7031'
         });
     }
 
