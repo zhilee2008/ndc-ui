@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .weui-btn {
   background-color: #1887fc !important;
   margin-bottom: 20px; }
@@ -111,6 +112,9 @@
   color: grey; }
 
 .radioimage {
+  -webkit-user-select: none;
+  /*禁用手机浏览器的用户选择功能 */
+  -moz-user-select: none;
   background-image: url("/images/yuiyn@2x.png");
   background-color: currentColor !important;
   width: 31px !important;

@@ -401,35 +401,10 @@ class RepairForm extends Component {
             url: 'http://xn.geekx.cn/repairsubmit',
             signature: '2a5010c2d4414ba80076016724f508965ca0ffd8'
         });
-        const self =this;
 
-        var t;
-        var pointer = $('#recordbutton');
-        var cancelTimeout = function() {
-            if(t) {
-                clearTimeout(t);
-                t = null;
-            }
-        };
-        pointer.addEventListener('touchstart', function(e) {
-            t = setTimeout(function() {
-                cancelTimeout();
-            }, 2000);
+        $('#recordbutton').addEventListener('touchstart', function(e) {
             e.preventDefault();
-            return false;
-        });
-        pointer.addEventListener('touchend', cancelTimeout);
-
-        // $('#recordbutton').bind('touchstart', function (e) {
-        //     self.setState({
-        //         radioText :self.state.localId
-        //     });
-        // })
-        // $('#recordbutton').bind('touchend', function (e) {
-        //     self.setState({
-        //         radioText :self.state.localId
-        //     });
-        // })
+        }, false);
     }
 
 
@@ -955,7 +930,7 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>故障细节</Label>
-                                    <Button onTouchStart={this.startRadio.bind(this)} onTouchEnd={this.endRadio.bind(this)} className={'radioimage'} />
+                                    <Button id={'recordbutton'} onTouchStart={this.startRadio.bind(this)} onTouchEnd={this.endRadio.bind(this)} className={'radioimage'} />
                                     <Button onClick={this.playRadio.bind(this)} className={'radioimage'} />
 
                                     {/* <Label><img src='/images/yuiyn@2x.png' ontouchend={this.endRadio.bind(this)} ontouchstart={this.startRadio.bind(this)} className={"radioimage"}/></Label> */}
