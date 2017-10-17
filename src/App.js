@@ -10,6 +10,7 @@ import RepairManagement from './views/RepairManagement';
 import RepairManagementItems from './views/RepairManagementItems';
 import OrderDetails from './views/OrderDetails';
 import OrderDetailsUpdate from './views/OrderDetailsUpdate';
+import WatchVedio from './views/WatchVedio';
 
 import './App.css';
 import {
@@ -65,6 +66,16 @@ class App extends Component {
         path: '/orderdetailsupdate/:id',
         exact: true,
         main: () => <OrderDetailsUpdate/>,
+      },
+      {
+        path: '/watchvedio',
+        exact: true,
+        main: () => <WatchVedio/>
+      },
+      {
+        path: '/test',
+        exact: true,
+        main: () => <log></log>
       }
       // { path: '',
       //     main: () => <NotFoundPage />,
