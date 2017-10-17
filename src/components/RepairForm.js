@@ -382,9 +382,9 @@ class RepairForm extends Component {
 
     componentDidMount() {
 
-        const url = 'http://xn.geekx.cn';
-        const jsApiObject = sign('HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1IoWHbeJ8zz_843FzDl3CfG92Iepakr5Qc_V39F5owV_g', url);
-        alert(location.href);
+        //const url = 'http://xn.geekx.cn';
+        // const jsApiObject = sign('HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1IoWHbeJ8zz_843FzDl3CfG92Iepakr5Qc_V39F5owV_g', url);
+        //alert(location.href);
         wx.config({
             debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: 'wx457ecf3c803c3774', // 必填，公众号的唯一标识
@@ -392,14 +392,14 @@ class RepairForm extends Component {
             // nonceStr: '82zklqj7ycoywrk', // 必填，生成签名的随机串
             // signature: '',// 必填，签名，见附录1
             jsApiList: ['startRecord',
-                'stopRecord', 
+                'stopRecord',
                 'onVoiceRecordEnd',
                 'playVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-                jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1LgcY-hx1t2Yq9S36yPlAKbdTAa5tuEq8_NGsM1eH4V3Q',
-                nonceStr: 'rklk5wgl3oznzzt',
-                timestamp: '1508156245',
-                url: 'http://xn.geekx.cn/repairsubmit',
-                signature: '24cf0f9b17294a70cc6d16010b5dc11ed36e7031'
+            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1LgcY-hx1t2Yq9S36yPlAKbdTAa5tuEq8_NGsM1eH4V3Q',
+            nonceStr: 'rklk5wgl3oznzzt',
+            timestamp: '1508156245',
+            url: 'http://xn.geekx.cn/repairsubmit',
+            signature: '24cf0f9b17294a70cc6d16010b5dc11ed36e7031'
         });
     }
 
@@ -666,19 +666,28 @@ class RepairForm extends Component {
     }
     startRadio(e) {
         wx.startRecord();
-        alert('s');
+        this.setState({
+            showWarn: true,
+        })
     }
     endRadio(e) {
-
+        this.setState({
+            showWarn: false,
+        })
         var self = this;
         wx.stopRecord({
             success: function (res) {
-                alert('ppp');
                 var localId = res.localId;
                 self.setState({
                     localId: localId,
                 })
-                alert(localId)
+                wx.uploadVoice({
+                    localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    success: function (res) {
+                        var serverId = res.serverId; // 返回音频的服务器端ID
+                    }
+                });
             }
         });
     }
@@ -792,6 +801,7 @@ class RepairForm extends Component {
                                 </CellBody>
                             </FormCell>
                         </div>
+                        <Toptips type="warn" show={this.state.showWarn}>录音中...</Toptips>
                         {/* <div className={"RepairBorder"}>
                             <FormCell select selectPos="after" >
                                 <CellHeader>
@@ -928,7 +938,7 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>故障细节</Label>
-                                    <Button onClick={this.startRadio.bind(this)} className={'radioimage'} />
+                                    <Button onTouchStart={this.startRadio.bind(this)} onTouchEnd={this.endRadio.bind(this)} className={'radioimage'} />
                                     {/* <Button  onClick={this.endRadio.bind(this)} className={'radioimage'}/> */}
 
                                     {/* <Label><img src='/images/yuiyn@2x.png' ontouchend={this.endRadio.bind(this)} ontouchstart={this.startRadio.bind(this)} className={"radioimage"}/></Label> */}
