@@ -395,10 +395,10 @@ class RepairForm extends Component {
                 'onVoiceRecordEnd',
                 'playVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
             jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1J1mkEJ1D2hXrjhav0CdbSKk_dDrRUogH1vc-kvBlRbFA',
-            nonceStr: 'lntpegxdxexlit4',
-            timestamp: '1508235953',
+            nonceStr: '04webm1mzezghxn',
+            timestamp: '1508240749',
             url: 'http://xn.geekx.cn/repairsubmit',
-            signature: '7015c6dd52692ddb58989d898eb4e5ef1f67723d'
+            signature: '2a5010c2d4414ba80076016724f508965ca0ffd8'
         });
         $('#recordbutton').bind('touchstart', function (e) {
             alert(this.state.localId);
