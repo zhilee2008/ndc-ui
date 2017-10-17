@@ -381,9 +381,6 @@ class RepairForm extends Component {
     };
 
     componentDidMount() {
-
-
-
         // const url = 'http://xn.geekx.cn';
         // const jsApiObject = sign('HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1IoWHbeJ8zz_843FzDl3CfG92Iepakr5Qc_V39F5owV_g', url);
         // alert(window.location.href);
@@ -397,11 +394,11 @@ class RepairForm extends Component {
                 'stopRecord',
                 'onVoiceRecordEnd',
                 'playVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1LgcY-hx1t2Yq9S36yPlAKbdTAa5tuEq8_NGsM1eH4V3Q',
-            nonceStr: 'rklk5wgl3oznzzt',
-            timestamp: '1508156245',
+            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1J1mkEJ1D2hXrjhav0CdbSKk_dDrRUogH1vc-kvBlRbFA',
+            nonceStr: 'lntpegxdxexlit4',
+            timestamp: '1508235953',
             url: 'http://xn.geekx.cn/repairsubmit',
-            signature: '24cf0f9b17294a70cc6d16010b5dc11ed36e7031'
+            signature: '7015c6dd52692ddb58989d898eb4e5ef1f67723d'
         });
     }
 
@@ -575,20 +572,6 @@ class RepairForm extends Component {
     }
 
     handleChangeIndustry = (e) => {
-        // 订单生成首字母T 1
-        // 订单生成首字母P 2
-        // 订单生成首字母P 3
-        // 订单生成首字母T 4
-        // 订单生成首字母M 5
-        // 订单生成首字母T 6
-        // 订单生成首字母P 7
-        // 订单生成首字母C 8
-        // 订单生成首字母P 9
-        // 订单生成首字母T 10
-        // 订单生成首字母C 11
-        // 订单生成首字母O 12
-        // console.log(e.target.value)
-
         this.setState({
             industry: e.target.value
         });
@@ -941,7 +924,7 @@ class RepairForm extends Component {
                                 <CellHeader>
                                     <Label>故障细节</Label>
                                     <Button onTouchStart={this.startRadio.bind(this)} onTouchEnd={this.endRadio.bind(this)} className={'radioimage'} />
-                                    {/* <Button  onClick={this.endRadio.bind(this)} className={'radioimage'}/> */}
+                                     <Button  onClick={this.playRadio.bind(this)} className={'radioimage'}/>
 
                                     {/* <Label><img src='/images/yuiyn@2x.png' ontouchend={this.endRadio.bind(this)} ontouchstart={this.startRadio.bind(this)} className={"radioimage"}/></Label> */}
                                 </CellHeader>
@@ -951,6 +934,7 @@ class RepairForm extends Component {
                                         onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
+                            <div>录音1</div>
                         </div>
                         <div className={"RepairBorder"}>
                             <FormCell className={"weui-label-align-top"}>
