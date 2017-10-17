@@ -42,8 +42,8 @@ const firstDeviceTypetems = [
             label: 'FVXR-1(43kv)',
 
         }, {
-            value: 'Rometer',
-            label: 'Rometer',
+            value: 'Rometer平直度仪',
+            label: 'Rometer平直度仪',
 
         }, {
             value: 'T100',
@@ -115,17 +115,17 @@ const firstDeviceTypetems = [
             value: 'Gamma射线传感器',
             label: 'Gamma射线传感器',
         }, {
-            value: '激光传感器',
-            label: '激光传感器',
+            value: 'Laser 激光传感器',
+            label: 'Laser 激光传感器',
         }, {
             value: 'Optimike',
             label: 'Optimike',
         }, {
-            value: 'Pronet',
-            label: 'Pronet',
+            value: 'Pronet 系统',
+            label: 'Pronet 系统',
         }, {
-            value: 'PronetTDI',
-            label: 'PronetTDI',
+            value: 'PronetTDI 系统',
+            label: 'PronetTDI 系统',
         }, {
             value: 'X射线传感器',
             label: 'X射线传感器',
@@ -248,70 +248,107 @@ const firstDeviceTypetems = [
             value: 'BLM软件工具',
             label: 'BLM软件工具',
         }, {
-            value: '电容仪',
-            label: '电容仪',
+            value: 'Capacitance 电容仪',
+            label: 'Capacitance 电容仪',
         }, {
-            value: '偏心仪',
-            label: '偏心仪',
+            value: 'Concentricity 偏心仪',
+            label: 'Concentricity 偏心仪',
         }, {
             value: '控制系统',
             label: '控制系统',
-            children: [{
-                value: 'DP500',
-                label: 'DP500',
-            }]
+            children: [
+                {
+                    value: "In Control",
+                    label: 'In Control',
+                }, {
+                    value: "900/1000/2000 过程控制",
+                    label: "900/1000/2000 过程控制",  
+                }, {
+                    value: "DP5000",
+                    label: "DP5000",
+                }, {
+                    value: "DP3000",
+                    label: "DP3000",
+                }, {
+                    value: "DP1000",
+                    label: "DP1000",
+                }, {
+                    value: "182/192 过程控制",
+                    label: "182/192 过程控制",
+                }
+            ]
+        },{
+            value: 'DP500',
+            label: 'DP500',
         }, {
             value: '直径仪',
             label: '直径仪',
-            children: [{
-                value: '缺陷监测仪',
-                label: '缺陷监测仪'
+            children: [
+                {
+                    value: "Accuscan 5000",
+                    label: "Accuscan 5000",
+                }, {
+                    value: "Accuscan 1000",
+                    label: "Accuscan 1000", 
+                }, {
+                    value: "Accuscan 3000",
+                    label: "Accuscan 3000", 
+                }, {
+                    value: "Accuscan 4000",
+                    label: "Accuscan 4000", 
+                }, {
+                    value: "Accuscan 6000",
+                    label: "Accuscan 6000", 
+                }
+            ]
+        },{
+            value: '缺陷监测仪',
+            label: '缺陷监测仪'
 
-            }, {
-                value: 'FLM101',
-                label: 'FLM101'
+        }, {
+            value: 'FLM101',
+            label: 'FLM101'
 
-            }, {
-                value: 'I/O 模块',
-                label: 'I/O 模块'
+        }, {
+            value: 'I/O 模块',
+            label: 'I/O 模块'
 
-            }, {
-                value: 'ICON',
-                label: 'ICON'
+        }, {
+            value: 'ICON',
+            label: 'ICON'
 
-            }, {
-                value: 'Laserspeed MID系列',
-                label: 'Laserspeed MID系列'
+        }, {
+            value: 'Laserspeed MID系列',
+            label: 'Laserspeed MID系列'
 
-            }, {
-                value: 'LS4000 系列',
-                label: 'LS4000 系列'
+        }, {
+            value: 'LS4000 系列',
+            label: 'LS4000 系列'
 
-            }, {
-                value: 'LS8000 系列',
-                label: 'LS8000 系列'
+        }, {
+            value: 'LS8000 系列',
+            label: 'LS8000 系列'
 
-            }, {
-                value: 'LS9000 系列',
-                label: 'LS9000 系列'
+        }, {
+            value: 'LS9000 系列',
+            label: 'LS9000 系列'
 
-            }, {
-                value: 'Preheater预加热',
-                label: 'Preheater预加热'
+        }, {
+            value: 'Preheater预加热',
+            label: 'Preheater预加热'
 
-            }, {
-                value: 'Sparktester火花测试机',
-                label: 'Sparktester火花测试机'
+        }, {
+            value: 'Sparktester火花测试机',
+            label: 'Sparktester火花测试机'
 
-            }, {
-                value: '超声波测试仪',
-                label: '超声波测试仪'
+        }, {
+            value: '超声波测试仪',
+            label: '超声波测试仪'
 
-            }, {
-                value: 'DCM',
-                label: 'DCM'
+        }, {
+            value: 'DCM 系列产品',
+            label: 'DCM 系列产品'
 
-            }]
         }]
     }
 ];
