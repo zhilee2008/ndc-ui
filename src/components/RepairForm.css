@@ -124,3 +124,16 @@
 .videoimage {
   margin: 0px 0px 0px 0px;
   width: 24px; }
+
+.savedradio {
+  float: left;
+  padding-left: 5px;
+  font-size: 12px;
+  width: 50px;
+  border: 1px solid lightgrey;
+  margin: 10px 0 10px 10px; }
+
+.deleteradio {
+  margin-left: 0px;
+  width: 30px;
+  padding-top: 5px; }
