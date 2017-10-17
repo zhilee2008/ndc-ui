@@ -58,6 +58,41 @@ class WatchVedio extends Component {
                             710Utility-2
                     </CellBody>
                     </Cell>
+                    <Cell href="http://v.youku.com/v_show/id_XMzA4OTQwMjE4MA==.html?spm=a2h3j.8428770.3416059.1" access>
+                        <CellBody className={'cellLink'} >
+                            Gaugetools
+                        </CellBody>
+                    </Cell>
+                    <Cell href="http://v.youku.com/v_show/id_XMzA4OTQwMzYyMA==.html?spm=a2h3j.8428770.3416059.1" access>
+                        <CellBody className={'cellLink'} >
+                            GaugeToolsXL-1
+                        </CellBody>
+                    </Cell>
+                    <Cell href="http://v.youku.com/v_show/id_XMzA4OTQwNDk2NA==.html?spm=a2h3j.8428770.3416059.1" access>
+                        <CellBody className={'cellLink'} >
+                            GaugeToolsXL-2
+                        </CellBody>
+                    </Cell>
+                    <Cell href="http://v.youku.com/v_show/id_XMzA4OTQwNjA0NA==.html?spm=a2h3j.8428770.3416059.1" access>
+                        <CellBody className={'cellLink'} >
+                            InfraLab710e
+                        </CellBody>
+                    </Cell>
+                    <Cell href="http://v.youku.com/v_show/id_XMzA4OTQwNzI1Mg==.html?spm=a2h3j.8428770.3416059.1" access>
+                        <CellBody className={'cellLink'} >
+                            Setting the Infralab to run through RS232
+                        </CellBody>
+                    </Cell>
+                    <Cell href="http://v.youku.com/v_show/id_XMzA4OTQwODQ0MA==.html?spm=a2h3j.8428770.3416059.1" access>
+                        <CellBody className={'cellLink'} >
+                            TM710e
+                        </CellBody>
+                    </Cell>
+                    <Cell href="http://v.youku.com/v_show/id_XMzA4OTQwOTQ4NA==.html?spm=a2h3j.8428770.3416059.1" access>
+                        <CellBody className={'cellLink'} >
+                            TM710e-0307温度
+                        </CellBody>
+                    </Cell>
                 </Cells>
             </div>
         );
