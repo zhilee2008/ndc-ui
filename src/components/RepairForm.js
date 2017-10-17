@@ -402,16 +402,34 @@ class RepairForm extends Component {
             signature: '2a5010c2d4414ba80076016724f508965ca0ffd8'
         });
         const self =this;
-        $('#recordbutton').bind('touchstart', function (e) {
-            self.setState({
-                radioText :self.state.localId
-            });
-        })
-        $('#recordbutton').bind('touchend', function (e) {
-            self.setState({
-                radioText :self.state.localId
-            });
-        })
+
+        var t;
+        var pointer = $('#recordbutton');
+        var cancelTimeout = function() {
+            if(t) {
+                clearTimeout(t);
+                t = null;
+            }
+        };
+        pointer.addEventListener('touchstart', function(e) {
+            t = setTimeout(function() {
+                cancelTimeout();
+            }, 2000);
+            e.preventDefault();
+            return false;
+        });
+        pointer.addEventListener('touchend', cancelTimeout);
+
+        // $('#recordbutton').bind('touchstart', function (e) {
+        //     self.setState({
+        //         radioText :self.state.localId
+        //     });
+        // })
+        // $('#recordbutton').bind('touchend', function (e) {
+        //     self.setState({
+        //         radioText :self.state.localId
+        //     });
+        // })
     }
 
 
@@ -666,7 +684,9 @@ class RepairForm extends Component {
         wx.startRecord();
         this.setState({
             showWarn: true,
+            
         })
+        
     }
     endRadio(e) {
         this.setState({
@@ -678,6 +698,7 @@ class RepairForm extends Component {
                 var localId = res.localId;
                 self.setState({
                     localId: localId,
+                    radioText :localId
                 })
                 wx.uploadVoice({
                     localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
@@ -690,16 +711,13 @@ class RepairForm extends Component {
         });
     }
     playRadio(e) {
-        alert('p');
         wx.playVoice({
             localId: this.state.localId
         });
 
     }
     addImage(e) {
-        wx.playVoice({
-            localId: '' // 需要播放的音频的本地ID，由stopRecord接口获得
-        });
+        
     }
     addVideo(e) {
 
