@@ -368,6 +368,7 @@ class RepairForm extends Component {
                     }
                 ]
             },
+            radioText:'',
             showWarn: false,
             warnTimer: null,
             gallery: false,
@@ -400,11 +401,16 @@ class RepairForm extends Component {
             url: 'http://xn.geekx.cn/repairsubmit',
             signature: '2a5010c2d4414ba80076016724f508965ca0ffd8'
         });
+        const self =this;
         $('#recordbutton').bind('touchstart', function (e) {
-            alert(this.state.localId);
+            self.setState({
+                radioText :self.state.localId
+            });
         })
         $('#recordbutton').bind('touchend', function (e) {
-            alert(this.state.localId);
+            self.setState({
+                radioText :self.state.localId
+            });
         })
     }
 
@@ -943,7 +949,7 @@ class RepairForm extends Component {
                                 </CellBody>
                             </FormCell>
                             <div>
-                                <div id={'recordbutton'} onClick={this.playRadio.bind(this)} className={'savedradio'}>录音1</div>
+                                <div id={'recordbutton'} onClick={this.playRadio.bind(this)} className={'savedradio'}>{this.state.radioText}</div>
                                 <img id={'deleteradiobutton'} className={'deleteradio'} src={"/images/wancheng.png"} />
                             </div>
                         </div>
