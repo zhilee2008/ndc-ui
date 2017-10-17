@@ -351,6 +351,8 @@ class RepairForm extends Component {
             thirdDeviceData: [],
             displayDeviceTypeII: { display: "none" },
             displayDeviceTypeIII: { display: "none" },
+            disabledstartradio:false,
+            disabledendradio:true,
             warningStyle: {
                 buttons: [
                     {
@@ -402,9 +404,9 @@ class RepairForm extends Component {
             signature: '2a5010c2d4414ba80076016724f508965ca0ffd8'
         });
 
-        $('#recordbutton').addEventListener('touchstart', function(e) {
-            e.preventDefault();
-        }, false);
+        // $('#recordbutton').addEventListener('touchstart', function(e) {
+        //     e.preventDefault();
+        // }, false);
     }
 
 
@@ -659,13 +661,16 @@ class RepairForm extends Component {
         wx.startRecord();
         this.setState({
             showWarn: true,
-            
+            disabledstartradio:true,
+            disabledendradio:false,
         })
         
     }
     endRadio(e) {
         this.setState({
             showWarn: false,
+            disabledstartradio:false,
+            disabledendradio:true,
         })
         var self = this;
         wx.stopRecord({
@@ -930,8 +935,8 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>故障细节</Label>
-                                    <Button id={'recordbutton'} onTouchStart={this.startRadio.bind(this)} onTouchEnd={this.endRadio.bind(this)} className={'radioimage'} />
-                                    <Button onClick={this.playRadio.bind(this)} className={'radioimage'} />
+                                   { /* <Button id={'recordbutton'} onTouchStart={this.startRadio.bind(this)} onTouchEnd={this.endRadio.bind(this)} className={'radioimage'} /> */}
+                                    
 
                                     {/* <Label><img src='/images/yuiyn@2x.png' ontouchend={this.endRadio.bind(this)} ontouchstart={this.startRadio.bind(this)} className={"radioimage"}/></Label> */}
                                 </CellHeader>
@@ -942,8 +947,10 @@ class RepairForm extends Component {
                                 </CellBody>
                             </FormCell>
                             <div>
-                                <div id={'recordbutton'} onClick={this.playRadio.bind(this)} className={'savedradio'}>{this.state.radioText}</div>
-                                <img id={'deleteradiobutton'} className={'deleteradio'} src={"/images/wancheng.png"} />
+                            <Button style={{width:'80%'}} disabled={this.state.disabledstartradio} onClick={this.startRadio.bind(this)} >开始录音</Button>
+                            <Button style={{width:'80%'}} disabled={this.state.disabledendradio} onClick={this.endRadio.bind(this)} >结束录音</Button>
+                                {/* <div id={'recordbutton'} onClick={this.playRadio.bind(this)} className={'savedradio'}>{this.state.radioText}</div>
+                                <img id={'deleteradiobutton'} className={'deleteradio'} src={"/images/wancheng.png"} /> */}
                             </div>
                         </div>
                         <div className={"RepairBorder"}>
