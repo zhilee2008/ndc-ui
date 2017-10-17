@@ -49,6 +49,7 @@ class OrderDetails extends Component {
             engineerName:'',
             homeServiceTime:0,
             repairTime:0,
+            completed: ''
         };
     }
 
@@ -96,6 +97,7 @@ class OrderDetails extends Component {
                     engineerName:orderdetails.OrderLog.Engineer.Name,
                     homeServiceTime:Util.timeStamp2TString(orderdetails.OrderLog.Engineer.Homeservicetime),
                     repairTime:Util.timeStamp2TString(orderdetails.OrderLog.Engineer.RepairTime),
+                    completed: orderdetails.Status
                 });
 
             }
@@ -278,7 +280,7 @@ class OrderDetails extends Component {
                         </FormCell>
                     </Form>
 
-                    <ButtonArea>
+                    <ButtonArea className={this.state.completed === 'completed'? 'hideKnowBtn' : 'showKnowBtn'}>
                         <Button onClick={this.detailsUpdate.bind(this)}>
                             我知道了
                         </Button>

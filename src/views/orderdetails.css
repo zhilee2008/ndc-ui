@@ -8,3 +8,9 @@
   margin-bottom: 10px;
   border-radius: 4px 4px 4px 4px;
   margin-top: 0px; }
+
+.hideKnowBtn {
+  display: none; }
+
+.showKnowBtn {
+  display: block; }
