@@ -67,6 +67,79 @@ class OrderDetailsUpdate extends Component {
                     }
                 ]
             },
+          engineerData: [
+            {
+              value: "",
+              label: "请选择工程师",
+              mobile: "",
+            }
+            ,
+            {
+            value: "刘伟",
+            label: "刘伟",
+            mobile: "13917092518",
+          },
+            {
+                value: "沈军港",
+                label: "沈军港",
+              mobile: "13701671977"
+            },
+            {
+              value: "朱国杰",
+              label: "朱国杰",
+              mobile: "13701671977"
+            },
+            {
+              value: "季耀安",
+              label: "季耀安",
+              mobile: "13916606238"
+            },
+            {
+              value: "李峰",
+              label: "李峰",
+              mobile: "15921668171"
+            },{
+              value: "徐希金",
+              label: "徐希金",
+              mobile: "15102193435"
+            },
+            {
+              value: "杨文才",
+              label: "杨文才",
+              mobile: "13810436262"
+            },
+            {
+              value: "曹守国",
+              label: "曹守国",
+              mobile: "13810580743"
+            },
+            {
+              value: "钟志强",
+              label: "钟志强",
+              mobile: "13602732766"
+            },
+            {
+              value: "曲成强",
+              label: "曲成强",
+              mobile: "13925061346"
+            },
+            {
+              value: "杨文",
+              label: "杨文",
+              mobile: "13922309809"
+            },
+            {
+              value: "韩任",
+              label: "韩任",
+              mobile: "13888358828"
+            },
+            {
+              value: "何涛",
+              label: "何涛",
+              mobile: "13708451143"
+            },
+
+          ]
         }
 
     };
@@ -138,6 +211,22 @@ class OrderDetailsUpdate extends Component {
             [prop]: e.target.value
         });
         console.log(this.state)
+    };
+
+
+    handleEngineerNameChange = (e) => {
+        let name = e.target.value;
+        this.setState({
+          engineerName: name
+        });
+        for (let i=0; i< this.state.engineerData.length; i++){
+            let currentEngineerData = this.state.engineerData[i];
+            if (name == currentEngineerData['value']){
+                this.setState({
+                  engineerMobile: currentEngineerData['mobile']
+                });
+            }
+        }
     };
 
     validForm = () => {
@@ -244,9 +333,8 @@ class OrderDetailsUpdate extends Component {
                                 <Label style={{ color: '#000' }}>工程师姓名</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input name='engineerName'
-                                    value={this.state.engineerName}
-                                    onChange={this.handleChange.bind(this)} type="text" placeholder="工程师姓名" />
+                                <Select value={this.state.engineerName} onChange={this.handleEngineerNameChange.bind(this)} data={this.state.engineerData} />
+
                             </CellBody>
                         </FormCell>
                         <FormCell>
@@ -261,7 +349,7 @@ class OrderDetailsUpdate extends Component {
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                                <Label style={{ color: '#000' }}>上门时间</Label>
+                                <Label style={{ color: '#000' }}>上门/维修时间</Label>
                             </CellHeader>
                             <CellBody>
                                 <Input type="date" name='homeServiceTime'
@@ -269,16 +357,16 @@ class OrderDetailsUpdate extends Component {
                                     onChange={this.handleChange.bind(this)} placeholder="上门时间" />
                             </CellBody>
                         </FormCell>
-                        <FormCell>
-                            <CellHeader>
-                                <Label style={{ color: '#000' }}>维修时间</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <Input type="date" name='repairTime'
-                                    value={this.state.repairTime}
-                                    onChange={this.handleChange.bind(this)} placeholder="维修时间" />
-                            </CellBody>
-                        </FormCell>
+                        {/*<FormCell>*/}
+                            {/*<CellHeader>*/}
+                                {/*<Label style={{ color: '#000' }}>维修时间</Label>*/}
+                            {/*</CellHeader>*/}
+                            {/*<CellBody>*/}
+                                {/*<Input type="date" name='repairTime'*/}
+                                    {/*value={this.state.repairTime}*/}
+                                    {/*onChange={this.handleChange.bind(this)} placeholder="维修时间" />*/}
+                            {/*</CellBody>*/}
+                        {/*</FormCell>*/}
 
                     </Form>
                     <Form className={'formupdate'}>
