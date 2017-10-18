@@ -278,8 +278,8 @@ const firstDeviceTypetems = [
                 }
             ]
         },{
-            value: 'DP500',
-            label: 'DP500',
+            value: 'DP500 显示器',
+            label: 'DP500 显示器',
         }, {
             value: '直径仪',
             label: '直径仪',
@@ -306,16 +306,16 @@ const firstDeviceTypetems = [
             label: '缺陷监测仪'
 
         }, {
-            value: 'FLM101',
-            label: 'FLM101'
+            value: 'FLM101 外径测试仪',
+            label: 'FLM101 外径测试仪'
 
         }, {
             value: 'I/O 模块',
             label: 'I/O 模块'
 
         }, {
-            value: 'ICON',
-            label: 'ICON'
+            value: 'ICON 系列',
+            label: 'ICON 系列'
 
         }, {
             value: 'Laserspeed MID系列',
@@ -342,8 +342,8 @@ const firstDeviceTypetems = [
             label: 'Sparktester火花测试机'
 
         }, {
-            value: '超声波测试仪',
-            label: '超声波测试仪'
+            value: 'Ultrasonics 超声波测试仪',
+            label: 'Ultrasonics 超声波测试仪'
 
         }, {
             value: 'DCM 系列产品',
@@ -422,7 +422,7 @@ class RepairForm extends Component {
         // const jsApiObject = sign('HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1IoWHbeJ8zz_843FzDl3CfG92Iepakr5Qc_V39F5owV_g', url);
         // alert(window.location.href);
         wx.config({
-            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: 'wx457ecf3c803c3774', // 必填，公众号的唯一标识
             // timestamp: 1415171822, // 必填，生成签名的时间戳
             // nonceStr: '82zklqj7ycoywrk', // 必填，生成签名的随机串
@@ -971,7 +971,6 @@ class RepairForm extends Component {
                                         onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
-                            <div>录音1</div>
                         </div>
                         <div className={"RepairBorder"}>
                             <FormCell className={"weui-label-align-top"}>
