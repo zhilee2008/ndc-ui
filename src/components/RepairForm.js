@@ -261,7 +261,7 @@ const firstDeviceTypetems = [
                     label: 'In Control',
                 }, {
                     value: "900/1000/2000 过程控制",
-                    label: "900/1000/2000 过程控制",  
+                    label: "900/1000/2000 过程控制",
                 }, {
                     value: "DP5000",
                     label: "DP5000",
@@ -276,7 +276,7 @@ const firstDeviceTypetems = [
                     label: "182/192 过程控制",
                 }
             ]
-        },{
+        }, {
             value: 'DP500 显示器',
             label: 'DP500 显示器',
         }, {
@@ -288,19 +288,19 @@ const firstDeviceTypetems = [
                     label: "Accuscan 5000",
                 }, {
                     value: "Accuscan 1000",
-                    label: "Accuscan 1000", 
+                    label: "Accuscan 1000",
                 }, {
                     value: "Accuscan 3000",
-                    label: "Accuscan 3000", 
+                    label: "Accuscan 3000",
                 }, {
                     value: "Accuscan 4000",
-                    label: "Accuscan 4000", 
+                    label: "Accuscan 4000",
                 }, {
                     value: "Accuscan 6000",
-                    label: "Accuscan 6000", 
+                    label: "Accuscan 6000",
                 }
             ]
-        },{
+        }, {
             value: '缺陷监测仪',
             label: '缺陷监测仪'
 
@@ -436,11 +436,11 @@ class RepairForm extends Component {
                 'stopRecord',
                 'onVoiceRecordEnd',
                 'playVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1J1mkEJ1D2hXrjhav0CdbSKk_dDrRUogH1vc-kvBlRbFA',
-            nonceStr: 'lntpegxdxexlit4',
-            timestamp: '1508235953',
+            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1L6sivJUb_yg7vbtueLs4tmb4ltqLSSqVCuL9wSCa-inA',
+            nonceStr: 'wxiae0hiw8p9bum',
+            timestamp: '1508328148',
             url: 'http://xn.geekx.cn/repairsubmit',
-            signature: '7015c6dd52692ddb58989d898eb4e5ef1f67723d'
+            signature: '930e33423fcc1024961af8005935600dcfbc62a4'
         });
     }
 
@@ -736,10 +736,13 @@ class RepairForm extends Component {
                     localId: localId,
                     radioText: localId
                 })
+                alert('stop' + localId);
+                self.addRadioDev(localId);
                 wx.uploadVoice({
                     localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
                     isShowProgressTips: 1, // 默认为1，显示进度提示
                     success: function (res) {
+                        alert('upload' + localId);
                         var serverId = res.serverId; // 返回音频的服务器端ID
                         self.addRadioDev(localId);
                     }
