@@ -257,8 +257,8 @@ const firstDeviceTypetems = [
             value: '控制系统',
             label: '控制系统',
             children: [{
-                value: 'DP500',
-                label: 'DP500',
+                value: 'DP500显示屏',
+                label: 'DP500显示屏',
             }]
         }, {
             value: '直径仪',
@@ -276,8 +276,8 @@ const firstDeviceTypetems = [
                 label: 'I/O 模块'
 
             }, {
-                value: 'ICON',
-                label: 'ICON'
+                value: 'ICON系列',
+                label: 'ICON系列'
 
             }, {
                 value: 'Laserspeed MID系列',
@@ -304,8 +304,8 @@ const firstDeviceTypetems = [
                 label: 'Sparktester火花测试机'
 
             }, {
-                value: '超声波测试仪',
-                label: '超声波测试仪'
+                value: 'Ultrasonics 超声波测试仪',
+                label: 'Ultrasonics 超声波测试仪'
 
             }, {
                 value: 'DCM',
