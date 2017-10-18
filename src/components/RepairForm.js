@@ -462,7 +462,6 @@ class RepairForm extends Component {
             $('#talk_btn').on('touchstart', function (event) {
                 event.preventDefault();
                 // START = new Date().getTime();
-
                 recordTimer = setTimeout(function () {
                     wx.startRecord({
                         success: function () {
@@ -484,10 +483,10 @@ class RepairForm extends Component {
                 //     //小于300ms，不录音
                 //     clearTimeout(recordTimer);
                 // }else{
-                alert('s1');
+                // alert('s1');
                 wx.stopRecord({
                     success: function (res) {
-                        alert('s2');
+                        // alert('s2');
                         var localId = res.localId;
                         self.setState({
                             localId: localId,
@@ -496,7 +495,7 @@ class RepairForm extends Component {
                         self.addRadioDev(localId);
                     },
                     fail: function (res) {
-                        alert('error:' + JSON.stringify(res));
+                        alert('IOS录音功能暂不可用:' + JSON.stringify(res));
                     }
                 });
                 // }
@@ -775,8 +774,9 @@ class RepairForm extends Component {
 
 
     addRadioDev(localId) {
-        alert('adddiv');
-        const radiodiv = "<div style='float:left'><div id='" + localId + "' class='savedradio'>录音" + radioCount + "</div><img class='deleteradio' src='/images/delete.png' /></div>";
+        // alert('adddiv');
+        $('#buttoncontainer').empty();
+        const radiodiv = "<div style='float:left'><div id='" + localId + "' class='savedradio'>点击播放录音</div><img class='deleteradio' src='/images/delete.png' /></div>";
         $('#buttoncontainer').append(radiodiv);
         $('.deleteradio').click(function (e) {
             e.target.parentNode.remove();
