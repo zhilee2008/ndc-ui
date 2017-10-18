@@ -485,11 +485,16 @@ class RepairForm extends Component {
                 //     //小于300ms，不录音
                 //     clearTimeout(recordTimer);
                 // }else{
+                    alert('s1');
                 wx.stopRecord({
                     success: function (res) {
-                        const localId = res.localId;
+                        alert('s2');
+                        var localId = res.localId;
+                        self.setState({
+                            localId: localId,
+                            radioText: localId
+                        })
                         self.addRadioDev(localId);
-                        // uploadVoice();
                     },
                     fail: function (res) {
                         alert('error:' + JSON.stringify(res));
@@ -771,6 +776,7 @@ class RepairForm extends Component {
 
 
     addRadioDev(localId) {
+        alert('adddiv');
         const radiodiv = "<div style='float:left'><div id='" + localId + "' class='savedradio'>录音" + radioCount + "</div><img class='deleteradio' src='/images/delete.png' /></div>";
         $('#buttoncontainer').append(radiodiv);
         $('.deleteradio').click(function (e) {
@@ -1055,12 +1061,10 @@ class RepairForm extends Component {
                                         onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
-                            <div>
                                 {/* <Button style={{ width: '80%' }} disabled={this.state.disabledstartradio} onClick={this.startRadio.bind(this)} >开始录音</Button>
                                 <Button style={{ width: '80%' }} disabled={this.state.disabledendradio} onClick={this.endRadio.bind(this)} >结束录音</Button> */}
                                 {/* <Button id="talk_btn"   className={"radioimage"} >&nbsp;</Button> */}
                                 <div style={{ height: '50px' }} id="buttoncontainer"></div>
-                            </div>
                         </div>
                         <div className={"RepairBorder"}>
                             <FormCell className={"weui-label-align-top"}>
