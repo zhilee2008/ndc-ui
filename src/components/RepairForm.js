@@ -457,7 +457,7 @@ class RepairForm extends Component {
             url: 'http://xn.geekx.cn/repairsubmit',
             signature: '930e33423fcc1024961af8005935600dcfbc62a4'
         });
-
+        const self = this;
         wx.ready(function () {
             $('#talk_btn').on('touchstart', function (event) {
                 event.preventDefault();
@@ -474,7 +474,6 @@ class RepairForm extends Component {
                     });
                 }, 300);
             });
-            const self = this;
             $('#talk_btn').on('touchend', function (event) {
                 event.preventDefault();
                 // END = new Date().getTime();
@@ -485,7 +484,7 @@ class RepairForm extends Component {
                 //     //小于300ms，不录音
                 //     clearTimeout(recordTimer);
                 // }else{
-                    alert('s1');
+                alert('s1');
                 wx.stopRecord({
                     success: function (res) {
                         alert('s2');
@@ -1061,10 +1060,10 @@ class RepairForm extends Component {
                                         onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
-                                {/* <Button style={{ width: '80%' }} disabled={this.state.disabledstartradio} onClick={this.startRadio.bind(this)} >开始录音</Button>
+                            {/* <Button style={{ width: '80%' }} disabled={this.state.disabledstartradio} onClick={this.startRadio.bind(this)} >开始录音</Button>
                                 <Button style={{ width: '80%' }} disabled={this.state.disabledendradio} onClick={this.endRadio.bind(this)} >结束录音</Button> */}
-                                {/* <Button id="talk_btn"   className={"radioimage"} >&nbsp;</Button> */}
-                                <div style={{ height: '50px' }} id="buttoncontainer"></div>
+                            {/* <Button id="talk_btn"   className={"radioimage"} >&nbsp;</Button> */}
+                            <div style={{ height: '50px' }} id="buttoncontainer"></div>
                         </div>
                         <div className={"RepairBorder"}>
                             <FormCell className={"weui-label-align-top"}>
