@@ -703,12 +703,12 @@ class RepairForm extends Component {
 
 
     addRadioDev(localId) {
-        const radiodiv = "<div class='savedradiocontainer' id='" + localId + "' style='float:left'><div class='savedradio'>录音" + radioCount + "</div><img class='deleteradio' src='/images/delete.png' /></div>";
+        const radiodiv = "<div style='float:left'><div id='" + localId + "' class='savedradio'>录音" + radioCount + "</div><img class='deleteradio' src='/images/delete.png' /></div>";
         $('#buttoncontainer').append(radiodiv);
         $('.deleteradio').click(function (e) {
             e.target.parentNode.remove();
         });
-        $('.savedradiocontainer').click(function (e) {
+        $('.savedradio').click(function (e) {
             wx.playVoice({
                 localId: e.target.id
             });
@@ -721,12 +721,7 @@ class RepairForm extends Component {
             disabledstartradio: false,
             disabledendradio: true,
         })
-        // const localId = radioCount;
-        // const radiodiv = "<div id='" + localId + "' style='float:left'><div class='savedradio'>录音" + radioCount + "</div><img class='deleteradio' src='/images/delete.png' /></div>";
-        // $('#buttoncontainer').append(radiodiv);
-        // $('.deleteradio').click(function (e) {
-        //     e.target.parentNode.remove();
-        // });
+
         radioCount++;
         var self = this;
         wx.stopRecord({
