@@ -356,7 +356,7 @@ const firstDeviceTypetems = [
 const firstDeviceElements = [];
 const secondDeviceElements = [];
 const thirdDeviceElements = [];
-
+const recordTimer=null;
 // const radiodiv =<div><div id={'recordbutton'} onClick={this.playRadio.bind(this)} className={'savedradio'}>录音{radioCount}</div><img id={'deleteradiobutton'} className={'deleteradio'} src={'/images/delete.png'} /></div>;
 const radioCount = 1;
 
@@ -442,6 +442,50 @@ class RepairForm extends Component {
             url: 'http://xn.geekx.cn/repairsubmit',
             signature: '930e33423fcc1024961af8005935600dcfbc62a4'
         });
+
+        wx.ready(function () {
+            $('#talk_btn').on('touchstart', function(event){
+                event.preventDefault();
+                // START = new Date().getTime();
+            
+                recordTimer = setTimeout(function(){
+                    wx.startRecord({
+                        success: function(){
+                            localStorage.rainAllowRecord = 'true';
+                        },
+                        cancel: function () {
+                            alert('用户拒绝授权录音');
+                        }
+                    });
+                },300);
+            });
+
+            $('#talk_btn').on('touchend', function(event){
+                event.preventDefault();
+                // END = new Date().getTime();
+                
+                // if((END - START) < 300){
+                //     END = 0;
+                //     START = 0;
+                //     //小于300ms，不录音
+                //     clearTimeout(recordTimer);
+                // }else{
+                    wx.stopRecord({
+                      success: function (res) {
+                        const localId = res.localId;
+                        alert(localId);
+                        // uploadVoice();
+                      },
+                      fail: function (res) {
+                        alert(JSON.stringify(res));
+                      }
+                    });
+                // }
+            });
+            
+
+        });
+
     }
 
     validRepairForm = () => {
@@ -724,6 +768,7 @@ class RepairForm extends Component {
         });
     }
 
+
     endRadio(e) {
         this.setState({
             showWarn: false,
@@ -741,7 +786,7 @@ class RepairForm extends Component {
                     radioText: localId
                 })
                 self.addRadioDev(localId);
-                
+
             }
         });
     }
@@ -1005,7 +1050,7 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>附件文档</Label>
-                                    <img src='/images/tupian@2x.png' onClick={this.addImage.bind(this)} className={"imagebutton"} />
+                                    <img id="talk_btn" src='/images/tupian@2x.png'  className={"imagebutton"} />
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
