@@ -253,7 +253,7 @@ class OrderDetailsUpdate extends Component {
             engineerName: this.state.engineerName,
             engineerMobile: this.state.engineerMobile,
             homeServiceTime: this.state.homeServiceTime,
-            repairTime: this.state.repairTime,
+            // repairTime: this.state.repairTime,
             notes: this.state.notes,
             fixcompleted: String(this.state.fixCompleted),
             smsUser: String(this.state.smsUser),
