@@ -58,7 +58,7 @@ class App extends Component {
         main: () => <RepairManagementItems/>,
       },
       {
-        path: '/orderdetails/:id',
+        path: '/orderdetails/:id/:showIKnowBtn',
         exact: true,
         main: () => <OrderDetails/>,
       },

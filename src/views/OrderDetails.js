@@ -49,7 +49,8 @@ class OrderDetails extends Component {
             engineerName:'',
             homeServiceTime:0,
             repairTime:0,
-            completed: ''
+            completed: '',
+            showIKnowBtn: true
         };
     }
 
@@ -61,10 +62,19 @@ class OrderDetails extends Component {
 
     componentDidMount() {
         // console.log(this.props.match.params.id);
+        let showIKnowBtn = this.props.match.params.showIKnowBtn;
+        if (showIKnowBtn === 'false') {
+            showIKnowBtn = false;
+        }else {
+            showIKnowBtn = true;
+        }
+
         this.setState({
-            itemId: this.props.match.params.id
+            itemId: this.props.match.params.id,
+            showIKnowBtn: showIKnowBtn
         });
         let itemId = this.props.match.params.id;
+
         this.getStatusById(itemId);
     }
 
@@ -280,7 +290,7 @@ class OrderDetails extends Component {
                         </FormCell>
                     </Form>
 
-                    <ButtonArea className={this.state.completed === 'completed'? 'hideKnowBtn' : 'showKnowBtn'}>
+                    <ButtonArea className={(this.state.completed === 'completed' || !this.state.showIKnowBtn) ? 'hideKnowBtn' : 'showKnowBtn'}>
                         <Button onClick={this.detailsUpdate.bind(this)}>
                             我知道了
                         </Button>
