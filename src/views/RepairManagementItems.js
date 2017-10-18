@@ -72,7 +72,7 @@ class RepairManagementItems extends Component {
 
 
     detailsItemClick = (itemId) => {
-        let path = '/orderdetails/' + itemId;
+        let path = '/orderdetails/' + itemId + '/true';
 
         this.props.history.push(path);
     };

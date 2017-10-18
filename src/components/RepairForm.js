@@ -28,7 +28,6 @@ import './RepairForm.css'
 import $ from 'jquery';
 import sign from '../utils/sign'
 
-
 const firstDeviceTypetems = [
     {
         value: '',
@@ -262,7 +261,7 @@ const firstDeviceTypetems = [
                     label: 'In Control',
                 }, {
                     value: "900/1000/2000 过程控制",
-                    label: "900/1000/2000 过程控制",  
+                    label: "900/1000/2000 过程控制",
                 }, {
                     value: "DP5000",
                     label: "DP5000",
@@ -277,7 +276,7 @@ const firstDeviceTypetems = [
                     label: "182/192 过程控制",
                 }
             ]
-        },{
+        }, {
             value: 'DP500 显示器',
             label: 'DP500 显示器',
         }, {
@@ -289,19 +288,19 @@ const firstDeviceTypetems = [
                     label: "Accuscan 5000",
                 }, {
                     value: "Accuscan 1000",
-                    label: "Accuscan 1000", 
+                    label: "Accuscan 1000",
                 }, {
                     value: "Accuscan 3000",
-                    label: "Accuscan 3000", 
+                    label: "Accuscan 3000",
                 }, {
                     value: "Accuscan 4000",
-                    label: "Accuscan 4000", 
+                    label: "Accuscan 4000",
                 }, {
                     value: "Accuscan 6000",
-                    label: "Accuscan 6000", 
+                    label: "Accuscan 6000",
                 }
             ]
-        },{
+        }, {
             value: '缺陷监测仪',
             label: '缺陷监测仪'
 
@@ -357,8 +356,9 @@ const firstDeviceTypetems = [
 const firstDeviceElements = [];
 const secondDeviceElements = [];
 const thirdDeviceElements = [];
-
-
+const recordTimer = null;
+// const radiodiv =<div><div id={'recordbutton'} onClick={this.playRadio.bind(this)} className={'savedradio'}>录音{radioCount}</div><img id={'deleteradiobutton'} className={'deleteradio'} src={'/images/delete.png'} /></div>;
+const radioCount = 1;
 
 class RepairForm extends Component {
 
@@ -388,6 +388,10 @@ class RepairForm extends Component {
             thirdDeviceData: [],
             displayDeviceTypeII: { display: "none" },
             displayDeviceTypeIII: { display: "none" },
+            disabledstartradio: false,
+            radionumber: 1,
+            disabledendradio: true,
+
             warningStyle: {
                 buttons: [
                     {
@@ -405,6 +409,7 @@ class RepairForm extends Component {
                     }
                 ]
             },
+            radioText: '',
             showWarn: false,
             warnTimer: null,
             gallery: false,
@@ -418,6 +423,21 @@ class RepairForm extends Component {
     };
 
     componentDidMount() {
+        $('#talk_btn').on('touchstart', function (event) {
+            event.preventDefault();
+            // START = new Date().getTime();
+
+            recordTimer = setTimeout(function () {
+                wx.startRecord({
+                    success: function () {
+                        localStorage.rainAllowRecord = 'true';
+                    },
+                    cancel: function () {
+                        alert('用户拒绝授权录音');
+                    }
+                });
+            }, 300);
+        });
         // const url = 'http://xn.geekx.cn';
         // const jsApiObject = sign('HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1IoWHbeJ8zz_843FzDl3CfG92Iepakr5Qc_V39F5owV_g', url);
         // alert(window.location.href);
@@ -431,12 +451,59 @@ class RepairForm extends Component {
                 'stopRecord',
                 'onVoiceRecordEnd',
                 'playVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1J1mkEJ1D2hXrjhav0CdbSKk_dDrRUogH1vc-kvBlRbFA',
-            nonceStr: 'lntpegxdxexlit4',
-            timestamp: '1508235953',
+            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1L6sivJUb_yg7vbtueLs4tmb4ltqLSSqVCuL9wSCa-inA',
+            nonceStr: 'wxiae0hiw8p9bum',
+            timestamp: '1508328148',
             url: 'http://xn.geekx.cn/repairsubmit',
-            signature: '7015c6dd52692ddb58989d898eb4e5ef1f67723d'
+            signature: '930e33423fcc1024961af8005935600dcfbc62a4'
         });
+        const self = this;
+        wx.ready(function () {
+            $('#talk_btn').on('touchstart', function (event) {
+                event.preventDefault();
+                // START = new Date().getTime();
+                recordTimer = setTimeout(function () {
+                    wx.startRecord({
+                        success: function () {
+                            localStorage.rainAllowRecord = 'true';
+                        },
+                        cancel: function () {
+                            alert('用户拒绝授权录音');
+                        }
+                    });
+                }, 300);
+            });
+            $('#talk_btn').on('touchend', function (event) {
+                event.preventDefault();
+                // END = new Date().getTime();
+
+                // if((END - START) < 300){
+                //     END = 0;
+                //     START = 0;
+                //     //小于300ms，不录音
+                //     clearTimeout(recordTimer);
+                // }else{
+                // alert('s1');
+                wx.stopRecord({
+                    success: function (res) {
+                        // alert('s2');
+                        var localId = res.localId;
+                        self.setState({
+                            localId: localId,
+                            radioText: localId
+                        })
+                        self.addRadioDev(localId);
+                    },
+                    fail: function (res) {
+                        alert('IOS录音功能暂不可用:' + JSON.stringify(res));
+                    }
+                });
+                // }
+            });
+
+
+        });
+
     }
 
     validRepairForm = () => {
@@ -683,6 +750,15 @@ class RepairForm extends Component {
                 showWarn: false,
                 showIOS1: true
             })
+
+            wx.uploadVoice({
+                localId: this.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                isShowProgressTips: 1, // 默认为1，显示进度提示
+                success: function (res) {
+                    var serverId = res.serverId; // 返回音频的服务器端ID
+                    alert(serverId);
+                }
+            });
         }
 
     }
@@ -690,39 +766,52 @@ class RepairForm extends Component {
         wx.startRecord();
         this.setState({
             showWarn: true,
+            disabledstartradio: true,
+            disabledendradio: false,
         })
+
     }
+
+
+    addRadioDev(localId) {
+        // alert('adddiv');
+        $('#buttoncontainer').empty();
+        const radiodiv = "<div style='float:left'><div id='" + localId + "' class='savedradio'>点击播放录音</div><img class='deleteradio' src='/images/delete.png' /></div>";
+        $('#buttoncontainer').append(radiodiv);
+        $('.deleteradio').click(function (e) {
+            e.target.parentNode.remove();
+        });
+        $('.savedradio').click(function (e) {
+            wx.playVoice({
+                localId: e.target.id
+            });
+        });
+    }
+
+
     endRadio(e) {
         this.setState({
             showWarn: false,
+            disabledstartradio: false,
+            disabledendradio: true,
         })
+
+        radioCount++;
         var self = this;
         wx.stopRecord({
             success: function (res) {
                 var localId = res.localId;
                 self.setState({
                     localId: localId,
+                    radioText: localId
                 })
-                wx.uploadVoice({
-                    localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                    isShowProgressTips: 1, // 默认为1，显示进度提示
-                    success: function (res) {
-                        var serverId = res.serverId; // 返回音频的服务器端ID
-                    }
-                });
+                self.addRadioDev(localId);
+
             }
         });
     }
-    playRadio(e) {
-        wx.playVoice({
-            localId: this.state.localId
-        });
 
-    }
     addImage(e) {
-        wx.playVoice({
-            localId: '' // 需要播放的音频的本地ID，由stopRecord接口获得
-        });
     }
     addVideo(e) {
 
@@ -960,8 +1049,8 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>故障细节</Label>
-                                    <Button onTouchStart={this.startRadio.bind(this)} onTouchEnd={this.endRadio.bind(this)} className={'radioimage'} />
-                                     <Button  onClick={this.playRadio.bind(this)} className={'radioimage'}/>
+                                    <Button id="talk_btn" className={'radioimage'} >&nbsp;</Button>
+                                    {/* <Button id="talk_btn" onTouchStart={this.startRadio.bind(this)} onTouchEnd={this.endRadio.bind(this)} className={'radioimage'} >&nbsp;</Button> */}
 
                                     {/* <Label><img src='/images/yuiyn@2x.png' ontouchend={this.endRadio.bind(this)} ontouchstart={this.startRadio.bind(this)} className={"radioimage"}/></Label> */}
                                 </CellHeader>
@@ -971,12 +1060,17 @@ class RepairForm extends Component {
                                         onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
+                            {/* <Button style={{ width: '80%' }} disabled={this.state.disabledstartradio} onClick={this.startRadio.bind(this)} >开始录音</Button>
+                                <Button style={{ width: '80%' }} disabled={this.state.disabledendradio} onClick={this.endRadio.bind(this)} >结束录音</Button> */}
+                            {/* <Button id="talk_btn"   className={"radioimage"} >&nbsp;</Button> */}
+                            <div style={{ height: '50px' }} id="buttoncontainer"></div>
                         </div>
                         <div className={"RepairBorder"}>
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>附件文档</Label>
-                                    <img src='/images/tupian@2x.png' onClick={this.addImage.bind(this)} className={"imagebutton"} />
+                                    <Button id="talk_btn" style={{ width: '80%' }} >结束录音</Button>
+                                    <img src='/images/tupian@2x.png' className={"imagebutton"} />
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
