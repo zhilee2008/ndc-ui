@@ -67,6 +67,7 @@ class OrderDetailsUpdate extends Component {
                     }
                 ]
             },
+            selectedOpention: '',
           engineerData: [
             {
               value: "",
@@ -139,9 +140,24 @@ class OrderDetailsUpdate extends Component {
               mobile: "13708451143"
             },
 
+          ],
+          engineerOpention:[
+
+            {
+                value: "1.缺少或等配件",
+                label: "1.缺少或等配件"
+             },{
+                value: "2.还没有轮到修",
+                label: "2.还没有轮到修"
+              }, {
+                value: "3.老型号仪器，很少维修，缺少配件和维修能力",
+                label: "3.老型号仪器，很少维修，缺少配件和维修能力"
+              },{
+                  value: "4.其他",
+                  label: "4.其他"
+              },
           ]
         }
-
     };
     componentWillMount() {
         let itemId = this.props.match.params.id;
@@ -180,6 +196,7 @@ class OrderDetailsUpdate extends Component {
                     troubleDetail: orderdetails.BugDetail,
                     engineerName: orderdetails.OrderLog.Engineer.Name,
                     engineerMobile: orderdetails.OrderLog.Engineer.Mobile,
+                    //engineerOpention: orderdetails.Opention,
                     homeServiceTime: Util.timeStamp2TString(orderdetails.OrderLog.Engineer.Homeservicetime),
                     repairTime: Util.timeStamp2TString(orderdetails.OrderLog.Engineer.RepairTime),
                     fixCompleted: orderdetails.OrderLog.Engineer.Complete,
@@ -228,7 +245,12 @@ class OrderDetailsUpdate extends Component {
             }
         }
     };
-
+    handleEngineerOpentionChange = (e) => {
+        let name = e.target.value;
+        this.setState({
+            selectedOpention : name
+        });
+    };
     validForm = () => {
 
         if (this.state.engineerName === '') {
@@ -252,6 +274,7 @@ class OrderDetailsUpdate extends Component {
             orderId: this.state.orderId,
             engineerName: this.state.engineerName,
             engineerMobile: this.state.engineerMobile,
+            engineerOpention: this.state.selectedOpention,
             homeServiceTime: this.state.homeServiceTime,
             repairTime: this.state.repairTime,
             notes: this.state.notes,
@@ -357,6 +380,7 @@ class OrderDetailsUpdate extends Component {
                                     onChange={this.handleChange.bind(this)} placeholder="上门时间" />
                             </CellBody>
                         </FormCell>
+
                         {/*<FormCell>*/}
                             {/*<CellHeader>*/}
                                 {/*<Label style={{ color: '#000' }}>维修时间</Label>*/}
@@ -368,6 +392,18 @@ class OrderDetailsUpdate extends Component {
                             {/*</CellBody>*/}
                         {/*</FormCell>*/}
 
+                    </Form>
+                    <Form className={'formupdate'}>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: '#000' }}>选项</Label>
+                            </CellHeader>
+                            <CellBody>
+
+                                <Select value={this.state.selectedOpention} onChange={this.handleEngineerOpentionChange.bind(this)} data={this.state.engineerOpention} />
+
+                            </CellBody>
+                        </FormCell>
                     </Form>
                     <Form className={'formupdate'}>
 
