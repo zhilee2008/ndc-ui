@@ -688,6 +688,15 @@ class RepairForm extends Component {
                 showWarn: false,
                 showIOS1: true
             })
+
+            wx.uploadVoice({
+                localId: this.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                isShowProgressTips: 1, // 默认为1，显示进度提示
+                success: function (res) {
+                    var serverId = res.serverId; // 返回音频的服务器端ID
+                    alert(serverId);
+                }
+            });
         }
 
     }
@@ -731,26 +740,12 @@ class RepairForm extends Component {
                     localId: localId,
                     radioText: localId
                 })
-                alert('stop' + localId);
                 self.addRadioDev(localId);
-                wx.uploadVoice({
-                    localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                    isShowProgressTips: 1, // 默认为1，显示进度提示
-                    success: function (res) {
-                        alert('upload' + localId);
-                        var serverId = res.serverId; // 返回音频的服务器端ID
-                        self.addRadioDev(localId);
-                    }
-                });
+                
             }
         });
     }
-    playRadio(e) {
-        wx.playVoice({
-            localId: this.state.localId
-        });
 
-    }
     addImage(e) {
     }
     addVideo(e) {
