@@ -30,14 +30,22 @@ class RepairManagement extends Component {
         let path = '/';
         if (pageId === '1') {
             path = '/repairmanagementitems/new';
+            if (this.state.newcount === 0) {
+                return;
+            }
         }
         if (pageId === '2') {
             path = '/repairmanagementitems/handling';
+            if (this.state.handlingcount === 0) {
+                return;
+            }
         }
         if (pageId === '3') {
-            path = '/repairmanagementitems/complete';
+            path = '/repairmanagementitems/completed';
+            if (this.state.completecount === 0) {
+                return;
+            }
         }
-
         this.props.history.push(path);
     };
 
@@ -60,9 +68,9 @@ class RepairManagement extends Component {
                 const orderdetails = JSON.parse(msg);
                 if (orderdetails) {
                     self.setState({
-                        newcount: orderdetails.new ? orderdetails.new:0,
-                        handlingcount: orderdetails.handling ? orderdetails.handling:0,
-                        completecount: orderdetails.complete ? orderdetails.complete:0,
+                        newcount: orderdetails.new ? orderdetails.new : 0,
+                        handlingcount: orderdetails.handling ? orderdetails.handling : 0,
+                        completecount: orderdetails.completed ? orderdetails.completed : 0,
                     });
                 }
 
@@ -76,7 +84,7 @@ class RepairManagement extends Component {
             // });
         });
     };
-   
+
 
 
 
@@ -84,7 +92,7 @@ class RepairManagement extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader onClick={e => this.props.history.push('/')} style={{width: '20%', height: '65px', marginTop: '25px' }} >
+                    <CellHeader onClick={e => this.props.history.push('/')} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
                         <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回
@@ -95,7 +103,7 @@ class RepairManagement extends Component {
                         报修管理
                     </CellBody>
                     <CellFooter style={{ width: '20%' }} >
-                        <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
+                        <img style={{ width: '30px',display:'none' }} src='/images/menu12@2x.png' />
                     </CellFooter>
                 </Cell>
                 <MediaBox key={1} type="appmsg" href="javascript:void(0);" onClick={this.menuItemClick.bind(this, '1')}>

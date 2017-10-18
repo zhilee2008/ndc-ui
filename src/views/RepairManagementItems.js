@@ -105,7 +105,7 @@ class RepairManagementItems extends Component {
                             报修状态查询
                   </CellBody>
                         <CellFooter style={{ width: '20%' }} >
-                            <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
+                            <img style={{ width: '30px',display:'none' }} src='/images/menu12@2x.png' />
                         </CellFooter>
                     </Cell>
                     {/* <img src='/images/touying@2x.png' /> */}

@@ -24,6 +24,7 @@ import {
 import Page from '../components/page';
 import './orderdetails.css'
 import $ from 'jquery';
+import Util from '../utils/Util';
 
 class OrderDetails extends Component {
 
@@ -46,7 +47,9 @@ class OrderDetails extends Component {
             troubleDetail: '',
             errorMsg: '',
             engineerName:'',
-            homeServiceTime:'',
+            homeServiceTime:0,
+            repairTime:0,
+            completed: ''
         };
     }
 
@@ -92,7 +95,9 @@ class OrderDetails extends Component {
                     companyAddress: orderdetails.CompanyAddress,
                     troubleDetail: orderdetails.BugDetail,
                     engineerName:orderdetails.OrderLog.Engineer.Name,
-                    homeServiceTime:orderdetails.OrderLog.Engineer.Homeservicetime,
+                    homeServiceTime:Util.timeStamp2TString(orderdetails.OrderLog.Engineer.Homeservicetime),
+                    repairTime:Util.timeStamp2TString(orderdetails.OrderLog.Engineer.RepairTime),
+                    completed: orderdetails.Status
                 });
 
             }
@@ -127,7 +132,7 @@ class OrderDetails extends Component {
                             报修状态查询
                   </CellBody>
                         <CellFooter style={{ width: '20%' }} >
-                            <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
+                            <img style={{ width: '30px',display:'none' }} src='/images/menu12@2x.png' />
                         </CellFooter>
                     </Cell>
                     {/* <img src='/images/touying@2x.png' /> */}
@@ -191,7 +196,7 @@ class OrderDetails extends Component {
                                 {this.state.productTypeI}
                             </CellBody>
                         </FormCell>
-                        {/* <FormCell>
+                        <FormCell>
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>设备类型II:</Label>
                             </CellHeader>
@@ -206,7 +211,7 @@ class OrderDetails extends Component {
                             <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                                 {this.state.productTypeIII}
                             </CellBody>
-                        </FormCell> */}
+                        </FormCell>
                         <FormCell>
                             <CellHeader>
                                 <Label style={{ color: '#000' }}>详细公司地址:</Label>
@@ -265,9 +270,17 @@ class OrderDetails extends Component {
                                 {this.state.homeServiceTime}
                             </CellBody>
                         </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: '#000' }}>维修时间:</Label>
+                            </CellHeader>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                {this.state.repairTime}
+                            </CellBody>
+                        </FormCell>
                     </Form>
 
-                    <ButtonArea>
+                    <ButtonArea className={this.state.completed === 'completed'? 'hideKnowBtn' : 'showKnowBtn'}>
                         <Button onClick={this.detailsUpdate.bind(this)}>
                             我知道了
                         </Button>

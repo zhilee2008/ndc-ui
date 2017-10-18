@@ -22,12 +22,11 @@ import {
     Toast
 } from '../../packages';
 import Page from '../components/page';
-
+import wx from 'weixin-js-sdk'
 import './RepairForm.css'
 
 import $ from 'jquery';
-
-
+import sign from '../utils/sign'
 
 
 const firstDeviceTypetems = [
@@ -43,8 +42,8 @@ const firstDeviceTypetems = [
             label: 'FVXR-1(43kv)',
 
         }, {
-            value: 'Rometer',
-            label: 'Rometer',
+            value: 'Rometer平直度仪',
+            label: 'Rometer平直度仪',
 
         }, {
             value: 'T100',
@@ -116,17 +115,17 @@ const firstDeviceTypetems = [
             value: 'Gamma射线传感器',
             label: 'Gamma射线传感器',
         }, {
-            value: '激光传感器',
-            label: '激光传感器',
+            value: 'Laser 激光传感器',
+            label: 'Laser 激光传感器',
         }, {
             value: 'Optimike',
             label: 'Optimike',
         }, {
-            value: 'Pronet',
-            label: 'Pronet',
+            value: 'Pronet 系统',
+            label: 'Pronet 系统',
         }, {
-            value: 'PronetTDI',
-            label: 'PronetTDI',
+            value: 'PronetTDI 系统',
+            label: 'PronetTDI 系统',
         }, {
             value: 'X射线传感器',
             label: 'X射线传感器',
@@ -249,70 +248,107 @@ const firstDeviceTypetems = [
             value: 'BLM软件工具',
             label: 'BLM软件工具',
         }, {
-            value: '电容仪',
-            label: '电容仪',
+            value: 'Capacitance 电容仪',
+            label: 'Capacitance 电容仪',
         }, {
-            value: '偏心仪',
-            label: '偏心仪',
+            value: 'Concentricity 偏心仪',
+            label: 'Concentricity 偏心仪',
         }, {
             value: '控制系统',
             label: '控制系统',
-            children: [{
-                value: 'DP500',
-                label: 'DP500',
-            }]
+            children: [
+                {
+                    value: "In Control",
+                    label: 'In Control',
+                }, {
+                    value: "900/1000/2000 过程控制",
+                    label: "900/1000/2000 过程控制",  
+                }, {
+                    value: "DP5000",
+                    label: "DP5000",
+                }, {
+                    value: "DP3000",
+                    label: "DP3000",
+                }, {
+                    value: "DP1000",
+                    label: "DP1000",
+                }, {
+                    value: "182/192 过程控制",
+                    label: "182/192 过程控制",
+                }
+            ]
+        },{
+            value: 'DP500 显示器',
+            label: 'DP500 显示器',
         }, {
             value: '直径仪',
             label: '直径仪',
-            children: [{
-                value: '缺陷监测仪',
-                label: '缺陷监测仪'
+            children: [
+                {
+                    value: "Accuscan 5000",
+                    label: "Accuscan 5000",
+                }, {
+                    value: "Accuscan 1000",
+                    label: "Accuscan 1000", 
+                }, {
+                    value: "Accuscan 3000",
+                    label: "Accuscan 3000", 
+                }, {
+                    value: "Accuscan 4000",
+                    label: "Accuscan 4000", 
+                }, {
+                    value: "Accuscan 6000",
+                    label: "Accuscan 6000", 
+                }
+            ]
+        },{
+            value: '缺陷监测仪',
+            label: '缺陷监测仪'
 
-            }, {
-                value: 'FLM101',
-                label: 'FLM101'
+        }, {
+            value: 'FLM101 外径测试仪',
+            label: 'FLM101 外径测试仪'
 
-            }, {
-                value: 'I/O 模块',
-                label: 'I/O 模块'
+        }, {
+            value: 'I/O 模块',
+            label: 'I/O 模块'
 
-            }, {
-                value: 'ICON',
-                label: 'ICON'
+        }, {
+            value: 'ICON 系列',
+            label: 'ICON 系列'
 
-            }, {
-                value: 'Laserspeed MID系列',
-                label: 'Laserspeed MID系列'
+        }, {
+            value: 'Laserspeed MID系列',
+            label: 'Laserspeed MID系列'
 
-            }, {
-                value: 'LS4000 系列',
-                label: 'LS4000 系列'
+        }, {
+            value: 'LS4000 系列',
+            label: 'LS4000 系列'
 
-            }, {
-                value: 'LS8000 系列',
-                label: 'LS8000 系列'
+        }, {
+            value: 'LS8000 系列',
+            label: 'LS8000 系列'
 
-            }, {
-                value: 'LS9000 系列',
-                label: 'LS9000 系列'
+        }, {
+            value: 'LS9000 系列',
+            label: 'LS9000 系列'
 
-            }, {
-                value: 'Preheater预加热',
-                label: 'Preheater预加热'
+        }, {
+            value: 'Preheater预加热',
+            label: 'Preheater预加热'
 
-            }, {
-                value: 'Sparktester火花测试机',
-                label: 'Sparktester火花测试机'
+        }, {
+            value: 'Sparktester火花测试机',
+            label: 'Sparktester火花测试机'
 
-            }, {
-                value: '超声波测试仪',
-                label: '超声波测试仪'
+        }, {
+            value: 'Ultrasonics 超声波测试仪',
+            label: 'Ultrasonics 超声波测试仪'
 
-            }, {
-                value: 'DCM',
-                label: 'DCM'
+        }, {
+            value: 'DCM 系列产品',
+            label: 'DCM 系列产品'
 
-            }]
         }]
     }
 ];
@@ -346,11 +382,12 @@ class RepairForm extends Component {
             showLoading: false,
             showWarningDialog: false,
             validElement: '',
-
+            localId: '',
             firstDeviceData: [],
             secondDeviceData: [],
             thirdDeviceData: [],
-
+            displayDeviceTypeII: { display: "none" },
+            displayDeviceTypeIII: { display: "none" },
             warningStyle: {
                 buttons: [
                     {
@@ -379,6 +416,28 @@ class RepairForm extends Component {
         };
 
     };
+
+    componentDidMount() {
+        // const url = 'http://xn.geekx.cn';
+        // const jsApiObject = sign('HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1IoWHbeJ8zz_843FzDl3CfG92Iepakr5Qc_V39F5owV_g', url);
+        // alert(window.location.href);
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: 'wx457ecf3c803c3774', // 必填，公众号的唯一标识
+            // timestamp: 1415171822, // 必填，生成签名的时间戳
+            // nonceStr: '82zklqj7ycoywrk', // 必填，生成签名的随机串
+            // signature: '',// 必填，签名，见附录1
+            jsApiList: ['startRecord',
+                'stopRecord',
+                'onVoiceRecordEnd',
+                'playVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1J1mkEJ1D2hXrjhav0CdbSKk_dDrRUogH1vc-kvBlRbFA',
+            nonceStr: 'lntpegxdxexlit4',
+            timestamp: '1508235953',
+            url: 'http://xn.geekx.cn/repairsubmit',
+            signature: '7015c6dd52692ddb58989d898eb4e5ef1f67723d'
+        });
+    }
 
     validRepairForm = () => {
         if (this.state.company === '') {
@@ -409,13 +468,13 @@ class RepairForm extends Component {
             });
             return;
         }
-        if (this.state.industry === '') {
-            this.setState({
-                validElement: '请选择行业',
-                showWarningDialog: true
-            });
-            return;
-        }
+        // if (this.state.industry === '') {
+        //     this.setState({
+        //         validElement: '请选择行业',
+        //         showWarningDialog: true
+        //     });
+        //     return;
+        // }
         if (this.state.serial === '') {
             this.setState({
                 validElement: '请填写产品序列号',
@@ -450,14 +509,14 @@ class RepairForm extends Component {
             name: this.state.name,
             mobile: this.state.mobile,
             email: this.state.email,
-            industry: this.state.industry,
             serial: this.state.serial,
             firstDeviceType: this.state.firstDeviceType,
             secondDeviceType: this.state.secondDeviceType,
             thirdDeviceType: this.state.thirdDeviceType,
             billAddress: this.state.billAddress,
             companyAddress: this.state.companyAddress,
-            bugDetail: this.state.bugDetail
+            bugDetail: this.state.bugDetail,
+
 
         };
 
@@ -550,20 +609,6 @@ class RepairForm extends Component {
     }
 
     handleChangeIndustry = (e) => {
-        // 订单生成首字母T 1
-        // 订单生成首字母P 2
-        // 订单生成首字母P 3
-        // 订单生成首字母T 4
-        // 订单生成首字母M 5
-        // 订单生成首字母T 6
-        // 订单生成首字母P 7
-        // 订单生成首字母C 8
-        // 订单生成首字母P 9
-        // 订单生成首字母T 10
-        // 订单生成首字母C 11
-        // 订单生成首字母O 12
-        // console.log(e.target.value)
-
         this.setState({
             industry: e.target.value
         });
@@ -581,8 +626,17 @@ class RepairForm extends Component {
         }
         this.setState({
             firstDeviceType: deviceType,
-            secondDeviceData: children
+            secondDeviceData: children,
         });
+        if (children !== undefined && children.length > 0) {
+            this.setState({
+                displayDeviceTypeII: { display: "block" }
+            });
+        } else {
+            this.setState({
+                displayDeviceTypeII: { display: "none" }
+            });
+        }
     }
     handleChangesecondDeviceType = (e) => {
         let deviceType = e.target.value;
@@ -597,8 +651,18 @@ class RepairForm extends Component {
 
         this.setState({
             secondDeviceType: deviceType,
-            thirdDeviceData: children
+            thirdDeviceData: children,
+
         });
+        if (children !== undefined && children.length > 0) {
+            this.setState({
+                displayDeviceTypeIII: { display: "block" }
+            });
+        } else {
+            this.setState({
+                displayDeviceTypeIII: { display: "none" }
+            });
+        }
     }
     handleChangethirdDeviceType = (e) => {
         this.setState({
@@ -622,13 +686,54 @@ class RepairForm extends Component {
         }
 
     }
+    startRadio(e) {
+        wx.startRecord();
+        this.setState({
+            showWarn: true,
+        })
+    }
+    endRadio(e) {
+        this.setState({
+            showWarn: false,
+        })
+        var self = this;
+        wx.stopRecord({
+            success: function (res) {
+                var localId = res.localId;
+                self.setState({
+                    localId: localId,
+                })
+                wx.uploadVoice({
+                    localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    success: function (res) {
+                        var serverId = res.serverId; // 返回音频的服务器端ID
+                    }
+                });
+            }
+        });
+    }
+    playRadio(e) {
+        wx.playVoice({
+            localId: this.state.localId
+        });
+
+    }
+    addImage(e) {
+        wx.playVoice({
+            localId: '' // 需要播放的音频的本地ID，由stopRecord接口获得
+        });
+    }
+    addVideo(e) {
+
+    }
 
     render() {
 
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader onClick={e => this.props.history.push('/')} style={{ width:'20%',height: '65px', marginTop: '25px' }} >
+                    <CellHeader onClick={e => this.props.history.push('/')} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
                         <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回
@@ -638,13 +743,13 @@ class RepairForm extends Component {
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
                         我要报修
                     </CellBody>
-                    <CellFooter style={{ width:'20%', }} >
-                        <img style={{ width: '30px' }} src='/images/menu12@2x.png' />
+                    <CellFooter style={{ width: '20%', }} >
+                        <img style={{ width: '30px', display: 'none' }} src='/images/menu12@2x.png' />
                     </CellFooter>
                 </Cell>
                 <div className={"repair-header-wrapper"}>
                     <div className={"repair-header-wrapper-image"}>
-                        <div style={{textAlign: 'center'}}>
+                        <div style={{ textAlign: 'center' }}>
                             <img src={"/images/24H@2x.png"} className={"relative-header-hours"} />
                         </div>
                         <span className={"relative-title"}>请完整填写以下报修信息</span>
@@ -718,7 +823,8 @@ class RepairForm extends Component {
                                 </CellBody>
                             </FormCell>
                         </div>
-                        <div className={"RepairBorder"}>
+                        <Toptips type="warn" show={this.state.showWarn}>录音中...</Toptips>
+                        {/* <div className={"RepairBorder"}>
                             <FormCell select selectPos="after" >
                                 <CellHeader>
                                     <Label>行业 <span className={'must-input-label'}>*</span></Label>
@@ -781,7 +887,7 @@ class RepairForm extends Component {
                                     ]} />
                                 </CellBody>
                             </FormCell>
-                        </div>
+                        </div> */}
                         <div className={"RepairBorder"}>
                             <FormCell>
                                 <CellHeader>
@@ -805,7 +911,7 @@ class RepairForm extends Component {
                                 </CellBody>
                             </FormCell>
                         </div>
-                        {/* <div className={"RepairBorder"}>
+                        <div className={"RepairBorder"} style={this.state.displayDeviceTypeII}>
                             <FormCell select selectPos="after">
                                 <CellHeader>
                                     <Label>设备类型II:</Label>
@@ -815,7 +921,7 @@ class RepairForm extends Component {
                                 </CellBody>
                             </FormCell>
                         </div>
-                        <div className={"RepairBorder"}>
+                        <div className={"RepairBorder"} style={this.state.displayDeviceTypeIII}>
                             <FormCell select selectPos="after">
                                 <CellHeader>
                                     <Label>设备类型III:</Label>
@@ -824,7 +930,7 @@ class RepairForm extends Component {
                                     <Select onChange={this.handleChangethirdDeviceType.bind(this)} data={this.state.thirdDeviceData} />
                                 </CellBody>
                             </FormCell>
-                        </div> */}
+                        </div>
 
                         <div className={"RepairBorder"}>
                             <FormCell>
@@ -854,6 +960,10 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>故障细节</Label>
+                                    <Button onTouchStart={this.startRadio.bind(this)} onTouchEnd={this.endRadio.bind(this)} className={'radioimage'} />
+                                     <Button  onClick={this.playRadio.bind(this)} className={'radioimage'}/>
+
+                                    {/* <Label><img src='/images/yuiyn@2x.png' ontouchend={this.endRadio.bind(this)} ontouchstart={this.startRadio.bind(this)} className={"radioimage"}/></Label> */}
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='bugDetail'
@@ -866,10 +976,13 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>附件文档</Label>
+                                    <img src='/images/tupian@2x.png' onClick={this.addImage.bind(this)} className={"imagebutton"} />
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
-                                </CellBody>
+
+                                    <img src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /></CellBody>
+
                             </FormCell>
                         </div>
                     </Form>
