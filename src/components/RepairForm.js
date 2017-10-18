@@ -356,7 +356,7 @@ const firstDeviceTypetems = [
 const firstDeviceElements = [];
 const secondDeviceElements = [];
 const thirdDeviceElements = [];
-const recordTimer=null;
+const recordTimer = null;
 // const radiodiv =<div><div id={'recordbutton'} onClick={this.playRadio.bind(this)} className={'savedradio'}>录音{radioCount}</div><img id={'deleteradiobutton'} className={'deleteradio'} src={'/images/delete.png'} /></div>;
 const radioCount = 1;
 
@@ -423,6 +423,21 @@ class RepairForm extends Component {
     };
 
     componentDidMount() {
+        $('#talk_btn').on('touchstart', function (event) {
+            event.preventDefault();
+            // START = new Date().getTime();
+
+            recordTimer = setTimeout(function () {
+                wx.startRecord({
+                    success: function () {
+                        localStorage.rainAllowRecord = 'true';
+                    },
+                    cancel: function () {
+                        alert('用户拒绝授权录音');
+                    }
+                });
+            }, 300);
+        });
         // const url = 'http://xn.geekx.cn';
         // const jsApiObject = sign('HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1IoWHbeJ8zz_843FzDl3CfG92Iepakr5Qc_V39F5owV_g', url);
         // alert(window.location.href);
@@ -444,45 +459,45 @@ class RepairForm extends Component {
         });
 
         wx.ready(function () {
-            $('#talk_btn').on('touchstart', function(event){
+            $('#talk_btn').on('touchstart', function (event) {
                 event.preventDefault();
                 // START = new Date().getTime();
-            
-                recordTimer = setTimeout(function(){
+
+                recordTimer = setTimeout(function () {
                     wx.startRecord({
-                        success: function(){
+                        success: function () {
                             localStorage.rainAllowRecord = 'true';
                         },
                         cancel: function () {
                             alert('用户拒绝授权录音');
                         }
                     });
-                },300);
+                }, 300);
             });
-
-            $('#talk_btn').on('touchend', function(event){
+            const self = this;
+            $('#talk_btn').on('touchend', function (event) {
                 event.preventDefault();
                 // END = new Date().getTime();
-                
+
                 // if((END - START) < 300){
                 //     END = 0;
                 //     START = 0;
                 //     //小于300ms，不录音
                 //     clearTimeout(recordTimer);
                 // }else{
-                    wx.stopRecord({
-                      success: function (res) {
+                wx.stopRecord({
+                    success: function (res) {
                         const localId = res.localId;
-                        alert(localId);
+                        self.addRadioDev(localId);
                         // uploadVoice();
-                      },
-                      fail: function (res) {
-                        alert(JSON.stringify(res));
-                      }
-                    });
+                    },
+                    fail: function (res) {
+                        alert('error:' + JSON.stringify(res));
+                    }
+                });
                 // }
             });
-            
+
 
         });
 
@@ -1029,8 +1044,8 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>故障细节</Label>
-                                    { /* <Button id={'recordbutton'} onTouchStart={this.startRadio.bind(this)} onTouchEnd={this.endRadio.bind(this)} className={'radioimage'} /> */}
-
+                                    <Button id="talk_btn" className={'radioimage'} >&nbsp;</Button>
+                                    {/* <Button id="talk_btn" onTouchStart={this.startRadio.bind(this)} onTouchEnd={this.endRadio.bind(this)} className={'radioimage'} >&nbsp;</Button> */}
 
                                     {/* <Label><img src='/images/yuiyn@2x.png' ontouchend={this.endRadio.bind(this)} ontouchstart={this.startRadio.bind(this)} className={"radioimage"}/></Label> */}
                                 </CellHeader>
@@ -1041,8 +1056,9 @@ class RepairForm extends Component {
                                 </CellBody>
                             </FormCell>
                             <div>
-                                <Button style={{ width: '80%' }} disabled={this.state.disabledstartradio} onClick={this.startRadio.bind(this)} >开始录音</Button>
-                                <Button style={{ width: '80%' }} disabled={this.state.disabledendradio} onClick={this.endRadio.bind(this)} >结束录音</Button>
+                                {/* <Button style={{ width: '80%' }} disabled={this.state.disabledstartradio} onClick={this.startRadio.bind(this)} >开始录音</Button>
+                                <Button style={{ width: '80%' }} disabled={this.state.disabledendradio} onClick={this.endRadio.bind(this)} >结束录音</Button> */}
+                                {/* <Button id="talk_btn"   className={"radioimage"} >&nbsp;</Button> */}
                                 <div style={{ height: '50px' }} id="buttoncontainer"></div>
                             </div>
                         </div>
@@ -1050,7 +1066,8 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>附件文档</Label>
-                                    <img id="talk_btn" src='/images/tupian@2x.png'  className={"imagebutton"} />
+                                    <Button id="talk_btn" style={{ width: '80%' }} >结束录音</Button>
+                                    <img src='/images/tupian@2x.png' className={"imagebutton"} />
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
