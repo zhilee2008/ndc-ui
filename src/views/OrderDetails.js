@@ -47,10 +47,11 @@ class OrderDetails extends Component {
             troubleDetail: '',
             errorMsg: '',
             engineerName:'',
-            homeServiceTime:0,
-            repairTime:0,
+            homeServiceTime: '',
+
             completed: '',
-            showIKnowBtn: true
+            showIKnowBtn: true,
+            engineers: []
         };
     }
 
@@ -104,9 +105,8 @@ class OrderDetails extends Component {
                     billAddress: orderdetails.BillAddress,
                     companyAddress: orderdetails.CompanyAddress,
                     troubleDetail: orderdetails.BugDetail,
-                    engineerName:orderdetails.OrderLog.Engineer.Name,
-                    homeServiceTime:Util.timeStamp2TString(orderdetails.OrderLog.Engineer.Homeservicetime),
-                    repairTime:Util.timeStamp2TString(orderdetails.OrderLog.Engineer.RepairTime),
+                    engineers:orderdetails.OrderLog.Engineers,
+
                     completed: orderdetails.Status
                 });
 
@@ -263,32 +263,45 @@ class OrderDetails extends Component {
                     </Form>
                     {/* <CellsTips>Form Footer Tips</CellsTips> */}
                     {/* <CellsTitle>故障细节</CellsTitle> */}
-                    <Form className={'orderborder'}>
-                        <FormCell>
-                            <CellHeader>
-                                <Label style={{ color: '#000' }}>工程师姓名:</Label>
-                            </CellHeader>
-                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
-                                {this.state.engineerName}
-                            </CellBody>
-                        </FormCell>
-                        <FormCell>
-                            <CellHeader>
-                                <Label style={{ color: '#000' }}>上门时间:</Label>
-                            </CellHeader>
-                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
-                                {this.state.homeServiceTime}
-                            </CellBody>
-                        </FormCell>
-                        <FormCell>
-                            <CellHeader>
-                                <Label style={{ color: '#000' }}>维修时间:</Label>
-                            </CellHeader>
-                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
-                                {this.state.repairTime}
-                            </CellBody>
-                        </FormCell>
-                    </Form>
+                    {this.state.engineers.map(engineer =>
+
+                      <Form className={'orderborder'}>
+
+                          <FormCell>
+                              <CellHeader>
+                                  <Label style={{ color: '#000' }}>工程师姓名:</Label>
+                              </CellHeader>
+                              <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                {engineer['Name']}
+                              </CellBody>
+                          </FormCell>
+                          <FormCell>
+                              <CellHeader>
+                                  <Label style={{ color: '#000' }}>工程师手机:</Label>
+                              </CellHeader>
+                              <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                {engineer['Mobile']}
+                              </CellBody>
+                          </FormCell>
+                          <FormCell>
+                              <CellHeader>
+                                  <Label style={{ color: '#000' }}>上门/维修时间:</Label>
+                              </CellHeader>
+                              <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                {engineer['Homeservicetime']}
+                              </CellBody>
+                          </FormCell>
+                          <FormCell>
+                              <CellHeader>
+                                  <Label style={{ color: '#000' }}>备注:</Label>
+                              </CellHeader>
+                              <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                {engineer['Notes']}
+                              </CellBody>
+                          </FormCell>
+                      </Form>
+                    )}
+
 
                     <ButtonArea className={(this.state.completed === 'completed' || !this.state.showIKnowBtn) ? 'hideKnowBtn' : 'showKnowBtn'}>
                         <Button onClick={this.detailsUpdate.bind(this)}>
