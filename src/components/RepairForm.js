@@ -487,16 +487,15 @@ class RepairForm extends Component {
 
             $('#submit').click(function (e) {
                 alert(self.state.localId);
-                const voice = {
-                    localId: self.state.localId,
-                    serverId: ''
-                };
-                wx.uploadVoice({
-                    localId: voice.localId,
-                    success: function (res) {
-                        alert('录音' + res.serverId);
-                        voice.serverId = res.serverId;
-                    }
+                wx.ready(function () {
+                    wx.uploadVoice({
+                        localId: self.state.localId,
+                        success: function (res) {
+                            alert('录音' + res.serverId);
+                            voice.serverId = res.serverId;
+                            alert(JSON.stringify(res));
+                        }
+                    });
                 });
             });
 
