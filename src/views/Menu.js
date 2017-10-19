@@ -58,9 +58,10 @@ class Menu extends Component {
           jsonp:"jsoncallback",
           success  : function(data) {
             alert(data);
+            alert(JSON.stringify(data));
           },
           error : function(data) {
-            alert(data);
+            alert(JSON.stringify(data));
             alert('fail');
           }
         }
