@@ -433,7 +433,8 @@ class RepairForm extends Component {
             jsApiList: ['startRecord',
                 'stopRecord',
                 'onVoiceRecordEnd',
-                'playVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                'playVoice',
+                'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
             jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1KXBv7Fjk_j3PebygnGNEbN-A204wwl4R5t0bXkF8GzpQ',
             nonceStr: 'jn6dichs2p7bdgn',
             timestamp: '1508385962',
@@ -566,6 +567,7 @@ class RepairForm extends Component {
             //     }
             // });
             alert('ready');
+            alert(self.state.localId);
             wx.uploadVoice({
                 localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
@@ -576,7 +578,7 @@ class RepairForm extends Component {
                 }
             });
         });
-        
+
         console.log('添加保修单');
         var payload = {
             company: this.state.company,
@@ -1043,7 +1045,6 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>附件文档</Label>
-                                    <Button id="talk_btn" style={{ width: '80%' }} >结束录音</Button>
                                     <img src='/images/tupian@2x.png' className={"imagebutton"} />
                                 </CellHeader>
                                 <CellBody>
