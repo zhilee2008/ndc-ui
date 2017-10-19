@@ -476,6 +476,8 @@ class RepairForm extends Component {
                             radioText: localId
                         })
                         self.addRadioDev(localId);
+
+
                     },
                     fail: function (res) {
                         alert('IOS录音功能暂不可用:' + JSON.stringify(res));
@@ -484,20 +486,6 @@ class RepairForm extends Component {
                 // }
             });
 
-
-            $('#submit').click(function (e) {
-                alert(self.state.localId);
-                wx.ready(function () {
-                    wx.uploadVoice({
-                        localId: self.state.localId,
-                        success: function (res) {
-                            alert('录音' + res.serverId);
-                            voice.serverId = res.serverId;
-                            alert(JSON.stringify(res));
-                        }
-                    });
-                });
-            });
 
         });
 
@@ -567,7 +555,28 @@ class RepairForm extends Component {
         this.setState({
             showLoading: true
         });
-
+        const self = this;
+        wx.ready(function () {
+            // wx.uploadVoice({
+            //     localId: self.state.localId,
+            //     success: function (res) {
+            //         alert('录音' + res.serverId);
+            //         voice.serverId = res.serverId;
+            //         alert(JSON.stringify(res));
+            //     }
+            // });
+            alert('ready');
+            wx.uploadVoice({
+                localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                isShowProgressTips: 1, // 默认为1，显示进度提示
+                success: function (res) {
+                    alert('u');
+                    var serverId = res.serverId; // 返回音频的服务器端ID
+                    alert(JSON.stringify(res));
+                }
+            });
+        });
+        
         console.log('添加保修单');
         var payload = {
             company: this.state.company,
@@ -1049,7 +1058,7 @@ class RepairForm extends Component {
                     </Form>
 
                     <ButtonArea>
-                        <Button id="submit">
+                        <Button onClick={this.validRepairForm}>
                             提交
                         </Button>
                     </ButtonArea>
