@@ -11,6 +11,8 @@ import {
     MediaBoxTitle
 } from '../../packages';
 import './menu.css';
+import $ from 'jquery';
+
 const repairsubmiticon = <img src="/images/baoxiu-@2x.png" />
 const statusqueryicon = <img src="/images/cahxun@2x.png" />
 const repairmanagementicon = <img src="/images/guanli-@2x.png" />
@@ -22,6 +24,26 @@ class Menu extends Component {
         this.state = {
 
         };
+    }
+
+    componentWillMount() {
+      let url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token=hDftRWKxW-Oxf0q5OBnzlGEK2SrCL3uJ73GQuggJ4XZS1ap3-n6-D3FCcKgXQ0nGjaDbu8uj0N3gnCrButAlmVO9vXihHe8ZSDmSYWxKX9DAZ2Z4Xbwrb5Kn7_h6bMovZFLcAHAIOU&openid=OPENID&lang=zh_CN';
+      var request = $.ajax({
+        url: url,
+        method: "GET",
+        contentType: "application/json; charset=utf-8"
+      });
+
+      var self = this;
+
+      request.done(function (msg) {
+        alert(msg)
+      });
+
+      request.fail(function (jqXHR, textStatus) {
+        alert('获取用户信息失败')
+        return;
+      });
     }
 
     menuItemClick = (pageId) => {
