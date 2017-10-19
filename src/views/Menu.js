@@ -103,11 +103,11 @@ class Menu extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader onClick={this.closePage.bind(this)} style={{width:'20%', height: '65px', marginTop: '25px' }} >
-                        <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
-                        <div className={'titlebarback'}>
-                            返回
-                     </div>
+                    <CellHeader style={{width:'20%', height: '65px', marginTop: '25px' }} >
+                        {/*<img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />*/}
+                        {/*<div className={'titlebarback'}>*/}
+                            {/*返回*/}
+                     {/*</div>*/}
                     </CellHeader>
 
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
