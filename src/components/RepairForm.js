@@ -494,6 +494,7 @@ class RepairForm extends Component {
                         alert('u2');
                         var serverId = res.serverId; // 返回音频的服务器端ID
                         alert(JSON.stringify(res));
+                        self.validRepairForm();
                     }
                 });
             });
@@ -1048,7 +1049,7 @@ class RepairForm extends Component {
                     </Form>
 
                     <ButtonArea>
-                        <Button id="submit" onClick={this.validRepairForm}>
+                        <Button id="submit">
                             提交
                         </Button>
                     </ButtonArea>
