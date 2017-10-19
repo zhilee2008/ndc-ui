@@ -53,7 +53,7 @@ class Menu extends Component {
       $.ajax(
         {
           type:'get',
-          url : 'https://api.weixin.qq.com/cgi-bin/user/info?access_token=t8j6Nyxt8sRARNCkMUMm5aaHVNF8LRmhpz8N9owqDYuUopdCpaIS_mEd7Ys2LEgHH1rVoGOR9SmYO5jUVL-aWnZwbgiwhcYxnUXt8yywQIzTdHzwDlVzeBNmfrOAM7PbGHJeAHAQRT&openid=OPENID&lang=zh_CN',
+          url : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx457ecf3c803c3774&redirect_uri=http%3a%2f%2fxn.geekx.cn%2f&response_type=code&scope=snsapi_base&state=111#wechat_redirect',
           dataType : 'jsonp',
           jsonp:"jsoncallback",
           success  : function(data) {
