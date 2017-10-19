@@ -1,0 +1,17 @@
+.weui-btn {
+  margin-bottom: 2px;
+  font-size: 14px;
+}
+.weui-btn-area {
+  margin-bottom: 2px !important;
+}
+.weui-btn-area {
+  margin: 0px;
+}
+.weui-cell_access .weui-cell__ft::after {
+  display: none;
+}
+
+.delete-order-btn {
+  background-color: red !important;
+}

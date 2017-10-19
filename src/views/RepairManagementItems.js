@@ -8,11 +8,14 @@ import {
     CellBody,
     CellFooter,
     CellHeader,
-    Label
+    Label,
+    Button,
+    ButtonArea
 } from '../../packages';
 import Page from '../components/page';
 import $ from 'jquery';
 
+import './RepairManagementItems.css'
 class RepairManagementItems extends Component {
 
     constructor(props) {
@@ -20,6 +23,7 @@ class RepairManagementItems extends Component {
 
         this.state = {
             items: [],
+            status: ''
         }
     }
 
@@ -77,6 +81,36 @@ class RepairManagementItems extends Component {
         this.props.history.push(path);
     };
 
+    topOrder = (itemId) => {
+      let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/top";
+
+      var payload = {
+        orderId: itemId,
+        top: 'true'
+      };
+
+      var request = $.ajax({
+        url: url,
+        method: "POST",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(payload),
+      });
+
+      var self = this;
+
+      request.done(function (msg) {
+        self.getListByStatus(self.state.status)
+      });
+
+      request.fail(function (jqXHR, textStatus) {
+        self.setState({
+          errorMsg: '出错了，请刷新重试，或者联系管理员'
+        });
+        alert('出错了，请刷新重试，或者联系管理员');
+        console.log("Request failed: " + textStatus)
+      });
+    };
+
     render() {
         return (
             <InfiniteLoader
@@ -116,13 +150,19 @@ class RepairManagementItems extends Component {
                         {
                             this.state.items.map((itemId, i) => {
                                 return (
-                                    <Cell onClick={this.detailsItemClick.bind(this, itemId)} href="javascript:;" key={i} access>
+                                    <Cell  href="javascript:;" key={i} access>
                                         <CellHeader>
                                             <Label>订单编号</Label>
                                         </CellHeader>
-                                        <CellBody style={{ marginLeft: '20px', color: 'lightgray' }}>
+                                        <CellBody style={{ marginLeft: '20px', color: 'lightgray' }} onClick={this.detailsItemClick.bind(this, itemId)}>
                                             {itemId}
                                         </CellBody>
+                                        <CellFooter>
+                                            <ButtonArea direction="horizontal">
+                                                <Button type="warn" onClick={this.topOrder.bind(this, itemId)}>订单置顶</Button>
+                                                <Button type="warn" className={'delete-order-btn'}>订单删除</Button>
+                                            </ButtonArea>
+                                        </CellFooter>
                                     </Cell>
                                 )
                             })
