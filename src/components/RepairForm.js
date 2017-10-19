@@ -486,7 +486,7 @@ class RepairForm extends Component {
 
 
             $('#submit').click(function (e) {
-                alert('u1');
+                alert(self.state.localId);
                 wx.uploadVoice({
                     localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
                     isShowProgressTips: 1, // 默认为1，显示进度提示
