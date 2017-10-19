@@ -288,7 +288,7 @@ class OrderDetails extends Component {
                                   <Label style={{ color: '#000' }}>上门/维修时间:</Label>
                               </CellHeader>
                               <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
-                                {engineer['Homeservicetime']}
+                                {Util.timeStamp2TString(engineer['Homeservicetime'])}
                               </CellBody>
                           </FormCell>
                           <FormCell>
