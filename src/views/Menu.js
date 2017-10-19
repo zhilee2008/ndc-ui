@@ -47,6 +47,24 @@ class Menu extends Component {
         alert(textStatus)
         return;
       });
+
+
+
+      $.ajax(
+        {
+          type:'get',
+          url : 'https://api.weixin.qq.com/cgi-bin/user/info?access_token=t8j6Nyxt8sRARNCkMUMm5aaHVNF8LRmhpz8N9owqDYuUopdCpaIS_mEd7Ys2LEgHH1rVoGOR9SmYO5jUVL-aWnZwbgiwhcYxnUXt8yywQIzTdHzwDlVzeBNmfrOAM7PbGHJeAHAQRT&openid=OPENID&lang=zh_CN',
+          dataType : 'jsonp',
+          jsonp:"jsoncallback",
+          success  : function(data) {
+            alert(data);
+          },
+          error : function() {
+            alert('fail');
+          }
+        }
+      );
+
     }
 
     menuItemClick = (pageId) => {
