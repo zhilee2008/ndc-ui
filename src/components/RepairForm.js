@@ -603,8 +603,6 @@ class RepairForm extends Component {
             data: JSON.stringify(payload),
         });
 
-        var self = this;
-
         request.done(function (msg) {
 
             if (msg) {
