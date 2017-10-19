@@ -293,6 +293,14 @@ class OrderDetails extends Component {
                           </FormCell>
                           <FormCell>
                               <CellHeader>
+                                  <Label style={{ color: '#000' }}>选项:</Label>
+                              </CellHeader>
+                              <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                {engineer['SelectedOption']}
+                              </CellBody>
+                          </FormCell>
+                          <FormCell>
+                              <CellHeader>
                                   <Label style={{ color: '#000' }}>备注:</Label>
                               </CellHeader>
                               <CellBody style={{ marginLeft: '20px', color: 'grey' }}>

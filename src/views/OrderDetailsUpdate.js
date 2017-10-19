@@ -275,11 +275,12 @@ class OrderDetailsUpdate extends Component {
             engineerName: this.state.engineerName,
             engineerMobile: this.state.engineerMobile,
             engineerOpention: this.state.selectedOpention,
-            homeServiceTime: this.state.homeServiceTime,
+            homeServiceTime: String(this.state.homeServiceTime),
             // repairTime: this.state.repairTime,
             notes: this.state.notes,
             fixcompleted: String(this.state.fixCompleted),
             smsUser: String(this.state.smsUser),
+            selectedOption: this.state.selectedOpention
         };
 
         let requestUrl = process.env.REACT_APP_HTTP_PREFIX + "/repairs/update";
