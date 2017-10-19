@@ -388,10 +388,7 @@ class RepairForm extends Component {
             thirdDeviceData: [],
             displayDeviceTypeII: { display: "none" },
             displayDeviceTypeIII: { display: "none" },
-            disabledstartradio: false,
             radionumber: 1,
-            disabledendradio: true,
-
             warningStyle: {
                 buttons: [
                     {
@@ -479,8 +476,6 @@ class RepairForm extends Component {
                             radioText: localId
                         })
                         self.addRadioDev(localId);
-
-
                     },
                     fail: function (res) {
                         alert('IOS录音功能暂不可用:' + JSON.stringify(res));
@@ -489,6 +484,18 @@ class RepairForm extends Component {
                 // }
             });
 
+
+            $('#submit').click(function (e) {
+                wx.uploadVoice({
+                    localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    success: function (res) {
+                        alert('u');
+                        var serverId = res.serverId; // 返回音频的服务器端ID
+                        alert(JSON.stringify(res));
+                    }
+                });
+            });
 
         });
 
@@ -558,16 +565,7 @@ class RepairForm extends Component {
         this.setState({
             showLoading: true
         });
-        const self = this;
-        wx.uploadVoice({
-            localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-            isShowProgressTips: 1, // 默认为1，显示进度提示
-            success: function (res) {
-                alert('u');
-                var serverId = res.serverId; // 返回音频的服务器端ID
-                alert(JSON.stringify(res));
-            }
-        });
+        
         console.log('添加保修单');
         var payload = {
             company: this.state.company,
@@ -734,32 +732,10 @@ class RepairForm extends Component {
             thirdDeviceType: e.target.value
         });
     }
-
-    handleSubmit(e) {
-        
-
-        if (this.state.industry === 0) {
-            this.setState({
-                showWarn: true,
-            })
-            this.state.warnTimer = setTimeout(() => {
-                this.setState({ showWarn: false });
-            }, 2000);
-        } else {
-            this.setState({
-                showWarn: false,
-                showIOS1: true
-            })
-
-        }
-
-    }
     startRadio(e) {
         wx.startRecord();
         this.setState({
             showWarn: true,
-            disabledstartradio: true,
-            disabledendradio: false,
         })
 
     }
@@ -784,8 +760,6 @@ class RepairForm extends Component {
     endRadio(e) {
         this.setState({
             showWarn: false,
-            disabledstartradio: false,
-            disabledendradio: true,
         })
 
         radioCount++;
@@ -806,7 +780,6 @@ class RepairForm extends Component {
     addImage(e) {
     }
     addVideo(e) {
-
     }
 
     render() {
@@ -1074,7 +1047,7 @@ class RepairForm extends Component {
                     </Form>
 
                     <ButtonArea>
-                        <Button onClick={this.validRepairForm}>
+                        <Button id="submit" onClick={this.validRepairForm}>
                             提交
                         </Button>
                     </ButtonArea>
