@@ -27,7 +27,7 @@ class Menu extends Component {
     }
 
     componentWillMount() {
-      let url = 'repairs/account';
+      let url = process.env.REACT_APP_HTTP_PREFIX + '/repairs/account';
 
       var request = $.ajax({
         url: url,
