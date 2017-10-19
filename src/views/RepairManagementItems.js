@@ -10,7 +10,8 @@ import {
     CellHeader,
     Label,
     Button,
-    ButtonArea
+    ButtonArea,
+  Dialog,
 } from '../../packages';
 import Page from '../components/page';
 import $ from 'jquery';
@@ -23,7 +24,21 @@ class RepairManagementItems extends Component {
 
         this.state = {
             items: [],
-            status: ''
+            status: '',
+              warningStyle: {
+                buttons: [
+                  {
+                    label: '确定',
+                    onClick: this.deleteOrder
+                  },
+                  {
+                    label: '取消',
+                    onClick: this.hideWarningDialog
+                  }
+                ]
+              },
+              showWarningPanel: false,
+          orderId: ''
         }
     }
 
@@ -36,6 +51,11 @@ class RepairManagementItems extends Component {
         this.getListByStatus(status);
     }
 
+    hideWarningDialog = () => {
+        this.setState({
+          showWarningPanel: false
+        });
+    };
 
     getListByStatus = (status) => {
         let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/list/" + status;
@@ -110,6 +130,45 @@ class RepairManagementItems extends Component {
         console.log("Request failed: " + textStatus)
       });
     };
+    confirmDeleteOrder = (itemId) => {
+        this.setState({
+          showWarningPanel: true,
+          orderId: itemId
+        });
+    };
+    deleteOrder = () => {
+        let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/delete";
+
+        var payload = {
+          orderid: this.state.orderId
+        };
+
+        var request = $.ajax({
+          url: url,
+          method: "POST",
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(payload),
+        });
+
+        var self = this;
+
+        request.done(function (msg) {
+            self.setState({
+              showWarningPanel: false
+            }, ()=>{
+              self.getListByStatus(self.state.status)
+            });
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+          self.setState({
+            errorMsg: '出错了，请刷新重试，或者联系管理员'
+          });
+          alert('出错了，请刷新重试，或者联系管理员');
+          console.log("Request failed: " + textStatus)
+        });
+    };
+
 
     render() {
         return (
@@ -160,7 +219,7 @@ class RepairManagementItems extends Component {
                                         <CellFooter>
                                             <ButtonArea direction="horizontal">
                                                 <Button type="warn" onClick={this.topOrder.bind(this, itemId)}>置顶</Button>
-                                                <Button type="warn" className={'delete-order-btn'}>删除</Button>
+                                                <Button type="warn" className={'delete-order-btn'} onClick={this.confirmDeleteOrder.bind(this, itemId)}>删除</Button>
                                             </ButtonArea>
                                         </CellFooter>
                                     </Cell>
@@ -168,7 +227,9 @@ class RepairManagementItems extends Component {
                             })
                         }
                     </Cells>
-
+                    <Dialog type="ios" title={'警告'} buttons={this.state.warningStyle.buttons} show={this.state.showWarningPanel}>
+                      确定要删除订单{this.state.orderId}吗?
+                    </Dialog>
                 </Page>
             </InfiniteLoader>
         )
