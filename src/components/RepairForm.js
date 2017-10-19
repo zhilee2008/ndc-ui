@@ -487,14 +487,15 @@ class RepairForm extends Component {
 
             $('#submit').click(function (e) {
                 alert(self.state.localId);
+                const voice = {
+                    localId: self.state.localId,
+                    serverId: ''
+                };
                 wx.uploadVoice({
-                    localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    localId: voice.localId,
                     success: function (res) {
-                        alert('u2');
-                        var serverId = res.serverId; // 返回音频的服务器端ID
-                        alert(JSON.stringify(res));
-                        self.validRepairForm();
+                        alert('录音' + res.serverId);
+                        voice.serverId = res.serverId;
                     }
                 });
             });
@@ -567,7 +568,7 @@ class RepairForm extends Component {
         this.setState({
             showLoading: true
         });
-        
+
         console.log('添加保修单');
         var payload = {
             company: this.state.company,
