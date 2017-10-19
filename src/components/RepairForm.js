@@ -388,10 +388,7 @@ class RepairForm extends Component {
             thirdDeviceData: [],
             displayDeviceTypeII: { display: "none" },
             displayDeviceTypeIII: { display: "none" },
-            disabledstartradio: false,
             radionumber: 1,
-            disabledendradio: true,
-
             warningStyle: {
                 buttons: [
                     {
@@ -436,7 +433,8 @@ class RepairForm extends Component {
             jsApiList: ['startRecord',
                 'stopRecord',
                 'onVoiceRecordEnd',
-                'playVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                'playVoice',
+                'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
             jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1KXBv7Fjk_j3PebygnGNEbN-A204wwl4R5t0bXkF8GzpQ',
             nonceStr: 'jn6dichs2p7bdgn',
             timestamp: '1508385962',
@@ -558,6 +556,29 @@ class RepairForm extends Component {
         this.setState({
             showLoading: true
         });
+        const self = this;
+        wx.ready(function () {
+            // wx.uploadVoice({
+            //     localId: self.state.localId,
+            //     success: function (res) {
+            //         alert('录音' + res.serverId);
+            //         voice.serverId = res.serverId;
+            //         alert(JSON.stringify(res));
+            //     }
+            // });
+            alert('ready');
+            alert(self.state.localId);
+            wx.uploadVoice({
+                localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                isShowProgressTips: 1, // 默认为1，显示进度提示
+                success: function (res) {
+                    alert('u');
+                    var serverId = res.serverId; // 返回音频的服务器端ID
+                    alert(JSON.stringify(res));
+                }
+            });
+        });
+
         console.log('添加保修单');
         var payload = {
             company: this.state.company,
@@ -583,8 +604,6 @@ class RepairForm extends Component {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(payload),
         });
-
-        var self = this;
 
         request.done(function (msg) {
 
@@ -724,41 +743,10 @@ class RepairForm extends Component {
             thirdDeviceType: e.target.value
         });
     }
-
-    handleSubmit(e) {
-        const self = this;
-        wx.uploadVoice({
-            localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-            isShowProgressTips: 1, // 默认为1，显示进度提示
-            success: function (res) {
-                alert('u');
-                var serverId = res.serverId; // 返回音频的服务器端ID
-                alert(JSON.stringify(res));
-            }
-        });
-
-        if (this.state.industry === 0) {
-            this.setState({
-                showWarn: true,
-            })
-            this.state.warnTimer = setTimeout(() => {
-                this.setState({ showWarn: false });
-            }, 2000);
-        } else {
-            this.setState({
-                showWarn: false,
-                showIOS1: true
-            })
-
-        }
-
-    }
     startRadio(e) {
         wx.startRecord();
         this.setState({
             showWarn: true,
-            disabledstartradio: true,
-            disabledendradio: false,
         })
 
     }
@@ -783,8 +771,6 @@ class RepairForm extends Component {
     endRadio(e) {
         this.setState({
             showWarn: false,
-            disabledstartradio: false,
-            disabledendradio: true,
         })
 
         radioCount++;
@@ -805,7 +791,6 @@ class RepairForm extends Component {
     addImage(e) {
     }
     addVideo(e) {
-
     }
 
     render() {
@@ -1060,7 +1045,6 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>附件文档</Label>
-                                    <Button id="talk_btn" style={{ width: '80%' }} >结束录音</Button>
                                     <img src='/images/tupian@2x.png' className={"imagebutton"} />
                                 </CellHeader>
                                 <CellBody>
