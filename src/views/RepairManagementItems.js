@@ -68,7 +68,7 @@ class RepairManagementItems extends Component {
         var self = this;
 
         request.done(function (msg) {
-            if (msg) {
+            if (msg && msg !== 'null') {
                 const orderlist = JSON.parse(msg);
                 // console.log(Util.timeStamp2String(orderlog.servicecenter.time))
                 const items = [];
@@ -80,6 +80,10 @@ class RepairManagementItems extends Component {
                         items: items
                     });
                 }
+            }else {
+              self.setState({
+                items: []
+              })
             }
 
         });
