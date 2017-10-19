@@ -423,21 +423,7 @@ class RepairForm extends Component {
     };
 
     componentDidMount() {
-        $('#talk_btn').on('touchstart', function (event) {
-            event.preventDefault();
-            // START = new Date().getTime();
 
-            recordTimer = setTimeout(function () {
-                wx.startRecord({
-                    success: function () {
-                        localStorage.rainAllowRecord = 'true';
-                    },
-                    cancel: function () {
-                        alert('用户拒绝授权录音');
-                    }
-                });
-            }, 300);
-        });
         // const url = 'http://xn.geekx.cn';
         // const jsApiObject = sign('HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1IoWHbeJ8zz_843FzDl3CfG92Iepakr5Qc_V39F5owV_g', url);
         // alert(window.location.href);
@@ -451,11 +437,11 @@ class RepairForm extends Component {
                 'stopRecord',
                 'onVoiceRecordEnd',
                 'playVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1L6sivJUb_yg7vbtueLs4tmb4ltqLSSqVCuL9wSCa-inA',
-            nonceStr: 'wxiae0hiw8p9bum',
-            timestamp: '1508328148',
+            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1KXBv7Fjk_j3PebygnGNEbN-A204wwl4R5t0bXkF8GzpQ',
+            nonceStr: 'jn6dichs2p7bdgn',
+            timestamp: '1508385962',
             url: 'http://xn.geekx.cn/repairsubmit',
-            signature: '930e33423fcc1024961af8005935600dcfbc62a4'
+            signature: 'ca8dede5877b37a4c24227b65b41ae07fb0f8c2f'
         });
         const self = this;
         wx.ready(function () {
@@ -493,6 +479,8 @@ class RepairForm extends Component {
                             radioText: localId
                         })
                         self.addRadioDev(localId);
+
+
                     },
                     fail: function (res) {
                         alert('IOS录音功能暂不可用:' + JSON.stringify(res));
@@ -738,6 +726,17 @@ class RepairForm extends Component {
     }
 
     handleSubmit(e) {
+        const self = this;
+        wx.uploadVoice({
+            localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+            isShowProgressTips: 1, // 默认为1，显示进度提示
+            success: function (res) {
+                alert('u');
+                var serverId = res.serverId; // 返回音频的服务器端ID
+                alert(JSON.stringify(res));
+            }
+        });
+
         if (this.state.industry === 0) {
             this.setState({
                 showWarn: true,
@@ -751,14 +750,6 @@ class RepairForm extends Component {
                 showIOS1: true
             })
 
-            wx.uploadVoice({
-                localId: this.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                isShowProgressTips: 1, // 默认为1，显示进度提示
-                success: function (res) {
-                    var serverId = res.serverId; // 返回音频的服务器端ID
-                    alert(serverId);
-                }
-            });
         }
 
     }
