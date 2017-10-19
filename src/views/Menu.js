@@ -27,12 +27,7 @@ class Menu extends Component {
     }
 
     componentWillMount() {
-      let url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token=hDftRWKxW-Oxf0q5OBnzlGEK2SrCL3uJ73GQuggJ4XZS1ap3-n6-D3FCcKgXQ0nGjaDbu8uj0N3gnCrButAlmVO9vXihHe8ZSDmSYWxKX9DAZ2Z4Xbwrb5Kn7_h6bMovZFLcAHAIOU&openid=OPENID&lang=zh_CN';
-
-      $.getJSON(url + "&jsoncallback=?",function(json){
-
-         alert('getjson function: ' +json)
-      });
+      let url = 'repairs/account';
 
       var request = $.ajax({
         url: url,
