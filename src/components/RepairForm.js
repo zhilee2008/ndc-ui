@@ -443,53 +443,53 @@ class RepairForm extends Component {
             signature: 'ca8dede5877b37a4c24227b65b41ae07fb0f8c2f'
         });
         const self = this;
-        wx.ready(function () {
-            $('#talk_btn').on('touchstart', function (event) {
-                event.preventDefault();
-                // START = new Date().getTime();
-                recordTimer = setTimeout(function () {
-                    wx.startRecord({
-                        success: function () {
-                            localStorage.rainAllowRecord = 'true';
-                        },
-                        cancel: function () {
-                            alert('用户拒绝授权录音');
-                        }
-                    });
-                }, 300);
-            });
-            $('#talk_btn').on('touchend', function (event) {
-                event.preventDefault();
-                // END = new Date().getTime();
-
-                // if((END - START) < 300){
-                //     END = 0;
-                //     START = 0;
-                //     //小于300ms，不录音
-                //     clearTimeout(recordTimer);
-                // }else{
-                // alert('s1');
-                wx.stopRecord({
-                    success: function (res) {
-                        // alert('s2');
-                        var localId = res.localId;
-                        self.setState({
-                            localId: localId,
-                            radioText: localId
-                        })
-                        self.addRadioDev(localId);
-
-
-                    },
-                    fail: function (res) {
-                        alert('IOS录音功能暂不可用:' + JSON.stringify(res));
-                    }
-                });
-                // }
-            });
-
-
-        });
+        // wx.ready(function () {
+        //     $('#talk_btn').on('touchstart', function (event) {
+        //         event.preventDefault();
+        //         // START = new Date().getTime();
+        //         recordTimer = setTimeout(function () {
+        //             wx.startRecord({
+        //                 success: function () {
+        //                     localStorage.rainAllowRecord = 'true';
+        //                 },
+        //                 cancel: function () {
+        //                     alert('用户拒绝授权录音');
+        //                 }
+        //             });
+        //         }, 300);
+        //     });
+        //     $('#talk_btn').on('touchend', function (event) {
+        //         event.preventDefault();
+        //         // END = new Date().getTime();
+        //
+        //         // if((END - START) < 300){
+        //         //     END = 0;
+        //         //     START = 0;
+        //         //     //小于300ms，不录音
+        //         //     clearTimeout(recordTimer);
+        //         // }else{
+        //         // alert('s1');
+        //         wx.stopRecord({
+        //             success: function (res) {
+        //                 // alert('s2');
+        //                 var localId = res.localId;
+        //                 self.setState({
+        //                     localId: localId,
+        //                     radioText: localId
+        //                 })
+        //                 self.addRadioDev(localId);
+        //
+        //
+        //             },
+        //             fail: function (res) {
+        //                 alert('IOS录音功能暂不可用:' + JSON.stringify(res));
+        //             }
+        //         });
+        //         // }
+        //     });
+        //
+        //
+        // });
 
     }
 
@@ -558,27 +558,27 @@ class RepairForm extends Component {
             showLoading: true
         });
         const self = this;
-        wx.ready(function () {
-            // wx.uploadVoice({
-            //     localId: self.state.localId,
-            //     success: function (res) {
-            //         alert('录音' + res.serverId);
-            //         voice.serverId = res.serverId;
-            //         alert(JSON.stringify(res));
-            //     }
-            // });
-            alert('ready');
-            alert(self.state.localId);
-            wx.uploadVoice({
-                localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                isShowProgressTips: 1, // 默认为1，显示进度提示
-                success: function (res) {
-                    alert('u');
-                    var serverId = res.serverId; // 返回音频的服务器端ID
-                    alert(JSON.stringify(res));
-                }
-            });
-        });
+        // wx.ready(function () {
+        //     // wx.uploadVoice({
+        //     //     localId: self.state.localId,
+        //     //     success: function (res) {
+        //     //         alert('录音' + res.serverId);
+        //     //         voice.serverId = res.serverId;
+        //     //         alert(JSON.stringify(res));
+        //     //     }
+        //     // });
+        //     alert('ready');
+        //     alert(self.state.localId);
+        //     wx.uploadVoice({
+        //         localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+        //         isShowProgressTips: 1, // 默认为1，显示进度提示
+        //         success: function (res) {
+        //             alert('u');
+        //             var serverId = res.serverId; // 返回音频的服务器端ID
+        //             alert(JSON.stringify(res));
+        //         }
+        //     });
+        // });
 
         console.log('添加保修单');
         var payload = {
