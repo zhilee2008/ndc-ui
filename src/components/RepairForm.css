@@ -1,7 +1,7 @@
 @charset "UTF-8";
 .weui-btn {
   background-color: #1887fc !important;
-  margin-bottom: 20px; }
+  margin-bottom: 20px !important; }
 
 .weui-cells:before {
   border-top: none !important; }
