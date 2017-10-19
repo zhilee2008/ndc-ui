@@ -263,7 +263,7 @@ class OrderDetails extends Component {
                     </Form>
                     {/* <CellsTips>Form Footer Tips</CellsTips> */}
                     {/* <CellsTitle>故障细节</CellsTitle> */}
-                    {this.state.engineers.map(engineer =>
+                    {this.state.engineers.slice(0).reverse().map(engineer =>
 
                       <Form className={'orderborder'}>
 
