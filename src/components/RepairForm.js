@@ -480,15 +480,7 @@ class RepairForm extends Component {
                         })
                         self.addRadioDev(localId);
 
-                        wx.uploadVoice({
-                            localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                            isShowProgressTips: 1, // 默认为1，显示进度提示
-                            success: function (res) {
-                                alert('u');
-                                var serverId = res.serverId; // 返回音频的服务器端ID
-                                alert(JSON.stringify(res));
-                            }
-                        });
+
                     },
                     fail: function (res) {
                         alert('IOS录音功能暂不可用:' + JSON.stringify(res));
@@ -734,6 +726,17 @@ class RepairForm extends Component {
     }
 
     handleSubmit(e) {
+        const self = this;
+        wx.uploadVoice({
+            localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+            isShowProgressTips: 1, // 默认为1，显示进度提示
+            success: function (res) {
+                alert('u');
+                var serverId = res.serverId; // 返回音频的服务器端ID
+                alert(JSON.stringify(res));
+            }
+        });
+
         if (this.state.industry === 0) {
             this.setState({
                 showWarn: true,
