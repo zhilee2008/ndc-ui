@@ -389,6 +389,7 @@ class RepairForm extends Component {
             displayDeviceTypeII: { display: "none" },
             displayDeviceTypeIII: { display: "none" },
             radionumber: 1,
+            addedImages:[],
             warningStyle: {
                 buttons: [
                     {
@@ -789,8 +790,15 @@ class RepairForm extends Component {
     }
 
     addImage(e) {
+        const self = this;
+        wx.chooseImage({
+            success: function (res) {
+                self.state.addedImages = res.localIds;
+            }
+        });
     }
     addVideo(e) {
+        alert('添加视频功能开发中');
     }
 
     render() {
@@ -1039,18 +1047,18 @@ class RepairForm extends Component {
                             {/* <Button style={{ width: '80%' }} disabled={this.state.disabledstartradio} onClick={this.startRadio.bind(this)} >开始录音</Button>
                                 <Button style={{ width: '80%' }} disabled={this.state.disabledendradio} onClick={this.endRadio.bind(this)} >结束录音</Button> */}
                             {/* <Button id="talk_btn"   className={"radioimage"} >&nbsp;</Button> */}
-                            <div style={{ height: '50px' }} id="buttoncontainer"></div>
+                            <div style={{ height: '30px' }} id="buttoncontainer"></div>
                         </div>
                         <div className={"RepairBorder"}>
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>附件文档</Label>
-                                    <img src='/images/tupian@2x.png' className={"imagebutton"} />
+                                    <img onClick={this.addImage.bind(this)} src='/images/tupian@2x.png' className={"imagebutton"} />
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
 
-                                    <img src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /></CellBody>
+                                    <img onClick={this.addVideo.bind(this)} src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /></CellBody>
 
                             </FormCell>
                         </div>

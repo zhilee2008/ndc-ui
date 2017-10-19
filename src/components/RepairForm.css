@@ -117,8 +117,10 @@
   -moz-user-select: none;
   background-image: url("/images/yuiyn@2x.png");
   background-color: currentColor !important;
-  width: 31px !important;
-  height: 40px !important;
+  width: 20px !important;
+  height: 30px !important;
+  -moz-background-size: 100% 100%;
+  background-size: 100% 100%;
   margin: 40px 0px 0px 20px; }
 
 .imagebutton {
@@ -133,7 +135,7 @@
   float: left;
   padding-left: 5px;
   font-size: 12px;
-  width: 50px;
+  width: 20px;
   border: 1px solid lightgrey;
   margin: 10px 0 10px 10px; }
 
@@ -144,5 +146,5 @@
   padding-top: 5px; }
 
 .savedradiocontainer {
-  width:25px;
+  width: 25px;
   margin-left: 2px; }
