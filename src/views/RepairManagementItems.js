@@ -154,13 +154,13 @@ class RepairManagementItems extends Component {
                                         <CellHeader>
                                             <Label>订单编号</Label>
                                         </CellHeader>
-                                        <CellBody style={{ marginLeft: '20px', color: 'lightgray' }} onClick={this.detailsItemClick.bind(this, itemId)}>
+                                        <CellBody style={{ marginLeft: '10px', color: 'lightgray' }} onClick={this.detailsItemClick.bind(this, itemId)}>
                                             {itemId}
                                         </CellBody>
                                         <CellFooter>
                                             <ButtonArea direction="horizontal">
-                                                <Button type="warn" onClick={this.topOrder.bind(this, itemId)}>订单置顶</Button>
-                                                <Button type="warn" className={'delete-order-btn'}>订单删除</Button>
+                                                <Button type="warn" onClick={this.topOrder.bind(this, itemId)}>置顶</Button>
+                                                <Button type="warn" className={'delete-order-btn'}>删除</Button>
                                             </ButtonArea>
                                         </CellFooter>
                                     </Cell>
