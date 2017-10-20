@@ -23,7 +23,7 @@ class StatusQuery extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: '131***1212',
+            userId: '',
             itemId: '',
             warningStyle: {
                 buttons: [
@@ -108,7 +108,7 @@ class StatusQuery extends Component {
                     </CellFooter>
                 </Cell>
                 <div style={{ marginTop: '95px' }}>
-                    <img style={{ width: '30%' }} src="/images/touxiang@2x.png" />
+                    <img style={{ width: '30%' }} src="/images/LOGO@2x.png" />
                     <FooterText>{this.state.userId}</FooterText>
                 </div>
 
