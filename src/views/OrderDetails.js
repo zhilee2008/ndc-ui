@@ -152,7 +152,7 @@ class OrderDetails extends Component {
                     {/* <img src='/images/touying@2x.png' /> */}
                     <div className={'touying'}>
                          
-                        <img className={'dian'} src='/images/图层2@2x.png' />
+                        <img className={'dian'} src='/images/dian@2x.png' />
                         <div style={{ color: '#1887fc', }} className={'diancontent'}>您的报修单号( {(this.state.completed === 'completed' ? "已完成" : "未完成")} )</div>
                         <div style={{ color: 'grey', }} className={'diancontentright'}>{this.state.itemId}</div>
                     </div>
