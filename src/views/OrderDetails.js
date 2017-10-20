@@ -317,12 +317,18 @@ class OrderDetails extends Component {
 
 
                     <ButtonArea className={(this.state.completed === 'completed' || !this.state.showIKnowBtn) ? 'hideKnowBtn' : 'showKnowBtn'}>
+                    <tr>
+                        <th>
                         <Button onClick={this.returnUp.bind(this)}>
                             返回
                         </Button>
+                        </th>
+                        <th>
                         <Button onClick={this.detailsUpdate.bind(this)}>
                             处理
                         </Button>
+                        </th>
+                        </tr>
                     </ButtonArea>
 
 
