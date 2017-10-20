@@ -699,9 +699,14 @@ class RepairForm extends Component {
                 break;
             }
         }
+        let secondDeviceType = '';
+        if (children.length > 0) {
+            secondDeviceType = children[0].value;
+        }
         this.setState({
             firstDeviceType: deviceType,
             secondDeviceData: children,
+            secondDeviceType: secondDeviceType
         });
         if (children !== undefined && children.length > 0) {
             this.setState({
@@ -723,11 +728,14 @@ class RepairForm extends Component {
                 break;
             }
         }
-
+        let thirdDeviceType = '';
+        if (children.length > 0) {
+            thirdDeviceType = children[0].value;
+        }
         this.setState({
             secondDeviceType: deviceType,
             thirdDeviceData: children,
-
+            thirdDeviceType: thirdDeviceType
         });
         if (children !== undefined && children.length > 0) {
             this.setState({
