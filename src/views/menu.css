@@ -19,7 +19,7 @@
   color: #FFFFFF; }
 
 .showRepairManagement {
-  display: block; }
+  display: flex !important; }
 
 .hideRepairManagement {
-  display: none; }
+  display: none !important; }
