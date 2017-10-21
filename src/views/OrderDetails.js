@@ -316,19 +316,16 @@ class OrderDetails extends Component {
                     )}
 
 
-                    <ButtonArea className={(this.state.completed === 'completed' || !this.state.showIKnowBtn) ? 'hideKnowBtn' : 'showKnowBtn'}>
-                    <tr>
-                        <th>
-                        <Button onClick={this.returnUp.bind(this)}>
+                    <ButtonArea className={(this.state.completed === 'completed' || !this.state.showIKnowBtn) ? 'hideKnowBtn' : 'showKnowBtn'} direction="horizontal">
+                    
+                        <Button  onClick={this.returnUp.bind(this)}>
                             返回
                         </Button>
-                        </th>
-                        <th>
-                        <Button onClick={this.detailsUpdate.bind(this)}>
+                        
+                        <Button style = {{margin: '0 auto' }} onClick={this.detailsUpdate.bind(this)}>
                             处理
                         </Button>
-                        </th>
-                        </tr>
+                      
                     </ButtonArea>
 
 
