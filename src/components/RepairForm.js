@@ -424,111 +424,133 @@ class RepairForm extends Component {
 
     componentDidMount() {
 
-        const url = 'http://xn.geekx.cn/repairsubmit';
-        const jsApiObject = sign('HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1J9SMuPK0mD7QzJSBhUP0T1x47EjSrZLSaGXAf87FEFOA', url);
-        // alert(window.location.href);
-        wx.config({
-            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-            appId: 'wx457ecf3c803c3774', // 必填，公众号的唯一标识
-            
-            jsApiList: ['startRecord',
-                'stopRecord',
-                'onVoiceRecordEnd',
-                'playVoice',
-                'previewImage',
-                'chooseImage',
-                'uploadImage',
-                'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            // jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1J9SMuPK0mD7QzJSBhUP0T1x47EjSrZLSaGXAf87FEFOA',
-            // nonceStr: 'afjdmyufj0wz11h',
-            // timestamp: '1508582755',
-            // url: 'http://xn.geekx.cn/repairsubmit',
-            // signature: 'f5be9361d361c7e66a129b60dfa2532441a57de9'
-            jsapi_ticket: jsApiObject.jsapi_ticket,
-            nonceStr: jsApiObject.nonceStr,
-            timestamp: jsApiObject.timestamp,
-            url: jsApiObject.url,
-            signature: jsApiObject.signature
+        let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
+        var request = $.ajax({
+            url: url,
+            method: "GET",
+            contentType: "application/json; charset=utf-8"
         });
-        const self = this;
-        wx.ready(function () {
-            $('#talk_btn').on('touchstart', function (event) {
-                event.preventDefault();
-                // START = new Date().getTime();
-                recordTimer = setTimeout(function () {
-                    wx.startRecord({
-                        success: function () {
-                            localStorage.rainAllowRecord = 'true';
-                            self.setState({
-                                showWarn: true,
-                            })
-                        },
-                        cancel: function () {
-                            alert('用户拒绝授权录音');
-                        }
-                    });
-                }, 300);
-            });
-            $('#talk_btn').on('touchend', function (event) {
-                event.preventDefault();
-                // END = new Date().getTime();
 
-                // if((END - START) < 300){
-                //     END = 0;
-                //     START = 0;
-                //     //小于300ms，不录音
-                //     clearTimeout(recordTimer);
-                // }else{
-                // alert('s1');
-                wx.stopRecord({
-                    success: function (res) {
-                        // alert('s2');
-                        var localId = res.localId;
-                        self.setState({
-                            audioId: localId,
-                            showWarn: false,
-                            radioText: localId
-                        })
-                        self.addRadioDev(localId);
-                    },
-                    fail: function (res) {
-                        alert('录音功能暂不可用:' + JSON.stringify(res));
-                    }
+        var self = this;
+
+        request.done(function (msg) {
+            if (msg) {
+                const jsticketObject = JSON.parse(msg);
+                const jsapiticket = jsticketObject.jsapi_ticket;
+                const url = 'http://xn.geekx.cn/repairsubmit';
+                const jsApiObject = sign(jsapiticket, url);
+                // alert(window.location.href);
+                wx.config({
+                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: 'wx457ecf3c803c3774', // 必填，公众号的唯一标识
+
+                    jsApiList: ['startRecord',
+                        'stopRecord',
+                        'onVoiceRecordEnd',
+                        'playVoice',
+                        'previewImage',
+                        'chooseImage',
+                        'uploadImage',
+                        'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                    // jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1J9SMuPK0mD7QzJSBhUP0T1x47EjSrZLSaGXAf87FEFOA',
+                    // nonceStr: 'afjdmyufj0wz11h',
+                    // timestamp: '1508582755',
+                    // url: 'http://xn.geekx.cn/repairsubmit',
+                    // signature: 'f5be9361d361c7e66a129b60dfa2532441a57de9'
+                    jsapi_ticket: jsApiObject.jsapi_ticket,
+                    nonceStr: jsApiObject.nonceStr,
+                    timestamp: jsApiObject.timestamp,
+                    url: jsApiObject.url,
+                    signature: jsApiObject.signature
                 });
-                // }
-            });
-
-            $('#addimagebutton').on('click', function (event) {
-                // alert('image');
-                wx.chooseImage({
-                    count: 1,
-                    sourceType: ['album', 'camera'],
-                    success: function (res) {
-                        // alert('imageuploadsuccessful');
-                        self.setState({
-                            imageId: res.localIds[0],
-                        })
-                        var u = navigator.userAgent, app = navigator.appVersion;
-                        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
-                        var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-                        if (isAndroid) {
-                            self.addImageDev(res.localIds[0]);
-                        }
-                        if (isIOS) {
-                            // alert('arr' + res);
-                            wx.getLocalImgData({
-                                localId: res.localIds[0], // 图片的localID
-                                success: function (res) {
-                                    var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-                                    self.addImageDev(localData);
+                wx.ready(function () {
+                    $('#talk_btn').on('touchstart', function (event) {
+                        event.preventDefault();
+                        // START = new Date().getTime();
+                        recordTimer = setTimeout(function () {
+                            wx.startRecord({
+                                success: function () {
+                                    localStorage.rainAllowRecord = 'true';
+                                    self.setState({
+                                        showWarn: true,
+                                    })
+                                },
+                                cancel: function () {
+                                    alert('用户拒绝授权录音');
                                 }
                             });
-                        }
-                    }
+                        }, 300);
+                    });
+                    $('#talk_btn').on('touchend', function (event) {
+                        event.preventDefault();
+                        // END = new Date().getTime();
+
+                        // if((END - START) < 300){
+                        //     END = 0;
+                        //     START = 0;
+                        //     //小于300ms，不录音
+                        //     clearTimeout(recordTimer);
+                        // }else{
+                        // alert('s1');
+                        wx.stopRecord({
+                            success: function (res) {
+                                // alert('s2');
+                                var localId = res.localId;
+                                self.setState({
+                                    audioId: localId,
+                                    showWarn: false,
+                                    radioText: localId
+                                })
+                                self.addRadioDev(localId);
+                            },
+                            fail: function (res) {
+                                alert('录音功能暂不可用:' + JSON.stringify(res));
+                            }
+                        });
+                        // }
+                    });
+
+                    $('#addimagebutton').on('click', function (event) {
+                        // alert('image');
+                        wx.chooseImage({
+                            count: 1,
+                            sourceType: ['album', 'camera'],
+                            success: function (res) {
+                                // alert('imageuploadsuccessful');
+                                self.setState({
+                                    imageId: res.localIds[0],
+                                })
+                                var u = navigator.userAgent, app = navigator.appVersion;
+                                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+                                var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                                if (isAndroid) {
+                                    self.addImageDev(res.localIds[0]);
+                                }
+                                if (isIOS) {
+                                    // alert('arr' + res);
+                                    wx.getLocalImgData({
+                                        localId: res.localIds[0], // 图片的localID
+                                        success: function (res) {
+                                            var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+                                            self.addImageDev(localData);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    });
+
                 });
+            }
+
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            self.setState({
+                errorMsg: '出错了，请刷新重试，或者联系管理员'
             });
-
-
+            alert('出错了，请刷新重试，或者联系管理员');
+            console.log("Request failed: " + textStatus)
         });
 
     }
