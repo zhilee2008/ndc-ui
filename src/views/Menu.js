@@ -21,51 +21,14 @@ class Menu extends Component {
 
     constructor(props) {
         super(props);
+        console.log(this.props.location.query);
+        alert(this.props.location.query);
         this.state = {
 
         };
     }
 
     componentWillMount() {
-      // let url = process.env.REACT_APP_HTTP_PREFIX + '/repairs/account';
-      //
-      // var request = $.ajax({
-      //   url: url,
-      //   method: "GET",
-      //   contentType: "application/json; charset=utf-8"
-      // });
-      //
-      // var self = this;
-      //
-      // request.done(function (msg) {
-      //   alert(msg)
-      // });
-      //
-      // request.fail(function (jqXHR, textStatus) {
-      //   alert('获取用户信息失败')
-      //   alert(jqXHR);
-      //   alert(textStatus)
-      //   return;
-      // });
-      //
-      //
-      //
-      // $.ajax(
-      //   {
-      //     type:'get',
-      //     url : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx457ecf3c803c3774&redirect_uri=http%3a%2f%2fxn.geekx.cn%2f&response_type=code&scope=snsapi_base&state=111#wechat_redirect',
-      //     dataType : 'jsonp',
-      //     jsonp:"jsoncallback",
-      //     success  : function(data) {
-      //       alert(data);
-      //       alert(JSON.stringify(data));
-      //     },
-      //     error : function(data) {
-      //       alert(JSON.stringify(data));
-      //       alert('fail');
-      //     }
-      //   }
-      // );
 
     }
 
