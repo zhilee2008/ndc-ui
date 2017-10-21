@@ -500,6 +500,8 @@ class RepairForm extends Component {
                         self.setState({
                             imageId: res.localIds[0],
                         })
+                        alert('arr'+res.tempFilePaths[0]);
+                        alert('url'+res.tempFilePaths);
                         self.addImageDev(res.tempFilePaths[0]);
                     }
                 });
@@ -809,21 +811,21 @@ class RepairForm extends Component {
         });
     }
 
-    addImageDev(localId) {
+    addImageDev(src) {
          alert(localId);
         $('#imagecontainer').empty();
         // const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
 
-        const imagediv = "<div style='float:left'><img class='savedimage'  src='" + localId + "' /><img class='deleteimage' src='/images/delete.png' /></div>";
+        const imagediv = "<div style='float:left'><img class='savedimage'  src='" + src + "' /><img class='deleteimage' src='/images/delete.png' /></div>";
         $('#imagecontainer').append(imagediv);
         $('.deleteimage').click(function (e) {
             e.target.parentNode.remove();
         });
         $('.savedimage').click(function (e) {
             wx.previewImage({
-                current: localId,
+                current: src,
                 urls: [
-                    localId,
+                    src,
                 ]
             });
             // wx.previewImage({
