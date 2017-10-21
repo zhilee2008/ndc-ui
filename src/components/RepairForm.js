@@ -441,11 +441,11 @@ class RepairForm extends Component {
                 'chooseImage',
                 'uploadImage',
                 'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1LEl4G_UtV-jVHi8cTuQd9xjMaxuHxdd020VP8l-IemLQ',
-            nonceStr: '3r98794nci2c0ho',
-            timestamp: '1508572957',
+            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1J9SMuPK0mD7QzJSBhUP0T1x47EjSrZLSaGXAf87FEFOA',
+            nonceStr: 'afjdmyufj0wz11h',
+            timestamp: '1508582755',
             url: 'http://xn.geekx.cn/repairsubmit',
-            signature: 'a88b4ed18de7f5dd48f86a0fc115609b66f50bb0'
+            signature: 'f5be9361d361c7e66a129b60dfa2532441a57de9'
         });
         const self = this;
         wx.ready(function () {
@@ -485,7 +485,7 @@ class RepairForm extends Component {
                         self.addRadioDev(localId);
                     },
                     fail: function (res) {
-                        alert('IOS录音功能暂不可用:' + JSON.stringify(res));
+                        alert('录音功能暂不可用:' + JSON.stringify(res));
                     }
                 });
                 // }
@@ -500,8 +500,8 @@ class RepairForm extends Component {
                         self.setState({
                             imageId: res.localIds[0],
                         })
-                        alert('arr'+res.tempFilePaths[0]);
-                        alert('url'+res.tempFilePaths);
+                        alert('arr' + res.tempFilePaths[0]);
+                        alert('url' + res.tempFilePaths);
                         self.addImageDev(res.tempFilePaths[0]);
                     }
                 });
@@ -588,30 +588,33 @@ class RepairForm extends Component {
             // });
             // alert('ready');
             // alert(self.state.localId);
-            wx.uploadVoice({
-                localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                isShowProgressTips: 1, // 默认为1，显示进度提示
-                success: function (res) {
-                    var serverId = res.serverId; // 返回音频的服务器端ID
-                    // alert(JSON.stringify(res));
-                    self.setState({
-                        audioMediaId: serverId
-                    });
-                }
-            });
-            wx.uploadImage({
-                localId: self.state.imageId,
-                success: function (res) {
-                    alert(res.serverId);
-                    var serverId = res.serverId; // 返回图片的服务器端IDres.serverId;
-                    self.setState({
-                        imageMediaId: serverId
-                    });
-                },
-                fail: function (res) {
-                    alert(JSON.stringify(res));
-                }
-            });
+            if (self.state.audioId !== '') {
+                wx.uploadVoice({
+                    localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    success: function (res) {
+                        var serverId = res.serverId; // 返回音频的服务器端ID
+                        // alert(JSON.stringify(res));
+                        self.setState({
+                            audioMediaId: serverId
+                        });
+                    }
+                });
+            }
+
+            // wx.uploadImage({
+            //     localId: self.state.imageId,
+            //     success: function (res) {
+            //         alert(res.serverId);
+            //         var serverId = res.serverId; // 返回图片的服务器端IDres.serverId;
+            //         self.setState({
+            //             imageMediaId: serverId
+            //         });
+            //     },
+            //     fail: function (res) {
+            //         alert(JSON.stringify(res));
+            //     }
+            // });
         });
 
         console.log('添加保修单');
@@ -812,7 +815,7 @@ class RepairForm extends Component {
     }
 
     addImageDev(src) {
-         alert(src);
+        alert(src);
         $('#imagecontainer').empty();
         // const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
 
