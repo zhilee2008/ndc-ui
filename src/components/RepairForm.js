@@ -503,11 +503,11 @@ class RepairForm extends Component {
                             localId: self.state.imageId,
                             success: function (res) {
                                 alert(res.serverId);
-                                var serverId = res.serverId; // 返回图片的服务器端IDres.serverId;
+                                // var serverId = res.serverId; // 返回图片的服务器端IDres.serverId;
                                 self.setState({
-                                    imageMediaId: serverId
+                                    imageMediaId: res.serverId
                                 });
-                                self.addImageDev(rserverId);
+                                self.addImageDev(res.serverId);
                             },
                             fail: function (res) {
                                 alert(JSON.stringify(res));
@@ -606,7 +606,7 @@ class RepairForm extends Component {
                     var serverId = res.serverId; // 返回音频的服务器端ID
                     // alert(JSON.stringify(res));
                     self.setState({
-                        audioMediaId: serverId
+                        audioMediaId: res.serverId
                     });
                 }
             });
@@ -810,7 +810,7 @@ class RepairForm extends Component {
         });
     }
 
-    addImageDev(localId) {
+    addImageDev(serverId) {
         // alert('adddiv');
         $('#imagecontainer').empty();
         // const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
