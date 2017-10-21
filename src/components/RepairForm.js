@@ -382,14 +382,16 @@ class RepairForm extends Component {
             showLoading: false,
             showWarningDialog: false,
             validElement: '',
-            localId: '',
             firstDeviceData: [],
             secondDeviceData: [],
             thirdDeviceData: [],
             displayDeviceTypeII: { display: "none" },
             displayDeviceTypeIII: { display: "none" },
             radionumber: 1,
-            addedImages: [],
+            audioId: '',
+            audioMediaId: '',
+            imageId: '',
+            imageMediaId: '',
             warningStyle: {
                 buttons: [
                     {
@@ -435,7 +437,9 @@ class RepairForm extends Component {
                 'stopRecord',
                 'onVoiceRecordEnd',
                 'playVoice',
+                'previewImage',
                 'chooseImage',
+                'uploadImage',
                 'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
             jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1LEl4G_UtV-jVHi8cTuQd9xjMaxuHxdd020VP8l-IemLQ',
             nonceStr: '3r98794nci2c0ho',
@@ -475,12 +479,10 @@ class RepairForm extends Component {
                         // alert('s2');
                         var localId = res.localId;
                         self.setState({
-                            localId: localId,
+                            audioId: localId,
                             radioText: localId
                         })
                         self.addRadioDev(localId);
-
-
                     },
                     fail: function (res) {
                         alert('IOS录音功能暂不可用:' + JSON.stringify(res));
@@ -491,10 +493,13 @@ class RepairForm extends Component {
 
             $('#addimagebutton').on('click', function (event) {
                 wx.chooseImage({
+                    count: 1,
+                    sourceType: ['album', 'camera'],
                     success: function (res) {
-                        alert(res.localIds);
-                        self.state.addedImages = res.localIds;
-                        self.addImageDev('image');
+                        self.setState({
+                            imageId: res.localIds[0],
+                        })
+                        self.addImageDev(res.localIds[0]);
                     }
                 });
             });
@@ -505,6 +510,8 @@ class RepairForm extends Component {
     }
 
     validRepairForm = () => {
+        // this.addRadioDev('1');
+        // this.addImageDev('1');
         if (this.state.company === '') {
             this.setState({
                 validElement: '请填写公司名称',
@@ -578,14 +585,29 @@ class RepairForm extends Component {
             //         alert(JSON.stringify(res));
             //     }
             // });
-            alert('ready');
-            alert(self.state.localId);
+            // alert('ready');
+            // alert(self.state.localId);
             wx.uploadVoice({
-                localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function (res) {
-                    alert('u');
                     var serverId = res.serverId; // 返回音频的服务器端ID
+                    // alert(JSON.stringify(res));
+                    self.setState({
+                        audioMediaId: serverId
+                    });
+                }
+            });
+            wx.uploadImage({
+                localId: self.state.imageId,
+                success: function (res) {
+                    alert(res.serverId);
+                    var serverId = res.serverId; // 返回图片的服务器端IDres.serverId;
+                    self.setState({
+                        imageMediaId: serverId
+                    });
+                },
+                fail: function (res) {
                     alert(JSON.stringify(res));
                 }
             });
@@ -604,7 +626,8 @@ class RepairForm extends Component {
             billAddress: this.state.billAddress,
             companyAddress: this.state.companyAddress,
             bugDetail: this.state.bugDetail,
-
+            audioMediaId: this.state.audioMediaId,
+            imageMediaId: this.state.imageMediaId,
 
         };
 
@@ -775,7 +798,7 @@ class RepairForm extends Component {
     addRadioDev(localId) {
         // alert('adddiv');
         $('#buttoncontainer').empty();
-        const radiodiv = "<div style='float:left'><div id='" + localId + "' class='savedradio'>点击播放录音</div><img class='deleteradio' src='/images/delete.png' /></div>";
+        const radiodiv = "<div style='float:left;width:100%'><div id='" + localId + "' class='savedradio'>点击播放录音</div><img class='deleteradio' src='/images/delete.png' /></div>";
         $('#buttoncontainer').append(radiodiv);
         $('.deleteradio').click(function (e) {
             e.target.parentNode.remove();
@@ -790,36 +813,23 @@ class RepairForm extends Component {
     addImageDev(localId) {
         // alert('adddiv');
         $('#imagecontainer').empty();
-        const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
+        // const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
+
+        const imagediv = "<div style='float:left'><img class='savedimage'  src='" + localId + "' /><img class='deleteimage' src='/images/delete.png' /></div>";
         $('#imagecontainer').append(imagediv);
         $('.deleteimage').click(function (e) {
             e.target.parentNode.remove();
         });
-        // $('.savedimage').click(function (e) {
-        //     wx.previewImage({
-        //         localId: e.target.id
-        //     });
-        // });
-    }
-
-
-    endRadio(e) {
-        this.setState({
-            showWarn: false,
-        })
-
-        radioCount++;
-        var self = this;
-        wx.stopRecord({
-            success: function (res) {
-                var localId = res.localId;
-                self.setState({
-                    localId: localId,
-                    radioText: localId
-                })
-                self.addRadioDev(localId);
-
-            }
+        $('.savedimage').click(function (e) {
+            wx.previewImage({
+                current: this.state.imageId,
+                urls: [
+                    this.state.imageId,
+                ]
+            });
+            // wx.previewImage({
+            //     localId: e.target.id
+            // });
         });
     }
 
@@ -1056,7 +1066,7 @@ class RepairForm extends Component {
                             </FormCell>
                         </div>
                         <div className={"RepairBorder"}>
-                            <FormCell className={"weui-label-align-top"}>
+                            <FormCell style={{ paddingBottom: '0px' }} className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>故障细节</Label>
                                     <Button id="talk_btn" className={'radioimage'} >&nbsp;</Button>
@@ -1086,7 +1096,7 @@ class RepairForm extends Component {
                                     <img onClick={this.addVideo.bind(this)} src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /></CellBody>
 
                             </FormCell>
-                            <div style={{ height: '30px' }} id="imagecontainer"></div>
+                            <div style={{ height: '60px', paddingBottom: '5px' }} id="imagecontainer"></div>
                         </div>
                     </Form>
 
