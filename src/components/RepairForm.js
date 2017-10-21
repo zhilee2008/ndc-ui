@@ -435,6 +435,7 @@ class RepairForm extends Component {
                 'stopRecord',
                 'onVoiceRecordEnd',
                 'playVoice',
+                'chooseImage',
                 'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
             jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1IjPM1ZuCi9TLPiFd8vgsq3G7byN0GaNhv0_sxeyclnGw',
             nonceStr: '8essupk63834miw',
@@ -461,7 +462,7 @@ class RepairForm extends Component {
             $('#talk_btn').on('touchend', function (event) {
                 event.preventDefault();
                 // END = new Date().getTime();
-        
+
                 // if((END - START) < 300){
                 //     END = 0;
                 //     START = 0;
@@ -478,8 +479,8 @@ class RepairForm extends Component {
                             radioText: localId
                         })
                         self.addRadioDev(localId);
-        
-        
+
+
                     },
                     fail: function (res) {
                         alert('IOS录音功能暂不可用:' + JSON.stringify(res));
@@ -495,8 +496,8 @@ class RepairForm extends Component {
                     }
                 });
             });
-        
-        
+
+
         });
 
     }
@@ -1065,9 +1066,7 @@ class RepairForm extends Component {
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
-
-                                    <img id="addvideobutton" src='/images/tupian@2x.png' className={"imagebutton"} />
-                                    <img  onClick={this.addVideo.bind(this)} src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /></CellBody>
+                                    <img onClick={this.addVideo.bind(this)} src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /></CellBody>
 
                             </FormCell>
                         </div>
