@@ -22,8 +22,14 @@ class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            admin: false
         };
+        let adminParam = this.props.match.params.admin;
+        if (adminParam === 'admin') {
+          this.state = {
+            admin: true
+          };
+        }
     }
 
     componentWillMount() {
@@ -92,7 +98,7 @@ class Menu extends Component {
 
                     </MediaBoxBody>
                 </MediaBox>
-                <MediaBox key={3} type="appmsg" href="javascript:void(0);" onClick={this.menuItemClick.bind(this, '3')}>
+                <MediaBox className={this.state.admin ? 'showRepairManagement': 'hideRepairManagement'} key={3} type="appmsg" href="javascript:void(0);" onClick={this.menuItemClick.bind(this, '3')}>
                     <MediaBoxHeader>{repairmanagementicon}</MediaBoxHeader>
                     <MediaBoxBody>
                         <MediaBoxTitle>{'报修管理'}</MediaBoxTitle>
