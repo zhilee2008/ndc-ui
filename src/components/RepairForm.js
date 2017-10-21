@@ -492,7 +492,9 @@ class RepairForm extends Component {
             $('#addimagebutton').on('click', function (event) {
                 wx.chooseImage({
                     success: function (res) {
+                        alert(res.localIds);
                         self.state.addedImages = res.localIds;
+                        self.addImageDev('image');
                     }
                 });
             });
@@ -785,6 +787,21 @@ class RepairForm extends Component {
         });
     }
 
+    addImageDev(localId) {
+        // alert('adddiv');
+        $('#imagecontainer').empty();
+        const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
+        $('#imagecontainer').append(imagediv);
+        $('.deleteimage').click(function (e) {
+            e.target.parentNode.remove();
+        });
+        // $('.savedimage').click(function (e) {
+        //     wx.previewImage({
+        //         localId: e.target.id
+        //     });
+        // });
+    }
+
 
     endRadio(e) {
         this.setState({
@@ -1069,6 +1086,7 @@ class RepairForm extends Component {
                                     <img onClick={this.addVideo.bind(this)} src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /></CellBody>
 
                             </FormCell>
+                            <div style={{ height: '30px' }} id="imagecontainer"></div>
                         </div>
                     </Form>
 
