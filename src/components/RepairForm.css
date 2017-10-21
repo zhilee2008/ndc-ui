@@ -135,7 +135,7 @@
   float: left;
   padding-left: 5px;
   font-size: 12px;
-  width: 20px;
+  width: 50px;
   border: 1px solid lightgrey;
   margin: 10px 0 10px 10px; }
 
@@ -144,7 +144,3 @@
   margin-left: 0px;
   width: 20px;
   padding-top: 5px; }
-
-.savedradiocontainer {
-  width: 25px;
-  margin-left: 2px; }
