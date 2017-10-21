@@ -437,11 +437,11 @@ class RepairForm extends Component {
                 'playVoice',
                 'chooseImage',
                 'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1IjPM1ZuCi9TLPiFd8vgsq3G7byN0GaNhv0_sxeyclnGw',
-            nonceStr: '8essupk63834miw',
-            timestamp: '1508567416',
+            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1LEl4G_UtV-jVHi8cTuQd9xjMaxuHxdd020VP8l-IemLQ',
+            nonceStr: '3r98794nci2c0ho',
+            timestamp: '1508572957',
             url: 'http://xn.geekx.cn/repairsubmit',
-            signature: '42ee22479431b93fb7866e1067441b3070de9989'
+            signature: 'a88b4ed18de7f5dd48f86a0fc115609b66f50bb0'
         });
         const self = this;
         wx.ready(function () {
