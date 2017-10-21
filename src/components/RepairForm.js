@@ -494,7 +494,7 @@ class RepairForm extends Component {
                     success: function (res) {
                         alert('image');
                         self.state.addedImages = res.localIds;
-                        self.addImageDev(localId);
+                        self.addImageDev('image');
                     }
                 });
             });
