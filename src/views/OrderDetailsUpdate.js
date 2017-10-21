@@ -142,7 +142,10 @@ class OrderDetailsUpdate extends Component {
 
           ],
           engineerOpention:[
-
+            {
+                value: "",
+                label: "请选择订单变更原因"
+             }, 
             {
                 value: "1.缺少或等配件",
                 label: "1.缺少或等配件"
@@ -275,11 +278,12 @@ class OrderDetailsUpdate extends Component {
             engineerName: this.state.engineerName,
             engineerMobile: this.state.engineerMobile,
             engineerOpention: this.state.selectedOpention,
-            homeServiceTime: this.state.homeServiceTime,
+            homeServiceTime: String(this.state.homeServiceTime),
             // repairTime: this.state.repairTime,
             notes: this.state.notes,
             fixcompleted: String(this.state.fixCompleted),
             smsUser: String(this.state.smsUser),
+            selectedOption: this.state.selectedOpention
         };
 
         let requestUrl = process.env.REACT_APP_HTTP_PREFIX + "/repairs/update";
@@ -380,7 +384,16 @@ class OrderDetailsUpdate extends Component {
                                     onChange={this.handleChange.bind(this)} placeholder="上门时间" />
                             </CellBody>
                         </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: '#000' }}>订单变更原因</Label>
+                            </CellHeader>
+                            <CellBody>
 
+                                <Select value={this.state.selectedOpention} onChange={this.handleEngineerOpentionChange.bind(this)} data={this.state.engineerOpention} />
+
+                            </CellBody>
+                        </FormCell>
                         {/*<FormCell>*/}
                             {/*<CellHeader>*/}
                                 {/*<Label style={{ color: '#000' }}>维修时间</Label>*/}
@@ -392,18 +405,6 @@ class OrderDetailsUpdate extends Component {
                             {/*</CellBody>*/}
                         {/*</FormCell>*/}
 
-                    </Form>
-                    <Form className={'formupdate'}>
-                        <FormCell>
-                            <CellHeader>
-                                <Label style={{ color: '#000' }}>选项</Label>
-                            </CellHeader>
-                            <CellBody>
-
-                                <Select value={this.state.selectedOpention} onChange={this.handleEngineerOpentionChange.bind(this)} data={this.state.engineerOpention} />
-
-                            </CellBody>
-                        </FormCell>
                     </Form>
                     <Form className={'formupdate'}>
 

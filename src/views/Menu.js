@@ -27,45 +27,45 @@ class Menu extends Component {
     }
 
     componentWillMount() {
-      let url = process.env.REACT_APP_HTTP_PREFIX + '/repairs/account';
-
-      var request = $.ajax({
-        url: url,
-        method: "GET",
-        contentType: "application/json; charset=utf-8"
-      });
-
-      var self = this;
-
-      request.done(function (msg) {
-        alert(msg)
-      });
-
-      request.fail(function (jqXHR, textStatus) {
-        alert('获取用户信息失败')
-        alert(jqXHR);
-        alert(textStatus)
-        return;
-      });
-
-
-
-      $.ajax(
-        {
-          type:'get',
-          url : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx457ecf3c803c3774&redirect_uri=http%3a%2f%2fxn.geekx.cn%2f&response_type=code&scope=snsapi_base&state=111#wechat_redirect',
-          dataType : 'jsonp',
-          jsonp:"jsoncallback",
-          success  : function(data) {
-            alert(data);
-            alert(JSON.stringify(data));
-          },
-          error : function(data) {
-            alert(JSON.stringify(data));
-            alert('fail');
-          }
-        }
-      );
+      // let url = process.env.REACT_APP_HTTP_PREFIX + '/repairs/account';
+      //
+      // var request = $.ajax({
+      //   url: url,
+      //   method: "GET",
+      //   contentType: "application/json; charset=utf-8"
+      // });
+      //
+      // var self = this;
+      //
+      // request.done(function (msg) {
+      //   alert(msg)
+      // });
+      //
+      // request.fail(function (jqXHR, textStatus) {
+      //   alert('获取用户信息失败')
+      //   alert(jqXHR);
+      //   alert(textStatus)
+      //   return;
+      // });
+      //
+      //
+      //
+      // $.ajax(
+      //   {
+      //     type:'get',
+      //     url : 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx457ecf3c803c3774&redirect_uri=http%3a%2f%2fxn.geekx.cn%2f&response_type=code&scope=snsapi_base&state=111#wechat_redirect',
+      //     dataType : 'jsonp',
+      //     jsonp:"jsoncallback",
+      //     success  : function(data) {
+      //       alert(data);
+      //       alert(JSON.stringify(data));
+      //     },
+      //     error : function(data) {
+      //       alert(JSON.stringify(data));
+      //       alert('fail');
+      //     }
+      //   }
+      // );
 
     }
 
@@ -103,11 +103,11 @@ class Menu extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader onClick={this.closePage.bind(this)} style={{width:'20%', height: '65px', marginTop: '25px' }} >
-                        <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
-                        <div className={'titlebarback'}>
-                            返回
-                     </div>
+                    <CellHeader style={{width:'20%', height: '65px', marginTop: '25px' }} >
+                        {/*<img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />*/}
+                        {/*<div className={'titlebarback'}>*/}
+                            {/*返回*/}
+                     {/*</div>*/}
                     </CellHeader>
 
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
