@@ -60,6 +60,10 @@ class OrderDetails extends Component {
 
         this.props.history.push(path);
     };
+    returnUp = () => {
+        let path = '/repairmanagement';
+        this.props.history.push(path);
+    }
 
     componentDidMount() {
         // console.log(this.props.match.params.id);
@@ -69,7 +73,7 @@ class OrderDetails extends Component {
         }else {
             showIKnowBtn = true;
         }
-
+        
         this.setState({
             itemId: this.props.match.params.id,
             showIKnowBtn: showIKnowBtn
@@ -147,8 +151,9 @@ class OrderDetails extends Component {
                     </Cell>
                     {/* <img src='/images/touying@2x.png' /> */}
                     <div className={'touying'}>
+                         
                         <img className={'dian'} src='/images/dian@2x.png' />
-                        <div style={{ color: '#1887fc', }} className={'diancontent'}>您的报修单号</div>
+                        <div style={{ color: '#1887fc', }} className={'diancontent'}>您的报修单号( {(this.state.completed === 'completed' ? "已完成" : "未完成")} )</div>
                         <div style={{ color: 'grey', }} className={'diancontentright'}>{this.state.itemId}</div>
                     </div>
                     <Form className={'orderborder'}>
@@ -311,10 +316,16 @@ class OrderDetails extends Component {
                     )}
 
 
-                    <ButtonArea className={(this.state.completed === 'completed' || !this.state.showIKnowBtn) ? 'hideKnowBtn' : 'showKnowBtn'}>
-                        <Button onClick={this.detailsUpdate.bind(this)}>
-                            我知道了
+                    <ButtonArea className={(this.state.completed === 'completed' || !this.state.showIKnowBtn) ? 'hideKnowBtn' : 'showKnowBtn'} direction="horizontal">
+                    
+                        <Button  onClick={this.returnUp.bind(this)}>
+                            返回
                         </Button>
+                        
+                        <Button style = {{margin: '0 auto' }} onClick={this.detailsUpdate.bind(this)}>
+                            处理
+                        </Button>
+                      
                     </ButtonArea>
 
 
