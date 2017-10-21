@@ -389,7 +389,7 @@ class RepairForm extends Component {
             displayDeviceTypeII: { display: "none" },
             displayDeviceTypeIII: { display: "none" },
             radionumber: 1,
-            addedImages:[],
+            addedImages: [],
             warningStyle: {
                 buttons: [
                     {
@@ -436,11 +436,11 @@ class RepairForm extends Component {
                 'onVoiceRecordEnd',
                 'playVoice',
                 'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1KXBv7Fjk_j3PebygnGNEbN-A204wwl4R5t0bXkF8GzpQ',
-            nonceStr: 'jn6dichs2p7bdgn',
-            timestamp: '1508385962',
+            jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1IjPM1ZuCi9TLPiFd8vgsq3G7byN0GaNhv0_sxeyclnGw',
+            nonceStr: '8essupk63834miw',
+            timestamp: '1508567416',
             url: 'http://xn.geekx.cn/repairsubmit',
-            signature: 'ca8dede5877b37a4c24227b65b41ae07fb0f8c2f'
+            signature: '42ee22479431b93fb7866e1067441b3070de9989'
         });
         const self = this;
         wx.ready(function () {
