@@ -815,7 +815,7 @@ class RepairForm extends Component {
         $('#imagecontainer').empty();
         // const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
         const imgurl = 'http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=KWguqVRqR2bM5pDoK8qlm_aaLGUNs_fYgadCsTMDV32e8T6aufWAbGr5jwmlvID0eAMqiDcHMmI60Z7xVUK3EeP05Z_iQ1otjktW5VSLjM9x9Ka-ERAwB50uEwpsf9ZrMVRfAJAVEA&media_id='+serverId;
-        const imagediv = "<div style='float:left'><img class='savedimage'  src='" + localId + "' /><img class='deleteimage' src='/images/delete.png' /></div>";
+        const imagediv = "<div style='float:left'><img class='savedimage'  src='" + imgurl + "' /><img class='deleteimage' src='/images/delete.png' /></div>";
         $('#imagecontainer').append(imagediv);
         $('.deleteimage').click(function (e) {
             e.target.parentNode.remove();
