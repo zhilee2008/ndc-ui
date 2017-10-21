@@ -492,7 +492,9 @@ class RepairForm extends Component {
             $('#addimagebutton').on('click', function (event) {
                 wx.chooseImage({
                     success: function (res) {
+                        alert('image');
                         self.state.addedImages = res.localIds;
+                        self.addImageDev(localId);
                     }
                 });
             });
@@ -785,7 +787,7 @@ class RepairForm extends Component {
         });
     }
 
-    addRadioDev(localId) {
+    addImageDev(localId) {
         // alert('adddiv');
         $('#imagecontainer').empty();
         const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
