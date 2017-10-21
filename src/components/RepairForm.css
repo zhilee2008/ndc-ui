@@ -124,7 +124,7 @@
   margin: 40px 0px 0px 20px; }
 
 .imagebutton {
-  margin: 62px 0px 0px 20px;
+  margin: 65px 0px 0px 20px;
   width: 20px; }
 
 .videoimage {
@@ -135,26 +135,22 @@
   float: left;
   padding-left: 5px;
   font-size: 12px;
-  width: 50%;
+  width: 30%;
   border: 1px solid lightgrey;
-  margin: 10px 0 10px 10px; }
+  margin: 0px 0 10px 10px; }
 
 .deleteradio {
-  margin-top: 5px;
+  /* margin-top: 5px; */
   margin-left: 0px;
   width: 20px;
-  padding-top: 5px; }
+  /* padding-top: 5px;  */ }
 
 .savedimage {
-    float: left;
-    padding-left: 5px;
-    font-size: 12px;
-    width: 30px;
-    border: 1px solid lightgrey;
-    margin: 10px 0 10px 10px; }
-  
+  border: 1px solid lightgrey;
+  height: 50px;
+  margin-left: 10px; }
+
 .deleteimage {
-    margin-top: 5px;
-    margin-left: 0px;
-    width: 20px;
-    padding-top: 5px; }
+  margin-bottom: 15px;
+  margin-left: 0px;
+  width: 20px; }
