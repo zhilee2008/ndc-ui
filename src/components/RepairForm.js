@@ -501,8 +501,8 @@ class RepairForm extends Component {
                         self.setState({
                             imageId: res.localIds[0],
                         })
-                        alert('arr' + res.tempFilePaths[0]);
-                        alert('url' + res.tempFilePaths);
+                        alert('arr' + res);
+                        alert('arr' + res.localData);
                         self.addImageDev(res.tempFilePaths[0]);
                     }
                 });
