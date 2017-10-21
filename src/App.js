@@ -11,7 +11,6 @@ import RepairManagementItems from './views/RepairManagementItems';
 import OrderDetails from './views/OrderDetails';
 import OrderDetailsUpdate from './views/OrderDetailsUpdate';
 import WatchVedio from './views/WatchVedio';
-import First from  './views/First'
 
 import './App.css';
 import {
@@ -28,11 +27,7 @@ class App extends Component {
       showNavBar: true
     };
     routes = [
-      {
-        path: '/',
-        exact: true,
-        main: () => <First/>,
-      },
+
       {
         path: '/menu',
         exact: true,
