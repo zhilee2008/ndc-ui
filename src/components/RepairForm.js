@@ -389,7 +389,7 @@ class RepairForm extends Component {
             displayDeviceTypeII: { display: "none" },
             displayDeviceTypeIII: { display: "none" },
             radionumber: 1,
-            addedImages: [],
+            addedImages: '',
             warningStyle: {
                 buttons: [
                     {
@@ -593,7 +593,7 @@ class RepairForm extends Component {
                 }
             });
             wx.uploadImage({
-                localId: this.addedImages,
+                localId: this.state.addedImages,
                 success: function (res) {
                     alert(res.serverId);
                     var serverId = res.serverId; // 返回图片的服务器端IDres.serverId;
