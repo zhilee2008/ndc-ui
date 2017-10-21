@@ -529,6 +529,7 @@ class RepairForm extends Component {
     }
 
     validRepairForm = () => {
+        this.addRadioDev('11');
         if (this.state.company === '') {
             this.setState({
                 validElement: '请填写公司名称',
@@ -1068,9 +1069,6 @@ class RepairForm extends Component {
                                 <CellHeader>
                                     <Label>故障细节</Label>
                                     <Button id="talk_btn" className={'radioimage'} >&nbsp;</Button>
-                                    {/* <Button id="talk_btn" onTouchStart={this.startRadio.bind(this)} onTouchEnd={this.endRadio.bind(this)} className={'radioimage'} >&nbsp;</Button> */}
-
-                                    {/* <Label><img src='/images/yuiyn@2x.png' ontouchend={this.endRadio.bind(this)} ontouchstart={this.startRadio.bind(this)} className={"radioimage"}/></Label> */}
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='bugDetail'
@@ -1078,9 +1076,6 @@ class RepairForm extends Component {
                                         onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
-                            {/* <Button style={{ width: '80%' }} disabled={this.state.disabledstartradio} onClick={this.startRadio.bind(this)} >开始录音</Button>
-                                <Button style={{ width: '80%' }} disabled={this.state.disabledendradio} onClick={this.endRadio.bind(this)} >结束录音</Button> */}
-                            {/* <Button id="talk_btn"   className={"radioimage"} >&nbsp;</Button> */}
                             <div style={{ height: '30px' }} id="buttoncontainer"></div>
                         </div>
                         <div className={"RepairBorder"}>
@@ -1091,7 +1086,8 @@ class RepairForm extends Component {
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
-                                    <img onClick={this.addVideo.bind(this)} src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /></CellBody>
+                                    {/* <img onClick={this.addVideo.bind(this)} src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /> */}
+                                </CellBody>
 
                             </FormCell>
                             <div style={{ height: '60px', paddingBottom: '5px' }} id="imagecontainer"></div>
