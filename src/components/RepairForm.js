@@ -812,7 +812,7 @@ class RepairForm extends Component {
     }
 
     addImageDev(src) {
-         alert(localId);
+         alert(src);
         $('#imagecontainer').empty();
         // const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
 
