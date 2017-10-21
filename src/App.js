@@ -29,7 +29,7 @@ class App extends Component {
     routes = [
 
       {
-        path: '/menu',
+        path: '/',
         exact: true,
         main: () => <Menu/>,
       },
