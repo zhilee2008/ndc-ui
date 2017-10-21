@@ -494,8 +494,9 @@ class RepairForm extends Component {
             $('#addimagebutton').on('click', function (event) {
                 wx.chooseImage({
                     success: function (res) {
-                        // alert(res.localIds);
-                        self.state.addedImages = res.localIds[0];
+                        self.setState({
+                            addedImages: res.localIds[0],
+                        })
                         self.addImageDev(res.localIds[0]);
                     }
                 });
