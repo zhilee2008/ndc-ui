@@ -500,7 +500,7 @@ class RepairForm extends Component {
                         self.setState({
                             imageId: res.localIds[0],
                         })
-                        self.addImageDev(res.tempFilePaths);
+                        self.addImageDev(res.tempFilePaths[0]);
                     }
                 });
             });
@@ -810,7 +810,7 @@ class RepairForm extends Component {
     }
 
     addImageDev(localId) {
-        // alert('adddiv');
+         alert(localId);
         $('#imagecontainer').empty();
         // const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
 
