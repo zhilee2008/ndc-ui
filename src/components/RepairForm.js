@@ -492,11 +492,12 @@ class RepairForm extends Component {
             });
 
             $('#addimagebutton').on('click', function (event) {
+                alert('image');
                 wx.chooseImage({
                     count: 1,
-                    sizeType: ['original', 'compressed'],
                     sourceType: ['album', 'camera'],
                     success: function (res) {
+                        alert('imageuploadsuccessful');
                         self.setState({
                             imageId: res.localIds[0],
                         })
