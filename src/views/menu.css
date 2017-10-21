@@ -17,3 +17,9 @@
   margin-top: -25px;
   font-weight: bold;
   color: #FFFFFF; }
+
+.showRepairManagement {
+  display: block; }
+
+.hideRepairManagement {
+  display: none; }
