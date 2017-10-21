@@ -443,53 +443,61 @@ class RepairForm extends Component {
             signature: '42ee22479431b93fb7866e1067441b3070de9989'
         });
         const self = this;
-        // wx.ready(function () {
-        //     $('#talk_btn').on('touchstart', function (event) {
-        //         event.preventDefault();
-        //         // START = new Date().getTime();
-        //         recordTimer = setTimeout(function () {
-        //             wx.startRecord({
-        //                 success: function () {
-        //                     localStorage.rainAllowRecord = 'true';
-        //                 },
-        //                 cancel: function () {
-        //                     alert('用户拒绝授权录音');
-        //                 }
-        //             });
-        //         }, 300);
-        //     });
-        //     $('#talk_btn').on('touchend', function (event) {
-        //         event.preventDefault();
-        //         // END = new Date().getTime();
-        //
-        //         // if((END - START) < 300){
-        //         //     END = 0;
-        //         //     START = 0;
-        //         //     //小于300ms，不录音
-        //         //     clearTimeout(recordTimer);
-        //         // }else{
-        //         // alert('s1');
-        //         wx.stopRecord({
-        //             success: function (res) {
-        //                 // alert('s2');
-        //                 var localId = res.localId;
-        //                 self.setState({
-        //                     localId: localId,
-        //                     radioText: localId
-        //                 })
-        //                 self.addRadioDev(localId);
-        //
-        //
-        //             },
-        //             fail: function (res) {
-        //                 alert('IOS录音功能暂不可用:' + JSON.stringify(res));
-        //             }
-        //         });
-        //         // }
-        //     });
-        //
-        //
-        // });
+        wx.ready(function () {
+            $('#talk_btn').on('touchstart', function (event) {
+                event.preventDefault();
+                // START = new Date().getTime();
+                recordTimer = setTimeout(function () {
+                    wx.startRecord({
+                        success: function () {
+                            localStorage.rainAllowRecord = 'true';
+                        },
+                        cancel: function () {
+                            alert('用户拒绝授权录音');
+                        }
+                    });
+                }, 300);
+            });
+            $('#talk_btn').on('touchend', function (event) {
+                event.preventDefault();
+                // END = new Date().getTime();
+        
+                // if((END - START) < 300){
+                //     END = 0;
+                //     START = 0;
+                //     //小于300ms，不录音
+                //     clearTimeout(recordTimer);
+                // }else{
+                // alert('s1');
+                wx.stopRecord({
+                    success: function (res) {
+                        // alert('s2');
+                        var localId = res.localId;
+                        self.setState({
+                            localId: localId,
+                            radioText: localId
+                        })
+                        self.addRadioDev(localId);
+        
+        
+                    },
+                    fail: function (res) {
+                        alert('IOS录音功能暂不可用:' + JSON.stringify(res));
+                    }
+                });
+                // }
+            });
+
+            $('#addimagebutton').on('click', function (event) {
+                wx.chooseImage({
+                    success: function (res) {
+                        self.state.addedImages = res.localIds;
+                    }
+                });
+            });
+        
+        
+        });
 
     }
 
@@ -558,27 +566,27 @@ class RepairForm extends Component {
             showLoading: true
         });
         const self = this;
-        // wx.ready(function () {
-        //     // wx.uploadVoice({
-        //     //     localId: self.state.localId,
-        //     //     success: function (res) {
-        //     //         alert('录音' + res.serverId);
-        //     //         voice.serverId = res.serverId;
-        //     //         alert(JSON.stringify(res));
-        //     //     }
-        //     // });
-        //     alert('ready');
-        //     alert(self.state.localId);
-        //     wx.uploadVoice({
-        //         localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-        //         isShowProgressTips: 1, // 默认为1，显示进度提示
-        //         success: function (res) {
-        //             alert('u');
-        //             var serverId = res.serverId; // 返回音频的服务器端ID
-        //             alert(JSON.stringify(res));
-        //         }
-        //     });
-        // });
+        wx.ready(function () {
+            // wx.uploadVoice({
+            //     localId: self.state.localId,
+            //     success: function (res) {
+            //         alert('录音' + res.serverId);
+            //         voice.serverId = res.serverId;
+            //         alert(JSON.stringify(res));
+            //     }
+            // });
+            alert('ready');
+            alert(self.state.localId);
+            wx.uploadVoice({
+                localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                isShowProgressTips: 1, // 默认为1，显示进度提示
+                success: function (res) {
+                    alert('u');
+                    var serverId = res.serverId; // 返回音频的服务器端ID
+                    alert(JSON.stringify(res));
+                }
+            });
+        });
 
         console.log('添加保修单');
         var payload = {
@@ -797,14 +805,6 @@ class RepairForm extends Component {
         });
     }
 
-    addImage(e) {
-        const self = this;
-        wx.chooseImage({
-            success: function (res) {
-                self.state.addedImages = res.localIds;
-            }
-        });
-    }
     addVideo(e) {
         alert('添加视频功能开发中');
     }
@@ -1061,12 +1061,13 @@ class RepairForm extends Component {
                             <FormCell className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>附件文档</Label>
-                                    <img onClick={this.addImage.bind(this)} src='/images/tupian@2x.png' className={"imagebutton"} />
+                                    <img id="addimagebutton" src='/images/tupian@2x.png' className={"imagebutton"} />
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
 
-                                    <img onClick={this.addVideo.bind(this)} src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /></CellBody>
+                                    <img id="addvideobutton" src='/images/tupian@2x.png' className={"imagebutton"} />
+                                    <img  onClick={this.addVideo.bind(this)} src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /></CellBody>
 
                             </FormCell>
                         </div>
