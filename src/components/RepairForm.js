@@ -382,14 +382,16 @@ class RepairForm extends Component {
             showLoading: false,
             showWarningDialog: false,
             validElement: '',
-            localId: '',
             firstDeviceData: [],
             secondDeviceData: [],
             thirdDeviceData: [],
             displayDeviceTypeII: { display: "none" },
             displayDeviceTypeIII: { display: "none" },
             radionumber: 1,
-            addedImages: '',
+            audioId: '',
+            audioMediaId: '',
+            imageId:'',
+            imageMediaId: '',
             warningStyle: {
                 buttons: [
                     {
@@ -477,12 +479,10 @@ class RepairForm extends Component {
                         // alert('s2');
                         var localId = res.localId;
                         self.setState({
-                            localId: localId,
+                            audioId: localId,
                             radioText: localId
                         })
                         self.addRadioDev(localId);
-
-
                     },
                     fail: function (res) {
                         alert('IOS录音功能暂不可用:' + JSON.stringify(res));
@@ -495,7 +495,7 @@ class RepairForm extends Component {
                 wx.chooseImage({
                     success: function (res) {
                         self.setState({
-                            addedImages: res.localIds[0],
+                            imageId: res.localIds[0],
                         })
                         self.addImageDev(res.localIds[0]);
                     }
@@ -583,21 +583,27 @@ class RepairForm extends Component {
             //         alert(JSON.stringify(res));
             //     }
             // });
-            alert('ready');
-            alert(self.state.localId);
+            // alert('ready');
+            // alert(self.state.localId);
             wx.uploadVoice({
-                localId: self.state.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
                 isShowProgressTips: 1, // 默认为1，显示进度提示
                 success: function (res) {
                     var serverId = res.serverId; // 返回音频的服务器端ID
-                    alert(JSON.stringify(res));
+                    // alert(JSON.stringify(res));
+                    self.setState({
+                        audioMediaId: serverId
+                    });
                 }
             });
             wx.uploadImage({
-                localId: self.state.addedImages,
+                localId: self.state.imageId,
                 success: function (res) {
                     alert(res.serverId);
                     var serverId = res.serverId; // 返回图片的服务器端IDres.serverId;
+                    self.setState({
+                        imageMediaId: serverId
+                    });
                 },
                 fail: function (res) {
                   alert(JSON.stringify(res));
@@ -618,7 +624,8 @@ class RepairForm extends Component {
             billAddress: this.state.billAddress,
             companyAddress: this.state.companyAddress,
             bugDetail: this.state.bugDetail,
-
+            audioMediaId: this.state.audioMediaId,
+            imageMediaId: this.state.imageMediaId,
 
         };
 
@@ -806,36 +813,15 @@ class RepairForm extends Component {
         $('#imagecontainer').empty();
         // const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
         
-        const imagediv = "<div style='float:left'><img class='savedimage'  src='/images/tupian@2x.png' /><img class='deleteimage' src='/images/delete.png' /></div>";
+        const imagediv = "<div style='float:left'><img class='savedimage'  src='" + localId + "' /><img class='deleteimage' src='/images/delete.png' /></div>";
         $('#imagecontainer').append(imagediv);
         $('.deleteimage').click(function (e) {
             e.target.parentNode.remove();
         });
-        // $('.savedimage').click(function (e) {
-        //     wx.previewImage({
-        //         localId: e.target.id
-        //     });
-        // });
-    }
-
-
-    endRadio(e) {
-        this.setState({
-            showWarn: false,
-        })
-
-        radioCount++;
-        var self = this;
-        wx.stopRecord({
-            success: function (res) {
-                var localId = res.localId;
-                self.setState({
-                    localId: localId,
-                    radioText: localId
-                })
-                self.addRadioDev(localId);
-
-            }
+        $('.savedimage').click(function (e) {
+            wx.previewImage({
+                localId: e.target.id
+            });
         });
     }
 
