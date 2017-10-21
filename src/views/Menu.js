@@ -21,8 +21,6 @@ class Menu extends Component {
 
     constructor(props) {
         super(props);
-        console.log(this.props.location.query);
-        alert(window.location.href);
         this.state = {
 
         };
