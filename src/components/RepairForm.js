@@ -430,9 +430,7 @@ class RepairForm extends Component {
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: 'wx457ecf3c803c3774', // 必填，公众号的唯一标识
-            // timestamp: 1415171822, // 必填，生成签名的时间戳
-            // nonceStr: '82zklqj7ycoywrk', // 必填，生成签名的随机串
-            // signature: '',// 必填，签名，见附录1
+            
             jsApiList: ['startRecord',
                 'stopRecord',
                 'onVoiceRecordEnd',
@@ -456,6 +454,9 @@ class RepairForm extends Component {
                     wx.startRecord({
                         success: function () {
                             localStorage.rainAllowRecord = 'true';
+                            self.setState({
+                                showWarn: true,
+                            })
                         },
                         cancel: function () {
                             alert('用户拒绝授权录音');
@@ -480,6 +481,7 @@ class RepairForm extends Component {
                         var localId = res.localId;
                         self.setState({
                             audioId: localId,
+                            showWarn: false,
                             radioText: localId
                         })
                         self.addRadioDev(localId);
@@ -592,16 +594,7 @@ class RepairForm extends Component {
         });
         const self = this;
         wx.ready(function () {
-            // wx.uploadVoice({
-            //     localId: self.state.localId,
-            //     success: function (res) {
-            //         alert('录音' + res.serverId);
-            //         voice.serverId = res.serverId;
-            //         alert(JSON.stringify(res));
-            //     }
-            // });
-            // alert('ready');
-            // alert(self.state.localId);
+
             if (self.state.audioId !== '') {
                 wx.uploadVoice({
                     localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
@@ -616,19 +609,6 @@ class RepairForm extends Component {
                 });
             }
 
-            // wx.uploadImage({
-            //     localId: self.state.imageId,
-            //     success: function (res) {
-            //         alert(res.serverId);
-            //         var serverId = res.serverId; // 返回图片的服务器端IDres.serverId;
-            //         self.setState({
-            //             imageMediaId: serverId
-            //         });
-            //     },
-            //     fail: function (res) {
-            //         alert(JSON.stringify(res));
-            //     }
-            // });
         });
 
         console.log('添加保修单');
@@ -829,7 +809,7 @@ class RepairForm extends Component {
     }
 
     addImageDev(src) {
-        alert(src);
+        // alert(src);
         $('#imagecontainer').empty();
         // const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
 
