@@ -499,7 +499,21 @@ class RepairForm extends Component {
                         self.setState({
                             imageId: res.localIds[0],
                         })
-                        self.addImageDev(res.localIds[0]);
+                        wx.uploadImage({
+                            localId: self.state.imageId,
+                            success: function (res) {
+                                alert(res.serverId);
+                                var serverId = res.serverId; // 返回图片的服务器端IDres.serverId;
+                                self.setState({
+                                    imageMediaId: serverId
+                                });
+                                self.addImageDev(rserverId);
+                            },
+                            fail: function (res) {
+                                alert(JSON.stringify(res));
+                            }
+                        });
+                        
                     }
                 });
             });
@@ -510,8 +524,6 @@ class RepairForm extends Component {
     }
 
     validRepairForm = () => {
-        // this.addRadioDev('1');
-        // this.addImageDev('1');
         if (this.state.company === '') {
             this.setState({
                 validElement: '请填写公司名称',
@@ -598,19 +610,7 @@ class RepairForm extends Component {
                     });
                 }
             });
-            wx.uploadImage({
-                localId: self.state.imageId,
-                success: function (res) {
-                    alert(res.serverId);
-                    var serverId = res.serverId; // 返回图片的服务器端IDres.serverId;
-                    self.setState({
-                        imageMediaId: serverId
-                    });
-                },
-                fail: function (res) {
-                    alert(JSON.stringify(res));
-                }
-            });
+            
         });
 
         console.log('添加保修单');
@@ -814,7 +814,7 @@ class RepairForm extends Component {
         // alert('adddiv');
         $('#imagecontainer').empty();
         // const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
-
+        const imgurl = 'http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=KWguqVRqR2bM5pDoK8qlm_aaLGUNs_fYgadCsTMDV32e8T6aufWAbGr5jwmlvID0eAMqiDcHMmI60Z7xVUK3EeP05Z_iQ1otjktW5VSLjM9x9Ka-ERAwB50uEwpsf9ZrMVRfAJAVEA&media_id='+serverId;
         const imagediv = "<div style='float:left'><img class='savedimage'  src='" + localId + "' /><img class='deleteimage' src='/images/delete.png' /></div>";
         $('#imagecontainer').append(imagediv);
         $('.deleteimage').click(function (e) {
@@ -822,9 +822,9 @@ class RepairForm extends Component {
         });
         $('.savedimage').click(function (e) {
             wx.previewImage({
-                current: this.state.imageId,
+                current: imgurl,
                 urls: [
-                    this.state.imageId,
+                    imgurl,
                 ]
             });
             // wx.previewImage({
