@@ -593,7 +593,7 @@ class RepairForm extends Component {
                 }
             });
             wx.uploadImage({
-                localId: this.state.addedImages,
+                localId: self.state.addedImages,
                 success: function (res) {
                     alert(res.serverId);
                     var serverId = res.serverId; // 返回图片的服务器端IDres.serverId;
