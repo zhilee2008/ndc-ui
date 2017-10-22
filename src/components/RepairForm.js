@@ -440,7 +440,7 @@ class RepairForm extends Component {
                 const appId = jsticketObject.appId;
                 const url = process.env.WEIXIN_DOMAIN+'/repairsubmit';
                 const jsApiObject = sign(jsapiticket, url);
-                // alert(window.location.href);
+                alert(process.env.WEIXIN_DOMAIN);
                 wx.config({
                     debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                     appId: appId, // 必填，公众号的唯一标识
@@ -551,7 +551,6 @@ class RepairForm extends Component {
     }
 
     validRepairForm = () => {
-        this.addRadioDev('11');
         if (this.state.company === '') {
             this.setState({
                 validElement: '请填写公司名称',
@@ -617,7 +616,7 @@ class RepairForm extends Component {
         });
         const self = this;
         wx.ready(function () {
-
+alert('begin'+self.state.audioId);
             if (self.state.audioId !== '') {
                 wx.uploadVoice({
                     localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
@@ -627,16 +626,19 @@ class RepairForm extends Component {
                         // alert(JSON.stringify(res));
                         self.setState({
                             audioMediaId: serverId
+                        },()=>{
+                            alert(self.state.audioMediaId);
+                            self.sendRequest();
                         });
                     }
                 });
             }
 
         });
+    };
 
+    sendRequest(){
         console.log('添加保修单');
-        alert(this.state.audioMediaId);
-        alert(this.state.imageMediaId);
         var payload = {
             company: this.state.company,
             name: this.state.name,
@@ -687,9 +689,7 @@ class RepairForm extends Component {
             });
             console.log("Request failed: " + textStatus)
         });
-
-
-    };
+    }
 
     renderGallery() {
         if (!this.state.gallery) return false;
