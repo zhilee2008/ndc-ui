@@ -48,9 +48,9 @@ class OrderDetails extends Component {
             companyAddress: '',
             troubleDetail: '',
             errorMsg: '',
-            engineerName:'',
+            engineerName: '',
             homeServiceTime: '',
-            imageSrc:'',
+            imageSrc: '',
             completed: '',
             showIKnowBtn: true,
             engineers: []
@@ -58,7 +58,7 @@ class OrderDetails extends Component {
     }
 
     detailsUpdate = () => {
-        let path = '/orderdetailsupdate/'+this.state.itemId;
+        let path = '/orderdetailsupdate/' + this.state.itemId;
 
         this.props.history.push(path);
     };
@@ -72,10 +72,10 @@ class OrderDetails extends Component {
         let showIKnowBtn = this.props.match.params.showIKnowBtn;
         if (showIKnowBtn === 'false') {
             showIKnowBtn = false;
-        }else {
+        } else {
             showIKnowBtn = true;
         }
-        
+
         this.setState({
             itemId: this.props.match.params.id,
             showIKnowBtn: showIKnowBtn
@@ -83,6 +83,7 @@ class OrderDetails extends Component {
         let itemId = this.props.match.params.id;
 
         this.getStatusById(itemId);
+
 
 
         // let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
@@ -99,16 +100,19 @@ class OrderDetails extends Component {
         //         const jsticketObject = JSON.parse(msg);
         //         const jsapiticket = jsticketObject.jsapi_ticket;
         //         const appId = jsticketObject.appId;
-        //         const url = process.env.WEIXIN_DOMAIN+'/orderdetails/'+this.state.itemId+'/'+this.state.showIKnowBtn;
+        //         const url = 'http://xn.geekx.cn/repairsubmit';
         //         const jsApiObject = sign(jsapiticket, url);
-        //         // alert(window.location.href);
         //         wx.config({
         //             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
         //             appId: appId, // 必填，公众号的唯一标识
-        //             jsApiList: [
+        //             jsApiList: ['startRecord',
+        //                 'stopRecord',
+        //                 'onVoiceRecordEnd',
         //                 'playVoice',
         //                 'previewImage',
-        //                 ], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        //                 'chooseImage',
+        //                 'uploadImage',
+        //                 'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         //             jsapi_ticket: jsApiObject.jsapi_ticket,
         //             nonceStr: jsApiObject.nonceStr,
         //             timestamp: jsApiObject.timestamp,
@@ -139,6 +143,7 @@ class OrderDetails extends Component {
         //     console.log("Request failed: " + textStatus)
         // });
 
+
     }
 
     getStatusById = (itemId) => {
@@ -167,7 +172,7 @@ class OrderDetails extends Component {
                     billAddress: orderdetails.BillAddress,
                     companyAddress: orderdetails.CompanyAddress,
                     troubleDetail: orderdetails.BugDetail,
-                    engineers:orderdetails.OrderLog.Engineers,
+                    engineers: orderdetails.OrderLog.Engineers,
 
                     completed: orderdetails.Status
                 });
@@ -193,7 +198,7 @@ class OrderDetails extends Component {
             <div className={'orderbackground'}>
                 <Page className="input">
                     <Cell className={'titlebar'}>
-                        <CellHeader onClick={() => {window.history.go(-1)}} style={{width: '20%', height: '65px', marginTop: '25px' }} >
+                        <CellHeader onClick={() => { window.history.go(-1) }} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
                             <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                             <div className={'titlebarback'}>
                                 返回
@@ -204,12 +209,12 @@ class OrderDetails extends Component {
                             报修状态查询
                   </CellBody>
                         <CellFooter style={{ width: '20%' }} >
-                            <img style={{ width: '30px',display:'none' }} src='/images/menu12@2x.png' />
+                            <img style={{ width: '30px', display: 'none' }} src='/images/menu12@2x.png' />
                         </CellFooter>
                     </Cell>
                     {/* <img src='/images/touying@2x.png' /> */}
                     <div className={'touying'}>
-                         
+
                         <img className={'dian'} src='/images/dian@2x.png' />
                         <div style={{ color: '#1887fc', }} className={'diancontent'}>您的报修单号( {(this.state.completed === 'completed' ? "已完成" : "未完成")} )</div>
                         <div style={{ color: 'grey', }} className={'diancontentright'}>{this.state.itemId}</div>
@@ -332,7 +337,7 @@ class OrderDetails extends Component {
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                            <div style={{width:'100%'}}><div style={{width:'100%',margin:'0px'}} className={'savedradio'}>点击播放录音</div></div>
+                                <div style={{ width: '100%' }}><div style={{ width: '100%', margin: '0px' }} className={'savedradio'}>点击播放录音</div></div>
                             </CellHeader>
                             <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                             </CellBody>
@@ -346,7 +351,7 @@ class OrderDetails extends Component {
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                            <div style={{width:'100%'}}><img className={'savedimage'}  src='/images/delete.png' /></div>
+                                <div style={{ width: '100%' }}><img className={'savedimage'} src='/images/delete.png' /></div>
                             </CellHeader>
                             <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                             </CellBody>
@@ -356,62 +361,62 @@ class OrderDetails extends Component {
                     {/* <CellsTitle>故障细节</CellsTitle> */}
                     {this.state.engineers.slice(0).reverse().map(engineer =>
 
-                      <Form className={'orderborder'}>
+                        <Form className={'orderborder'}>
 
-                          <FormCell>
-                              <CellHeader>
-                                  <Label style={{ color: '#000' }}>工程师姓名:</Label>
-                              </CellHeader>
-                              <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
-                                {engineer['Name']}
-                              </CellBody>
-                          </FormCell>
-                          <FormCell>
-                              <CellHeader>
-                                  <Label style={{ color: '#000' }}>工程师手机:</Label>
-                              </CellHeader>
-                              <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
-                                {engineer['Mobile']}
-                              </CellBody>
-                          </FormCell>
-                          <FormCell>
-                              <CellHeader>
-                                  <Label style={{ color: '#000' }}>上门/维修时间:</Label>
-                              </CellHeader>
-                              <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
-                                {Util.timeStamp2TString(engineer['Homeservicetime'])}
-                              </CellBody>
-                          </FormCell>
-                          <FormCell>
-                              <CellHeader>
-                                  <Label style={{ color: '#000' }}>选项:</Label>
-                              </CellHeader>
-                              <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
-                                {engineer['SelectedOption']}
-                              </CellBody>
-                          </FormCell>
-                          <FormCell>
-                              <CellHeader>
-                                  <Label style={{ color: '#000' }}>备注:</Label>
-                              </CellHeader>
-                              <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
-                                {engineer['Notes']}
-                              </CellBody>
-                          </FormCell>
-                      </Form>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label style={{ color: '#000' }}>工程师姓名:</Label>
+                                </CellHeader>
+                                <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                    {engineer['Name']}
+                                </CellBody>
+                            </FormCell>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label style={{ color: '#000' }}>工程师手机:</Label>
+                                </CellHeader>
+                                <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                    {engineer['Mobile']}
+                                </CellBody>
+                            </FormCell>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label style={{ color: '#000' }}>上门/维修时间:</Label>
+                                </CellHeader>
+                                <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                    {Util.timeStamp2TString(engineer['Homeservicetime'])}
+                                </CellBody>
+                            </FormCell>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label style={{ color: '#000' }}>选项:</Label>
+                                </CellHeader>
+                                <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                    {engineer['SelectedOption']}
+                                </CellBody>
+                            </FormCell>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label style={{ color: '#000' }}>备注:</Label>
+                                </CellHeader>
+                                <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                    {engineer['Notes']}
+                                </CellBody>
+                            </FormCell>
+                        </Form>
                     )}
 
 
                     <ButtonArea className={(this.state.completed === 'completed' || !this.state.showIKnowBtn) ? 'hideKnowBtn' : 'showKnowBtn'} direction="horizontal">
-                    
-                        <Button  onClick={this.returnUp.bind(this)}>
+
+                        <Button onClick={this.returnUp.bind(this)}>
                             返回
                         </Button>
-                        
-                        <Button style = {{margin: '0 auto' }} onClick={this.detailsUpdate.bind(this)}>
+
+                        <Button style={{ margin: '0 auto' }} onClick={this.detailsUpdate.bind(this)}>
                             处理
                         </Button>
-                      
+
                     </ButtonArea>
 
 

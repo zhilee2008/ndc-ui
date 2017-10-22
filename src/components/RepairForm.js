@@ -462,9 +462,12 @@ class RepairForm extends Component {
                     signature: jsApiObject.signature
                 });
                 wx.ready(function () {
+
+                    let START,  END;
+
                     $('#talk_btn').on('touchstart', function (event) {
                         event.preventDefault();
-                        // START = new Date().getTime();
+                        START = new Date().getTime();
                         recordTimer = setTimeout(function () {
                             wx.startRecord({
                                 success: function () {
@@ -481,31 +484,30 @@ class RepairForm extends Component {
                     });
                     $('#talk_btn').on('touchend', function (event) {
                         event.preventDefault();
-                        // END = new Date().getTime();
-
-                        // if((END - START) < 300){
-                        //     END = 0;
-                        //     START = 0;
-                        //     //小于300ms，不录音
-                        //     clearTimeout(recordTimer);
-                        // }else{
-                        // alert('s1');
-                        wx.stopRecord({
-                            success: function (res) {
-                                // alert('s2');
-                                var localId = res.localId;
-                                self.setState({
-                                    audioId: localId,
-                                    showWarn: false,
-                                    radioText: localId
-                                })
-                                self.addRadioDev(localId);
-                            },
-                            fail: function (res) {
-                                alert('录音功能暂不可用:' + JSON.stringify(res));
-                            }
-                        });
-                        // }
+                        END = new Date().getTime();
+                        if ((END - START) < 300) {
+                            END = 0;
+                            START = 0;
+                            //小于300ms，不录音
+                            clearTimeout(recordTimer);
+                        } else {
+                            // alert('s1');
+                            wx.stopRecord({
+                                success: function (res) {
+                                    // alert('s2');
+                                    var localId = res.localId;
+                                    self.setState({
+                                        audioId: localId,
+                                        showWarn: false,
+                                        radioText: localId
+                                    })
+                                    self.addRadioDev(localId);
+                                },
+                                fail: function (res) {
+                                    alert('录音功能暂不可用:' + JSON.stringify(res));
+                                }
+                            });
+                        }
                     });
 
                     $('#addimagebutton').on('click', function (event) {
