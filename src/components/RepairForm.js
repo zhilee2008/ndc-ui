@@ -627,7 +627,7 @@ class RepairForm extends Component {
                         audioMediaId: serverId
                     }, () => {
                         wx.uploadImage({
-                            localId: this.state.imageId,
+                            localId: self.state.imageId,
                             success: function (res) {
                                 var serverId = res.serverId; // 返回音频的服务器端ID
                                 self.setState({
@@ -644,7 +644,7 @@ class RepairForm extends Component {
                 },
                 fail: function (res) {
                     wx.uploadImage({
-                        localId: this.state.imageId,
+                        localId: self.state.imageId,
                         success: function (res) {
                             var serverId = res.serverId; // 返回音频的服务器端ID
                             self.setState({
