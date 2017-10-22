@@ -365,7 +365,6 @@ class RepairForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            admin: this.props.match.params.admin,
             title: '我要报修',
             company: '',
             name: '',
@@ -439,7 +438,7 @@ class RepairForm extends Component {
                 const jsticketObject = JSON.parse(msg);
                 const jsapiticket = jsticketObject.jsapi_ticket;
                 const appId = jsticketObject.appId;
-                const url = 'http://xn.geekx.cn/repairsubmit/'+this.state.admin;
+                const url = 'http://xn.geekx.cn/repairsubmit';
                 const jsApiObject = sign(jsapiticket, url);
                 wx.config({
                     debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -740,12 +739,7 @@ class RepairForm extends Component {
         this.setState({
             showIOS1: false,
         });
-        if (this.state.admin === 'admin') {
-            this.props.history.push('/menu/admin');
-        } else {
-            this.props.history.push('/menu/common');
-        }
-
+        window.history.go(-1);
     }
 
     handleChange(e) {

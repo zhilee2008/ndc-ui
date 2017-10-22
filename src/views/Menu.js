@@ -39,7 +39,7 @@ class Menu extends Component {
     menuItemClick = (pageId) => {
         let path = '/';
         if (pageId === '1') {
-            path = '/repairsubmit/'+this.props.match.params.admin;
+            path = '/repairsubmit';
         }
         if (pageId === '2') {
             path = '/statusquery';
