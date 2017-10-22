@@ -100,8 +100,12 @@ class RepairManagementItems extends Component {
 
 
     detailsItemClick = (itemId) => {
-        let path = '/orderdetails/' + itemId + '/true';
-
+        let path = '/orderdetails/' + itemId;
+        if (this.state.status === 'completed') {
+          path = path + '/false'
+        }else {
+          path = path + '/true'
+        }
         this.props.history.push(path);
     };
 
