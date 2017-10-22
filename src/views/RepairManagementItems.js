@@ -38,14 +38,29 @@ class RepairManagementItems extends Component {
                 ]
               },
               showWarningPanel: false,
-          orderId: ''
+          orderId: '',
+          title: '',
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         // console.log(this.props.match.params.id);
         this.setState({
             status: this.props.match.params.status
+        }, ()=> {
+          if (this.state.status === 'new'){
+              this.setState({
+                title: '待接的'
+              });
+          } else if (this.state.status === 'handling'){
+              this.setState({
+                title: '处理中'
+              });
+          } else {
+              this.setState({
+                title: '已完成'
+              });
+          }
         });
         let status = this.props.match.params.status;
         this.getListByStatus(status);
@@ -211,7 +226,7 @@ class RepairManagementItems extends Component {
                     </Cell>
                     {/* <img src='/images/touying@2x.png' /> */}
                     <div className={'touying'}>
-                        <div style={{ color: '#1887fc', textAlign: 'center' }} >以下为待接的报修单,请点击了解详情并操作</div>
+                        <div style={{ color: '#1887fc', textAlign: 'center' }} >以下为{this.state.title}报修单,请点击了解详情并操作</div>
                     </div>
                     <Cells style={{ marginTop: '0px' }}>
                         {
