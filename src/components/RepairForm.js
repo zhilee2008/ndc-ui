@@ -645,14 +645,16 @@ class RepairForm extends Component {
                                 success: function (res) {
                                     var serverId = res.serverId; // 返回音频的服务器端ID
                                     self.state.imageMediaIdArr.push(serverId);
+                                    alert('s'+count);
                                     count++;
+                                    alert('e'+count);
                                 },
                                 fail: function (res) {
                                     count++;
                                 }
                             });
                         }
-                        alert('count:'+count+'++self.state.imageIdArr.length:'+self.state.imageIdArr.length);
+                        // alert('count:'+count+'++self.state.imageIdArr.length:'+self.state.imageIdArr.length);
                         if (count === self.state.imageIdArr.length) {
                             self.sendRequest();
                         }
