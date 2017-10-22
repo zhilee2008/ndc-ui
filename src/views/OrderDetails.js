@@ -79,7 +79,7 @@ class OrderDetails extends Component {
         let status = this.props.match.params.status;
         if (status === 'new'){
             this.setState({
-                caption: '待接的'
+                caption: '待接'
             });
         } else if (status === 'handling'){
           this.setState({

@@ -50,7 +50,7 @@ class RepairManagementItems extends Component {
         }, ()=> {
           if (this.state.status === 'new'){
               this.setState({
-                title: '待接的'
+                title: '待接'
               });
           } else if (this.state.status === 'handling'){
               this.setState({
