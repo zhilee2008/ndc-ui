@@ -531,15 +531,7 @@ class RepairForm extends Component {
                                         }
                                     });
                                 }
-                                wx.uploadImage({
-                                    localId: res.localIds[0],
-                                    success: function (res) {
-                                        var serverId = res.serverId; // 返回音频的服务器端ID
-                                        self.setState({
-                                            audioMediaId: serverId
-                                        });
-                                    }
-                                });
+
                             }
                         });
                     });
@@ -625,24 +617,48 @@ class RepairForm extends Component {
         });
         const self = this;
         wx.ready(function () {
-            if (self.state.audioId !== '') {
-                wx.uploadVoice({
-                    localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                    isShowProgressTips: 1, // 默认为1，显示进度提示
-                    success: function (res) {
-                        var serverId = res.serverId; // 返回音频的服务器端ID
-                        // alert(JSON.stringify(res));
-                        self.setState({
-                            audioMediaId: serverId
-                        }, () => {
-                            self.sendRequest();
+            wx.uploadVoice({
+                localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                isShowProgressTips: 1, // 默认为1，显示进度提示
+                success: function (res) {
+                    var serverId = res.serverId; // 返回音频的服务器端ID
+                    // alert(JSON.stringify(res));
+                    self.setState({
+                        audioMediaId: serverId
+                    }, () => {
+                        wx.uploadImage({
+                            localId: this.state.imageId,
+                            success: function (res) {
+                                var serverId = res.serverId; // 返回音频的服务器端ID
+                                self.setState({
+                                    imageMediaId: serverId
+                                }, () => {
+                                    self.sendRequest();
+                                });
+                            },
+                            fail: function (res) {
+                                self.sendRequest();
+                            }
                         });
-                    },
-                    fail: function (res) {
-                        self.sendRequest();
-                    }
-                });
-            }
+                    });
+                },
+                fail: function (res) {
+                    wx.uploadImage({
+                        localId: this.state.imageId,
+                        success: function (res) {
+                            var serverId = res.serverId; // 返回音频的服务器端ID
+                            self.setState({
+                                imageMediaId: serverId
+                            }, () => {
+                                self.sendRequest();
+                            });
+                        },
+                        fail: function (res) {
+                            self.sendRequest();
+                        }
+                    });
+                }
+            });
 
         });
     };
