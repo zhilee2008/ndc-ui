@@ -88,7 +88,7 @@ class StatusQuery extends Component {
             return;
         });
     };
-
+    //TODO bug fix, 需要确定返回到admin还是common
     render() {
         return (
             <div style={{ textAlign: 'center' }}>
