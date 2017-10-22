@@ -121,7 +121,7 @@ class RepairManagementItems extends Component {
         }else {
           path = path + '/true'
         }
-        path = path + '/' + this.state.status;
+        path = path + '/' + this.state.status + '/false';
         this.props.history.push(path);
     };
 

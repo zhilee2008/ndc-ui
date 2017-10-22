@@ -55,6 +55,7 @@ class OrderDetails extends Component {
             showIKnowBtn: true,
             engineers: [],
             caption: '',
+            fromQuery : false
         };
     }
 
@@ -65,6 +66,9 @@ class OrderDetails extends Component {
     };
     returnUp = () => {
         let path = '/repairmanagement';
+        if (this.state.fromQuery){
+            path = '/statusquery';
+        }
         this.props.history.push(path);
     }
 
@@ -88,6 +92,16 @@ class OrderDetails extends Component {
         } else {
           this.setState({
             caption: '已完成'
+          });
+        }
+        let fromQueryParam = this.props.match.params.fromQuery;
+        if (fromQueryParam == 'true'){
+            this.setState({
+              fromQuery: true
+            });
+        }else {
+          this.setState({
+            fromQuery: false
           });
         }
 
