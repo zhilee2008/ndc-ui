@@ -34,7 +34,7 @@ class App extends Component {
         main: () => <Menu/>,
       },
       {
-        path: '/repairsubmit',
+        path: '/repairsubmit/:admin',
         exact: true,
         main: () => <RepairSubmit/>,
       },

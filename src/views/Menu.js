@@ -27,7 +27,7 @@ class Menu extends Component {
         let adminParam = this.props.match.params.admin;
         if (adminParam === 'admin') {
           this.state = {
-            admin: true
+            admin: true,
           };
         }
     }
@@ -39,7 +39,7 @@ class Menu extends Component {
     menuItemClick = (pageId) => {
         let path = '/';
         if (pageId === '1') {
-            path = '/repairsubmit';
+            path = '/repairsubmit/'+this.props.match.params.admin;
         }
         if (pageId === '2') {
             path = '/statusquery';
