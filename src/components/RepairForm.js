@@ -438,15 +438,8 @@ class RepairForm extends Component {
                 const jsticketObject = JSON.parse(msg);
                 const jsapiticket = jsticketObject.jsapi_ticket;
                 const appId = jsticketObject.appId;
-                alert(jsapiticket);
-                alert(appId);
                 const url = 'http://xn.geekx.cn/repairsubmit';
                 const jsApiObject = sign(jsapiticket, url);
-                alert(jsApiObject.jsapi_ticket);
-                alert(jsApiObject.nonceStr);
-                alert(jsApiObject.timestamp);
-                alert(jsApiObject.url);
-                alert(jsApiObject.signature);
                 wx.config({
                     debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                     appId: appId, // 必填，公众号的唯一标识
@@ -537,6 +530,15 @@ class RepairForm extends Component {
                                         }
                                     });
                                 }
+                                wx.uploadImage({
+                                    localId: self.state.imageId,
+                                    success: function (res) {
+                                        var serverId = res.serverId; // 返回音频的服务器端ID
+                                        self.setState({
+                                            audioMediaId: serverId
+                                        });
+                                    }
+                                });
                             }
                         });
                     });
@@ -622,7 +624,6 @@ class RepairForm extends Component {
         });
         const self = this;
         wx.ready(function () {
-alert('begin'+self.state.audioId);
             if (self.state.audioId !== '') {
                 wx.uploadVoice({
                     localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
@@ -632,10 +633,12 @@ alert('begin'+self.state.audioId);
                         // alert(JSON.stringify(res));
                         self.setState({
                             audioMediaId: serverId
-                        },()=>{
-                            alert(self.state.audioMediaId);
+                        }, () => {
                             self.sendRequest();
                         });
+                    },
+                    fail: function (res) {
+                        self.sendRequest();
                     }
                 });
             }
@@ -643,7 +646,7 @@ alert('begin'+self.state.audioId);
         });
     };
 
-    sendRequest(){
+    sendRequest() {
         console.log('添加保修单');
         var payload = {
             company: this.state.company,
