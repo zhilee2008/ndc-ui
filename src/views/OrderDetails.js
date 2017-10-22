@@ -53,7 +53,8 @@ class OrderDetails extends Component {
             imageSrc: '',
             completed: '',
             showIKnowBtn: true,
-            engineers: []
+            engineers: [],
+            caption: '',
         };
     }
 
@@ -67,13 +68,27 @@ class OrderDetails extends Component {
         this.props.history.push(path);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         // console.log(this.props.match.params.id);
         let showIKnowBtn = this.props.match.params.showIKnowBtn;
         if (showIKnowBtn === 'false') {
             showIKnowBtn = false;
         } else {
             showIKnowBtn = true;
+        }
+        let status = this.props.match.params.status;
+        if (status === 'new'){
+            this.setState({
+                caption: '待接的'
+            });
+        } else if (status === 'handling'){
+          this.setState({
+            caption: '处理中'
+          });
+        } else {
+          this.setState({
+            caption: '已完成'
+          });
         }
 
         this.setState({
@@ -216,7 +231,7 @@ class OrderDetails extends Component {
                     <div className={'touying'}>
 
                         <img className={'dian'} src='/images/dian@2x.png' />
-                        <div style={{ color: '#1887fc', }} className={'diancontent'}>您的报修单号( {(this.state.completed === 'completed' ? "已完成" : "未完成")} )</div>
+                        <div style={{ color: '#1887fc', }} className={'diancontent'}>该报修单号( {this.state.caption} )</div>
                         <div style={{ color: 'grey', }} className={'diancontentright'}>{this.state.itemId}</div>
                     </div>
                     <Form className={'orderborder'}>
