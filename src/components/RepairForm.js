@@ -652,6 +652,7 @@ class RepairForm extends Component {
                                 }
                             });
                         }
+                        alert('count:'+count+'++self.state.imageIdArr.length:'+self.state.imageIdArr.length);
                         if (count === self.state.imageIdArr.length) {
                             self.sendRequest();
                         }
@@ -672,6 +673,7 @@ class RepairForm extends Component {
                             }
                         });
                     }
+                    alert('count'+count+'++self.state.imageIdArr.length'+self.state.imageIdArr.length);
                     if (count === self.state.imageIdArr.length) {
                         self.sendRequest();
                     }
@@ -683,7 +685,6 @@ class RepairForm extends Component {
 
     sendRequest() {
         console.log('添加保修单');
-        const imageMediaIdStr =this.state.imageMediaIdArr;
         var payload = {
             company: this.state.company,
             name: this.state.name,
@@ -697,7 +698,7 @@ class RepairForm extends Component {
             companyAddress: this.state.companyAddress,
             bugDetail: this.state.bugDetail,
             audioMediaId: this.state.audioMediaId,
-            imageMediaId: imageMediaIdStr.length>1 ? imageMediaIdStr.join(','):imageMediaIdStr[0],
+            imageMediaId: this.state.imageMediaIdArr.join(','),
 
         };
 
