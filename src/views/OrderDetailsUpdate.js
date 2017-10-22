@@ -222,6 +222,12 @@ class OrderDetailsUpdate extends Component {
     hideWarningDialog = () => {
         this.setState({
             showWarningDialog: false
+        }, ()=> {
+          if (this.state.dialogTitle ==='成功') {
+            let path = '/repairmanagement';
+            this.props.history.push(path);
+          }
+
         });
     };
     handleChange(e) {
