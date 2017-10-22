@@ -365,7 +365,7 @@ class RepairForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            admin: this.props.match.params.admin,
+            // admin: this.props.match.params.admin,
             title: '我要报修',
             company: '',
             name: '',
@@ -740,12 +740,12 @@ class RepairForm extends Component {
         this.setState({
             showIOS1: false,
         });
-        if (this.state.admin === 'admin') {
-            this.props.history.push('/menu/admin');
-        } else {
-            this.props.history.push('/menu/common');
-        }
-
+        // if (this.state.admin === 'admin') {
+        //     this.props.history.push('/menu/admin');
+        // } else {
+        //     this.props.history.push('/menu/common');
+        // }
+        window.history.go(-1);
     }
 
     handleChange(e) {
@@ -882,7 +882,7 @@ class RepairForm extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader onClick={e => this.props.history.push('/')} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
+                    <CellHeader onClick={() => { window.history.go(-1) }} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
                         <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回
