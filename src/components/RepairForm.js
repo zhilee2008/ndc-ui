@@ -395,6 +395,7 @@ class RepairForm extends Component {
             imageIdArr: [],
             imageMediaId: '',
             imageMediaIdArr: [],
+            imageUrlArr: [],
             warningStyle: {
                 buttons: [
                     {
@@ -523,6 +524,7 @@ class RepairForm extends Component {
                                 if (isAndroid) {
                                     for (let id of res.localIds) {
                                         self.addImageDev(id);
+                                        self.state.imageUrlArr.push(id);
                                     }
                                 }
                                 if (isIOS) {
@@ -533,9 +535,11 @@ class RepairForm extends Component {
                                             success: function (res) {
                                                 var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
                                                 self.addImageDev(localData);
+                                                self.state.imageUrlArr.push(localData);
                                             }
                                         });
                                     }
+
                                 }
 
                             }
@@ -891,13 +895,8 @@ class RepairForm extends Component {
         $('.savedimage').click(function (e) {
             wx.previewImage({
                 current: src,
-                urls: [
-                    src,
-                ]
+                urls: this.state.imageUrlArr
             });
-            // wx.previewImage({
-            //     localId: e.target.id
-            // });
         });
     }
 
