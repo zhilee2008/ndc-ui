@@ -677,6 +677,7 @@ class RepairForm extends Component {
         request.done(function (msg) {
 
             if (msg) {
+                alert('orderid:'+msg);
                 self.setState({
                     orderId: msg,
                     showLoading: false
@@ -686,6 +687,7 @@ class RepairForm extends Component {
                         showIOS1: true
                     });
                 });
+                alert('showLoading:'+this.state.showLoading);
             }
 
         });
