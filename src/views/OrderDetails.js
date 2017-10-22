@@ -85,59 +85,59 @@ class OrderDetails extends Component {
         this.getStatusById(itemId);
 
 
-        let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
-        var request = $.ajax({
-            url: url,
-            method: "GET",
-            contentType: "application/json; charset=utf-8"
-        });
+        // let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
+        // var request = $.ajax({
+        //     url: url,
+        //     method: "GET",
+        //     contentType: "application/json; charset=utf-8"
+        // });
 
-        var self = this;
+        // var self = this;
 
-        request.done(function (msg) {
-            if (msg) {
-                const jsticketObject = JSON.parse(msg);
-                const jsapiticket = jsticketObject.jsapi_ticket;
-                const appId = jsticketObject.appId;
-                const url = process.env.WEIXIN_DOMAIN+'/orderdetails/'+this.state.itemId+'/'+this.state.showIKnowBtn;
-                const jsApiObject = sign(jsapiticket, url);
-                // alert(window.location.href);
-                wx.config({
-                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                    appId: appId, // 必填，公众号的唯一标识
-                    jsApiList: [
-                        'playVoice',
-                        'previewImage',
-                        ], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-                    jsapi_ticket: jsApiObject.jsapi_ticket,
-                    nonceStr: jsApiObject.nonceStr,
-                    timestamp: jsApiObject.timestamp,
-                    url: jsApiObject.url,
-                    signature: jsApiObject.signature
-                });
-                wx.ready(function () {
+        // request.done(function (msg) {
+        //     if (msg) {
+        //         const jsticketObject = JSON.parse(msg);
+        //         const jsapiticket = jsticketObject.jsapi_ticket;
+        //         const appId = jsticketObject.appId;
+        //         const url = process.env.WEIXIN_DOMAIN+'/orderdetails/'+this.state.itemId+'/'+this.state.showIKnowBtn;
+        //         const jsApiObject = sign(jsapiticket, url);
+        //         // alert(window.location.href);
+        //         wx.config({
+        //             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        //             appId: appId, // 必填，公众号的唯一标识
+        //             jsApiList: [
+        //                 'playVoice',
+        //                 'previewImage',
+        //                 ], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        //             jsapi_ticket: jsApiObject.jsapi_ticket,
+        //             nonceStr: jsApiObject.nonceStr,
+        //             timestamp: jsApiObject.timestamp,
+        //             url: jsApiObject.url,
+        //             signature: jsApiObject.signature
+        //         });
+        //         wx.ready(function () {
 
-                    $('#priviewimage').on('click', function (event) {
-                        wx.previewImage({
-                            current: self.state.imageSrc,
-                            urls: [
-                                self.state.imageSrc,
-                            ]
-                        });
-                    });
+        //             $('#priviewimage').on('click', function (event) {
+        //                 wx.previewImage({
+        //                     current: self.state.imageSrc,
+        //                     urls: [
+        //                         self.state.imageSrc,
+        //                     ]
+        //                 });
+        //             });
 
-                });
-            }
+        //         });
+        //     }
 
-        });
+        // });
 
-        request.fail(function (jqXHR, textStatus) {
-            self.setState({
-                errorMsg: '出错了，请刷新重试，或者联系管理员'
-            });
-            alert('出错了，请刷新重试，或者联系管理员');
-            console.log("Request failed: " + textStatus)
-        });
+        // request.fail(function (jqXHR, textStatus) {
+        //     self.setState({
+        //         errorMsg: '出错了，请刷新重试，或者联系管理员'
+        //     });
+        //     alert('出错了，请刷新重试，或者联系管理员');
+        //     console.log("Request failed: " + textStatus)
+        // });
 
     }
 
