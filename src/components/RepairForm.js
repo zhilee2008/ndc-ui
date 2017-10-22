@@ -392,7 +392,9 @@ class RepairForm extends Component {
             audioId: '',
             audioMediaId: '',
             imageId: '',
+            imageIdArr: [],
             imageMediaId: '',
+            imageMediaIdArr: [],
             warningStyle: {
                 buttons: [
                     {
@@ -508,28 +510,32 @@ class RepairForm extends Component {
                     $('#addimagebutton').on('click', function (event) {
                         // alert('image');
                         wx.chooseImage({
-                            count: 1,
+                            count: 3,
                             sourceType: ['album', 'camera'],
                             success: function (res) {
                                 // alert('imageuploadsuccessful');
                                 self.setState({
-                                    imageId: res.localIds[0],
+                                    imageIdArr: res.localIds,
                                 })
                                 var u = navigator.userAgent, app = navigator.appVersion;
                                 var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
                                 var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
                                 if (isAndroid) {
-                                    self.addImageDev(res.localIds[0]);
+                                    for (let id of res.localIds) {
+                                        self.addImageDev(id);
+                                    }
                                 }
                                 if (isIOS) {
                                     // alert('arr' + res);
-                                    wx.getLocalImgData({
-                                        localId: res.localIds[0], // 图片的localID
-                                        success: function (res) {
-                                            var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-                                            self.addImageDev(localData);
-                                        }
-                                    });
+                                    for (let id of res.localIds) {
+                                        wx.getLocalImgData({
+                                            localId: id, // 图片的localID
+                                            success: function (res) {
+                                                var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+                                                self.addImageDev(localData);
+                                            }
+                                        });
+                                    }
                                 }
 
                             }
@@ -626,37 +632,43 @@ class RepairForm extends Component {
                     self.setState({
                         audioMediaId: serverId
                     }, () => {
-                        wx.uploadImage({
-                            localId: self.state.imageId,
-                            success: function (res) {
-                                var serverId = res.serverId; // 返回音频的服务器端ID
-                                self.setState({
-                                    imageMediaId: serverId
-                                }, () => {
-                                    self.sendRequest();
-                                });
-                            },
-                            fail: function (res) {
-                                self.sendRequest();
-                            }
-                        });
-                    });
-                },
-                fail: function (res) {
-                    wx.uploadImage({
-                        localId: self.state.imageId,
-                        success: function (res) {
-                            var serverId = res.serverId; // 返回音频的服务器端ID
-                            self.setState({
-                                imageMediaId: serverId
-                            }, () => {
-                                self.sendRequest();
+                        let count = 0;
+                        for (let id of self.state.imageIdArr) {
+                            wx.uploadImage({
+                                localId: id,
+                                success: function (res) {
+                                    var serverId = res.serverId; // 返回音频的服务器端ID
+                                    self.state.imageMediaIdArr.push(serverId);
+                                    count++;
+                                },
+                                fail: function (res) {
+                                    count++;
+                                }
                             });
-                        },
-                        fail: function (res) {
+                        }
+                        if (count === self.state.imageIdArr.length) {
                             self.sendRequest();
                         }
                     });
+                },
+                fail: function (res) {
+                    let count = 0;
+                    for (let id of self.state.imageIdArr) {
+                        wx.uploadImage({
+                            localId: id,
+                            success: function (res) {
+                                var serverId = res.serverId; // 返回音频的服务器端ID
+                                self.state.imageMediaIdArr.push(serverId);
+                                count++;
+                            },
+                            fail: function (res) {
+                                count++;
+                            }
+                        });
+                    }
+                    if (count === self.state.imageIdArr.length) {
+                        self.sendRequest();
+                    }
                 }
             });
 
@@ -678,7 +690,7 @@ class RepairForm extends Component {
             companyAddress: this.state.companyAddress,
             bugDetail: this.state.bugDetail,
             audioMediaId: this.state.audioMediaId,
-            imageMediaId: this.state.imageMediaId,
+            imageMediaId: this.state.imageMediaIdArr,
 
         };
 
