@@ -438,9 +438,9 @@ class RepairForm extends Component {
                 const jsticketObject = JSON.parse(msg);
                 const jsapiticket = jsticketObject.jsapi_ticket;
                 const appId = jsticketObject.appId;
-                const url = process.env.WEIXIN_DOMAIN+'/repairsubmit';
+                const env='http://xn.geekx.cn';
+                const url = env+'/repairsubmit';
                 const jsApiObject = sign(jsapiticket, url);
-                alert(process.env.WEIXIN_DOMAIN);
                 wx.config({
                     debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                     appId: appId, // 必填，公众号的唯一标识
