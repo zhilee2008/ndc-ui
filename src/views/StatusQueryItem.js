@@ -56,7 +56,14 @@ class StatusQueryItem extends Component {
     detailsItemClick = () => {
 
         if (this.state.itemId) {
-            const path = '/orderdetails/' + this.state.itemId + '/false';
+            let path = '/orderdetails/' + this.state.itemId + '/false';
+            if (this.state.status) {
+                path = path + '/completed';
+            } else if (this.state.engineercomplete){
+                path = path + '/handling';
+            }else {
+                path = path + '/new';
+            }
             this.props.history.push(path);
         } else {
 
