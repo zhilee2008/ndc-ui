@@ -437,13 +437,13 @@ class RepairForm extends Component {
             if (msg) {
                 const jsticketObject = JSON.parse(msg);
                 const jsapiticket = jsticketObject.jsapi_ticket;
-                const url = 'http://xn.geekx.cn/repairsubmit';
+                const appId = jsticketObject.appId;
+                const url = process.env.WEIXIN_DOMAIN+'/repairsubmit';
                 const jsApiObject = sign(jsapiticket, url);
                 // alert(window.location.href);
                 wx.config({
                     debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                    appId: 'wx457ecf3c803c3774', // 必填，公众号的唯一标识
-
+                    appId: appId, // 必填，公众号的唯一标识
                     jsApiList: ['startRecord',
                         'stopRecord',
                         'onVoiceRecordEnd',
@@ -452,11 +452,6 @@ class RepairForm extends Component {
                         'chooseImage',
                         'uploadImage',
                         'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-                    // jsapi_ticket: 'HoagFKDcsGMVCIY2vOjf9gX73yWPTGVXRHKIZHi4E1J9SMuPK0mD7QzJSBhUP0T1x47EjSrZLSaGXAf87FEFOA',
-                    // nonceStr: 'afjdmyufj0wz11h',
-                    // timestamp: '1508582755',
-                    // url: 'http://xn.geekx.cn/repairsubmit',
-                    // signature: 'f5be9361d361c7e66a129b60dfa2532441a57de9'
                     jsapi_ticket: jsApiObject.jsapi_ticket,
                     nonceStr: jsApiObject.nonceStr,
                     timestamp: jsApiObject.timestamp,
@@ -640,6 +635,8 @@ class RepairForm extends Component {
         });
 
         console.log('添加保修单');
+        alert(this.state.audioMediaId);
+        alert(this.state.imageMediaId);
         var payload = {
             company: this.state.company,
             name: this.state.name,
