@@ -673,11 +673,11 @@ class RepairForm extends Component {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(payload),
         });
-
+        const self = this;
         request.done(function (msg) {
 
             if (msg) {
-                alert('orderid:'+msg);
+                // alert('orderid:' + msg);
                 self.setState({
                     orderId: msg,
                     showLoading: false
@@ -687,7 +687,7 @@ class RepairForm extends Component {
                         showIOS1: true
                     });
                 });
-                alert('showLoading:'+this.state.showLoading);
+                // alert('showLoading:' + this.state.showLoading);
             }
 
         });
