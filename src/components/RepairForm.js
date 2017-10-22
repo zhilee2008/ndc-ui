@@ -645,9 +645,7 @@ class RepairForm extends Component {
                                 success: function (res) {
                                     var serverId = res.serverId; // 返回音频的服务器端ID
                                     self.state.imageMediaIdArr.push(serverId);
-                                    alert('s'+count);
                                     count++;
-                                    alert('e'+count);
                                 },
                                 fail: function (res) {
                                     count++;
@@ -890,7 +888,7 @@ class RepairForm extends Component {
 
     addImageDev(src) {
         // alert(src);
-        $('#imagecontainer').empty();
+        // $('#imagecontainer').empty();
         // const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
 
         const imagediv = "<div style='float:left'><img class='savedimage'  src='" + src + "' /><img class='deleteimage' src='/images/delete.png' /></div>";
