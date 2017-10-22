@@ -365,6 +365,7 @@ class RepairForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            admin: this.props.match.params.admin,
             title: '我要报修',
             company: '',
             name: '',
@@ -739,7 +740,12 @@ class RepairForm extends Component {
         this.setState({
             showIOS1: false,
         });
-        window.history.go(-1);
+        if (this.state.admin === 'admin') {
+            this.props.history.push('/menu/admin');
+        } else {
+            this.props.history.push('/menu/common');
+        }
+
     }
 
     handleChange(e) {
