@@ -33,7 +33,7 @@ var raw = function (args) {
 *
 * @returns
 */
-var sign = function (jsapi_ticket, url) {
+var sign = function (jsapi_ticket, url,cb) {
   var ret = {
     jsapi_ticket: jsapi_ticket,
     nonceStr: createNonceStr(),
@@ -44,7 +44,7 @@ var sign = function (jsapi_ticket, url) {
   const shaObj = new jsSHA(string, 'TEXT');
   ret.signature = shaObj.getHash('SHA-1', 'HEX');
 
-  return ret;
+  cb(ret);
 };
 
 module.exports = sign;

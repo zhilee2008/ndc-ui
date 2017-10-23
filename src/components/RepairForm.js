@@ -440,25 +440,27 @@ class RepairForm extends Component {
                 const jsapiticket = jsticketObject.jsapi_ticket;
                 const appId = jsticketObject.appId;
                 const url = 'http://xn.geekx.cn/repairsubmit';
-                const jsApiObject = sign(jsapiticket, url);
-                alert(jsApiObject);
-                wx.config({
-                    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-                    appId: appId, // 必填，公众号的唯一标识
-                    jsApiList: ['startRecord',
-                        'stopRecord',
-                        'onVoiceRecordEnd',
-                        'playVoice',
-                        'previewImage',
-                        'chooseImage',
-                        'uploadImage',
-                        'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-                    jsapi_ticket: jsApiObject.jsapi_ticket,
-                    nonceStr: jsApiObject.nonceStr,
-                    timestamp: jsApiObject.timestamp,
-                    url: jsApiObject.url,
-                    signature: jsApiObject.signature
+                sign(jsapiticket, url,(jsApiObject)=>{
+                    alert(JSON.stringify(jsApiObject));
+                    wx.config({
+                        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                        appId: appId, // 必填，公众号的唯一标识
+                        jsApiList: ['startRecord',
+                            'stopRecord',
+                            'onVoiceRecordEnd',
+                            'playVoice',
+                            'previewImage',
+                            'chooseImage',
+                            'uploadImage',
+                            'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                        jsapi_ticket: jsApiObject.jsapi_ticket,
+                        nonceStr: jsApiObject.nonceStr,
+                        timestamp: jsApiObject.timestamp,
+                        url: jsApiObject.url,
+                        signature: jsApiObject.signature
+                    });
                 });
+                // alert(jsApiObject);
             }
 
         });
