@@ -440,7 +440,7 @@ class RepairForm extends Component {
                 const jsapiticket = jsticketObject.jsapi_ticket;
                 const appId = jsticketObject.appId;
                 const url = 'http://xn.geekx.cn/repairsubmit';
-                sign(jsapiticket, url,(jsApiObject)=>{
+                sign(jsapiticket, url, (jsApiObject) => {
                     // alert(JSON.stringify(jsApiObject));
                     wx.config({
                         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -451,6 +451,7 @@ class RepairForm extends Component {
                             'playVoice',
                             'previewImage',
                             'chooseImage',
+                            'getLocalImgData',
                             'uploadImage',
                             'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
                         jsapi_ticket: jsApiObject.jsapi_ticket,
@@ -476,7 +477,7 @@ class RepairForm extends Component {
     };
 
     componentWillMount() {
-        
+
     }
 
     componentDidMount() {
@@ -538,17 +539,17 @@ class RepairForm extends Component {
                     success: function (res) {
                         // alert('imageuploadsuccessful');
                         self.setState({
-                            imagecount:self.state.imagecount + res.localIds.length
+                            imagecount: self.state.imagecount + res.localIds.length
                         })
                         var u = navigator.userAgent, app = navigator.appVersion;
                         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
                         var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-                        
+
                         if (isAndroid) {
                             if (self.state.imagecount > 9) {
                                 alert('每次最多允许上传9张图片');
                                 self.setState({
-                                    imagecount:self.state.imagecount - res.localIds.length
+                                    imagecount: self.state.imagecount - res.localIds.length
                                 })
                             } else {
                                 self.setState({
@@ -561,11 +562,11 @@ class RepairForm extends Component {
                             }
                         }
                         if (isIOS) {
-                            alert(self.state.imagecount);
+                            // alert(self.state.imagecount);
                             if (self.state.imagecount > 9) {
                                 alert('每次最多允许上传9张图片');
                                 self.setState({
-                                    imagecount:self.state.imagecount - res.localIds.length
+                                    imagecount: self.state.imagecount - res.localIds.length
                                 })
                             } else {
                                 self.setState({
@@ -580,16 +581,8 @@ class RepairForm extends Component {
                                             self.addImageDev(localData);
                                             self.state.imageUrlArr.push(localData);
 
-
                                         }
                                     });
-
-
-                                    
-
-
-
-
                                 }
                             }
                         }
@@ -947,7 +940,7 @@ class RepairForm extends Component {
         $('.deleteimage').click(function (e) {
             e.target.parentNode.remove();
             self.setState({
-                imagecount:self.state.imagecount - 1,
+                imagecount: self.state.imagecount - 1,
                 imageUrlArr: self.state.imageUrlArr.remove(e.target.src)
             });
         });
