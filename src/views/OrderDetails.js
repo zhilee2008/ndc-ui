@@ -56,7 +56,7 @@ class OrderDetails extends Component {
             engineers: [],
             caption: '',
             fromQuery: false,
-            imageurls: ['/images/delete.png', '/images/delete.png', '/images/delete.png']
+            imageurls: []
         };
 
         let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";

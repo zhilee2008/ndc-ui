@@ -598,7 +598,7 @@ class RepairForm extends Component {
                 self.state.imageUrlArr.push(localData);
                 // alert(i+1);
                 if (i + 1 < localids.length) {
-                    self.shownImage(localids[i + 1], localids, i + 1);
+                    self.showImage(localids[i + 1], localids, i + 1);
                 }
             },
             fail: function (res) {
