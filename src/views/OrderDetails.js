@@ -382,7 +382,7 @@ class OrderDetails extends Component {
                             <CellHeader>
                                 <div className={'savedimagecontainer'} style={{ paddingBottom: '5px' }} id="imagecontainerview">
                                     {this.state.imageurls.map(url =>
-                                        <div style={{ float: 'left' }}><img onClick={this.showImage.bind(this, url)} class='savedimage' src={url} /></div>
+                                        <div style={{ float: 'left' }}><img onClick={this.showImage.bind(this, url)} className={'savedimage'} src={url} /></div>
                                     )
                                     }
 
