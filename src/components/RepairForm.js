@@ -605,22 +605,23 @@ class RepairForm extends Component {
 
     shownImage(id, localids, i) {
         const self = this;
-        if(i+1>localids.length){
-            wx.getLocalImgData({
-                localId: id, // 图片的localID
-                success: function (res) {
-                    alert("data" + JSON.stringify(res));
-                    var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
-                    self.addImageDev(localData);
-                    self.state.imageUrlArr.push(localData);
+
+        wx.getLocalImgData({
+            localId: id, // 图片的localID
+            success: function (res) {
+                alert("data" + JSON.stringify(res));
+                var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
+                self.addImageDev(localData);
+                self.state.imageUrlArr.push(localData);
+                if (i + 1 > localids.length) {
                     self.shownImage(localids[i + 1], localids, i + 1);
-                },
-                fail: function (res) {
-                    alert(JSON.stringify(res));
                 }
-            });
-        }
-        
+            },
+            fail: function (res) {
+                alert(JSON.stringify(res));
+            }
+        });
+
     }
 
     validRepairForm = () => {
