@@ -555,9 +555,9 @@ class RepairForm extends Component {
 
         request.fail(function (jqXHR, textStatus) {
             self.setState({
-                errorMsg: '出错了，请刷新重试，或者联系管理员'
+                errorMsg: '录音和上传图片功能暂不可用'
             });
-            alert('出错了，请刷新重试，或者联系管理员');
+            alert('录音和上传图片功能暂不可用');
             console.log("Request failed: " + textStatus)
         });
 
@@ -1171,7 +1171,7 @@ class RepairForm extends Component {
                                 </CellBody>
 
                             </FormCell>
-                            <div style={{ height: '60px', paddingBottom: '5px' }} id="imagecontainer"></div>
+                            <div className={'savedimagecontainer'} style={{ paddingBottom: '5px' }} id="imagecontainer"></div>
                         </div>
                     </Form>
 

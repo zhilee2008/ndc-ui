@@ -161,3 +161,6 @@
   margin-bottom: 15px;
   margin-left: 0px;
   width: 20px; }
+
+.savedimagecontainer {
+  overflow: -webkit-paged-x; }
