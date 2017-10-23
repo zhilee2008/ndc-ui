@@ -11,6 +11,7 @@ import RepairManagementItems from './views/RepairManagementItems';
 import OrderDetails from './views/OrderDetails';
 import OrderDetailsUpdate from './views/OrderDetailsUpdate';
 import WatchVedio from './views/WatchVedio';
+import Index from './views/Index';
 
 import './App.css';
 import {
@@ -27,7 +28,11 @@ class App extends Component {
       showNavBar: true
     };
     routes = [
-
+      {
+        path: '/index',
+        exact: true,
+        main: () => <Index/>,
+      },
       {
         path: '/menu/:admin',
         exact: true,
