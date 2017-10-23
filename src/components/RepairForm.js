@@ -673,7 +673,7 @@ class RepairForm extends Component {
         wx.ready(function () {
             wx.uploadVoice({
                 localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                isShowProgressTips: -1, // 默认为1，显示进度提示
+                isShowProgressTips: false, // 默认为1，显示进度提示
                 success: function (res) {
                     var serverId = res.serverId; // 返回音频的服务器端ID
                     // alert(JSON.stringify(res));
