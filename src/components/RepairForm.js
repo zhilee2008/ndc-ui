@@ -475,7 +475,7 @@ class RepairForm extends Component {
     }
 
     componentDidMount() {
-
+        const self = this;
         wx.ready(function () {
 
             let START, END;
