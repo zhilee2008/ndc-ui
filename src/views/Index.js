@@ -42,7 +42,7 @@ class Index extends Component {
             if (codes.length >= 1){
               let codeValue = codes[1];
               this.state.code = codeValue;
-              this.authentication()
+              this.authentication();
             }
           }
         }
@@ -55,9 +55,9 @@ class Index extends Component {
 
 
     authentication = () => {
-      alert('认证中');
+
       let url = process.env.REACT_APP_HTTP_PREFIX + "repairs/weixin-code/" + this.state.code;
-      alert(url);
+
       var request = $.ajax({
         url: url,
         method: "GET",
@@ -65,28 +65,32 @@ class Index extends Component {
       });
 
       var self = this;
-      let path = '/menu/';
+      let path = '/menu';
       request.done(function (msg) {
 
         if (msg) {
-            alert(msg)
-            alert(msg === 'admin')
+
             if (msg === 'admin'){
+                localStorage.setItem("path", "admin");
                 path = path + '/admin'
             }else {
                 path = path + '/common'
+                localStorage.setItem("path", "common");
             }
 
         }else {
             path = path + '/common';
+            localStorage.setItem("path", "common");
         }
-        this.props.history.push(path);
+
+        self.props.history.push(path);
       });
 
       request.fail(function (jqXHR, textStatus) {
-        alert('failed');
+
         path = path + '/common';
-        this.props.history.push(path);
+        localStorage.setItem("path", "common");
+        self.props.history.push(path);
         console.log("Request failed: " + textStatus)
       });
 
@@ -95,7 +99,7 @@ class Index extends Component {
     render() {
         return (
             <div>
-                <Toast icon="loading" show={true}>跳转中...</Toast>
+                <Toast icon="loading" show={true}>加载中...</Toast>
             </div>
         );
     }
