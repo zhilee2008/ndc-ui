@@ -56,7 +56,7 @@ class OrderDetails extends Component {
             engineers: [],
             caption: '',
             fromQuery: false,
-            imageUrlArr: ['/images/delete.png', '/images/delete.png', '/images/delete.png']
+            imageurls: ['/images/delete.png', '/images/delete.png', '/images/delete.png']
         };
 
         let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
@@ -81,8 +81,7 @@ class OrderDetails extends Component {
                         appId: appId, // 必填，公众号的唯一标识
                         jsApiList: [
                             'playVoice',
-                            'previewImage',
-                            'getLocalImgData',], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                            'previewImage'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
                         jsapi_ticket: jsApiObject.jsapi_ticket,
                         nonceStr: jsApiObject.nonceStr,
                         timestamp: jsApiObject.timestamp,
@@ -170,7 +169,7 @@ class OrderDetails extends Component {
 
             wx.previewImage({
                 current: src,
-                urls: self.state.imageUrlArr
+                urls: self.state.imageurls
             });
 
         });
@@ -203,7 +202,7 @@ class OrderDetails extends Component {
                     companyAddress: orderdetails.CompanyAddress,
                     troubleDetail: orderdetails.BugDetail,
                     engineers: orderdetails.OrderLog.Engineers,
-                    imageUrlArr: orderdetails.OrderLog.imageUrlArr,
+                    imageurls: orderdetails.OrderLog.imageurls,
                     completed: orderdetails.Status
                 });
 
@@ -382,7 +381,7 @@ class OrderDetails extends Component {
                         <FormCell>
                             <CellHeader>
                                 <div className={'savedimagecontainer'} style={{ paddingBottom: '5px' }} id="imagecontainerview">
-                                    {this.state.imageUrlArr.map(url =>
+                                    {this.state.imageurls.map(url =>
                                         <div style={{ float: 'left' }}><img onClick={this.showImage.bind(this, url)} class='savedimage' src={url} /></div>
                                     )
                                     }
