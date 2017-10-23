@@ -572,25 +572,12 @@ class RepairForm extends Component {
                                 self.setState({
                                     imageIdArr: res.localIds,
                                 })
-                                // for (var i = 0; i < res.localIds.length; i++) {
+                                for (var i = 0; i < res.localIds.length; i++) {
                                     // alert("id:"+res.localIds[i]);
-                                    wx.getLocalImgData({
-                                        localId: res.localIds, // 图片的localID
-                                        success: function (res) {
-                                            alert("data"+JSON.stringify(res));
-                                            alert(res.localData);
-                                            // var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
-                                            for(let localData of res.localData){
-                                                self.addImageDev(localData);
-                                                self.state.imageUrlArr.push(localData);
-                                            }
-
-                                        },
-                                        fail: function (res) {
-                                            alert(res);
-                                        }
+                                    self.showImage(res.localIds[i], () => {
+                                        continue;
                                     });
-                                // }
+                                }
                             }
                         }
 
@@ -603,6 +590,24 @@ class RepairForm extends Component {
 
         });
 
+    }
+
+    showImage(id, cb) {
+        const self = this;
+        wx.getLocalImgData({
+            localId: id, // 图片的localID
+            success: function (res) {
+                alert("data" + JSON.stringify(res));
+                alert(res.localData);
+                var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
+                self.addImageDev(localData);
+                self.state.imageUrlArr.push(localData);
+                cb();
+            },
+            fail: function (res) {
+                alert("fail:" + JSON.stringify(res));
+            }
+        });
     }
 
     validRepairForm = () => {
