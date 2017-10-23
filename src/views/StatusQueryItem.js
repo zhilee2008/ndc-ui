@@ -56,7 +56,15 @@ class StatusQueryItem extends Component {
     detailsItemClick = () => {
 
         if (this.state.itemId) {
-            const path = '/orderdetails/' + this.state.itemId;
+            let path = '/orderdetails/' + this.state.itemId + '/false';
+            if (this.state.status) {
+                path = path + '/completed';
+            } else if (this.state.engineercomplete){
+                path = path + '/handling';
+            }else {
+                path = path + '/new';
+            }
+            path = path + '/true';
             this.props.history.push(path);
         } else {
 
@@ -88,23 +96,26 @@ class StatusQueryItem extends Component {
                 const orderdetails = JSON.parse(msg);
                 const orderlog = orderdetails.orderlog;
                 // console.log(Util.timeStamp2String(orderlog.servicecenter.time))
+                let reportedTime = Util.timeStamp2String(orderlog.report.time);
+                let engineerTime = orderlog.engineers.length >0 ? Util.timeStamp2String(orderlog.engineers[orderlog.engineers.length - 1].time): '';
+                let engineerHomeServiceTime = orderlog.engineers.length >0 ? Util.timeStamp2String(orderlog.engineers[orderlog.engineers.length - 1].homeservicetime): '';
                 self.setState({
-                    reporttime: Util.timeStamp2String(orderlog.report.time),
+                    reporttime: reportedTime,
                     reportcomplete: orderlog.report.complete,
                     servicecentertime: Util.timeStamp2String(orderlog.servicecenter.time),
                     servicecentercomplete: orderlog.servicecenter.complete,
-                    engineertime: Util.timeStamp2String(orderlog.engineer.time),
-                    engineercomplete: orderlog.engineer.name !== '' ? true : false,
-                    engineercompleteimg: orderlog.engineer.name !== '' ? <img src="/images/tijiai@2x.png" /> : <img src="/images/tijiaohuise@2x.png" />,
-                    engineercompleteimgshijian: orderlog.engineer.name !== '' ? <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian@2x.png" /> : <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian---huise@2x.png" />,
-                    engineercompletecolor: orderlog.engineer.name !== '' ? '#1887fc' : '',
-                    engineercompletetext: orderlog.engineer.name !== '' ? '已提交' : '未提交',
-                    homeservicetime: Util.timeStamp2String(orderlog.engineer.homeservicetime),
-                    homeservice: orderlog.engineer.homeservice,
-                    homeserviceimg: orderlog.engineer.homeservice ? <img src="/images/tijiai@2x.png" /> : <img src="/images/tijiaohuise@2x.png" />,
-                    homeserviceimgshijian: orderlog.engineer.homeservice ? <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian@2x.png" /> : <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian---huise@2x.png" />,
-                    homeservicecolor: orderlog.engineer.homeservice ? '#1887fc' : '',
-                    homeservicetext: orderlog.engineer.homeservice ? '已提交' : '未提交',
+                    engineertime: engineerTime,
+                    engineercomplete: orderlog.engineers.length > 0 ? true : false,
+                    engineercompleteimg: orderlog.engineers.length > 0 ? <img src="/images/tijiai@2x.png" /> : <img src="/images/tijiaohuise@2x.png" />,
+                    engineercompleteimgshijian: orderlog.engineers.length > 0 ? <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian@2x.png" /> : <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian---huise@2x.png" />,
+                    engineercompletecolor: orderlog.engineers.length > 0  ? '#1887fc' : '',
+                    engineercompletetext: orderlog.engineers.length > 0  ? '已提交' : '未提交',
+                    homeservicetime: engineerHomeServiceTime,
+                    homeservice: engineerHomeServiceTime ? true : false,
+                    homeserviceimg: engineerHomeServiceTime ? <img src="/images/tijiai@2x.png" /> : <img src="/images/tijiaohuise@2x.png" />,
+                    homeserviceimgshijian: engineerHomeServiceTime ? <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian@2x.png" /> : <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian---huise@2x.png" />,
+                    homeservicecolor: engineerHomeServiceTime ? '#1887fc' : '',
+                    homeservicetext: engineerHomeServiceTime ? '已提交' : '未提交',
                     status: orderdetails.status=='completed'?true:false,
                     statusimg: orderdetails.status=='completed'? <img src="/images/tijiai@2x.png" /> : <img src="/images/tijiaohuise@2x.png" />,
                     statusimgshijian: orderdetails.status=='completed'? <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian@2x.png" /> : <img style={{ marginTop: '2px', width: '15px', float: 'left' }} src="/images/shijian---huise@2x.png" />,

@@ -11,6 +11,7 @@ import RepairManagementItems from './views/RepairManagementItems';
 import OrderDetails from './views/OrderDetails';
 import OrderDetailsUpdate from './views/OrderDetailsUpdate';
 import WatchVedio from './views/WatchVedio';
+import Index from './views/Index';
 
 import './App.css';
 import {
@@ -28,7 +29,12 @@ class App extends Component {
     };
     routes = [
       {
-        path: '/',
+        path: '/index',
+        exact: true,
+        main: () => <Index/>,
+      },
+      {
+        path: '/menu/:admin',
         exact: true,
         main: () => <Menu/>,
       },
@@ -58,7 +64,7 @@ class App extends Component {
         main: () => <RepairManagementItems/>,
       },
       {
-        path: '/orderdetails/:id',
+        path: '/orderdetails/:id/:showIKnowBtn/:status/:fromQuery',
         exact: true,
         main: () => <OrderDetails/>,
       },

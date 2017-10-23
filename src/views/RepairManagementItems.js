@@ -8,11 +8,15 @@ import {
     CellBody,
     CellFooter,
     CellHeader,
-    Label
+    Label,
+    Button,
+    ButtonArea,
+  Dialog,
 } from '../../packages';
 import Page from '../components/page';
 import $ from 'jquery';
 
+import './RepairManagementItems.css'
 class RepairManagementItems extends Component {
 
     constructor(props) {
@@ -20,18 +24,53 @@ class RepairManagementItems extends Component {
 
         this.state = {
             items: [],
+            status: '',
+              warningStyle: {
+                buttons: [
+                  {
+                    label: '确定',
+                    onClick: this.deleteOrder
+                  },
+                  {
+                    label: '取消',
+                    onClick: this.hideWarningDialog
+                  }
+                ]
+              },
+              showWarningPanel: false,
+          orderId: '',
+          title: '',
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         // console.log(this.props.match.params.id);
         this.setState({
             status: this.props.match.params.status
+        }, ()=> {
+          if (this.state.status === 'new'){
+              this.setState({
+                title: '待接'
+              });
+          } else if (this.state.status === 'handling'){
+              this.setState({
+                title: '处理中'
+              });
+          } else {
+              this.setState({
+                title: '已完成'
+              });
+          }
         });
         let status = this.props.match.params.status;
         this.getListByStatus(status);
     }
 
+    hideWarningDialog = () => {
+        this.setState({
+          showWarningPanel: false
+        });
+    };
 
     getListByStatus = (status) => {
         let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/list/" + status;
@@ -44,7 +83,7 @@ class RepairManagementItems extends Component {
         var self = this;
 
         request.done(function (msg) {
-            if (msg) {
+            if (msg && msg !== 'null') {
                 const orderlist = JSON.parse(msg);
                 // console.log(Util.timeStamp2String(orderlog.servicecenter.time))
                 const items = [];
@@ -56,6 +95,10 @@ class RepairManagementItems extends Component {
                         items: items
                     });
                 }
+            }else {
+              self.setState({
+                items: []
+              })
             }
 
         });
@@ -73,9 +116,83 @@ class RepairManagementItems extends Component {
 
     detailsItemClick = (itemId) => {
         let path = '/orderdetails/' + itemId;
-
+        if (this.state.status === 'completed') {
+          path = path + '/false'
+        }else {
+          path = path + '/true'
+        }
+        path = path + '/' + this.state.status + '/false';
         this.props.history.push(path);
     };
+
+    topOrder = (itemId) => {
+      let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/top";
+
+      var payload = {
+        orderId: itemId,
+        top: 'true'
+      };
+
+      var request = $.ajax({
+        url: url,
+        method: "POST",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(payload),
+      });
+
+      var self = this;
+
+      request.done(function (msg) {
+        self.getListByStatus(self.state.status)
+      });
+
+      request.fail(function (jqXHR, textStatus) {
+        self.setState({
+          errorMsg: '出错了，请刷新重试，或者联系管理员'
+        });
+        alert('出错了，请刷新重试，或者联系管理员');
+        console.log("Request failed: " + textStatus)
+      });
+    };
+    confirmDeleteOrder = (itemId) => {
+        this.setState({
+          showWarningPanel: true,
+          orderId: itemId
+        });
+    };
+    deleteOrder = () => {
+        let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/delete";
+
+        var payload = {
+          orderid: this.state.orderId
+        };
+
+        var request = $.ajax({
+          url: url,
+          method: "POST",
+          contentType: "application/json; charset=utf-8",
+          data: JSON.stringify(payload),
+        });
+
+        var self = this;
+
+        request.done(function (msg) {
+            self.setState({
+              showWarningPanel: false
+            }, ()=>{
+              self.getListByStatus(self.state.status)
+            });
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+          self.setState({
+            errorMsg: '出错了，请刷新重试，或者联系管理员'
+          });
+          alert('出错了，请刷新重试，或者联系管理员');
+          console.log("Request failed: " + textStatus)
+        });
+    };
+
 
     render() {
         return (
@@ -110,25 +227,33 @@ class RepairManagementItems extends Component {
                     </Cell>
                     {/* <img src='/images/touying@2x.png' /> */}
                     <div className={'touying'}>
-                        <div style={{ color: '#1887fc', textAlign: 'center' }} >以下为待接的报修单,请点击了解详情并操作</div>
+                        <div style={{ color: '#1887fc', textAlign: 'center' }} >以下为{this.state.title}报修单,请点击了解详情并操作</div>
                     </div>
                     <Cells style={{ marginTop: '0px' }}>
                         {
                             this.state.items.map((itemId, i) => {
                                 return (
-                                    <Cell onClick={this.detailsItemClick.bind(this, itemId)} href="javascript:;" key={i} access>
+                                    <Cell  href="javascript:;" key={i} access>
                                         <CellHeader>
                                             <Label>订单编号</Label>
                                         </CellHeader>
-                                        <CellBody style={{ marginLeft: '20px', color: 'lightgray' }}>
+                                        <CellBody style={{ marginLeft: '10px', color: 'lightgray' }} onClick={this.detailsItemClick.bind(this, itemId)}>
                                             {itemId}
                                         </CellBody>
+                                        <CellFooter>
+                                            <ButtonArea direction="horizontal">
+                                                <Button type="warn" onClick={this.topOrder.bind(this, itemId)}>置顶</Button>
+                                                <Button type="warn" className={'delete-order-btn'} onClick={this.confirmDeleteOrder.bind(this, itemId)}>删除</Button>
+                                            </ButtonArea>
+                                        </CellFooter>
                                     </Cell>
                                 )
                             })
                         }
                     </Cells>
-
+                    <Dialog type="ios" title={'警告'} buttons={this.state.warningStyle.buttons} show={this.state.showWarningPanel}>
+                      确定要删除订单{this.state.orderId}吗?
+                    </Dialog>
                 </Page>
             </InfiniteLoader>
         )

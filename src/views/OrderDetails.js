@@ -21,10 +21,12 @@ import {
     CellsTips,
     Cell,
 } from '../../packages';
+import wx from 'weixin-js-sdk'
 import Page from '../components/page';
 import './orderdetails.css'
 import $ from 'jquery';
 import Util from '../utils/Util';
+import sign from '../utils/sign'
 
 class OrderDetails extends Component {
 
@@ -46,26 +48,131 @@ class OrderDetails extends Component {
             companyAddress: '',
             troubleDetail: '',
             errorMsg: '',
-            engineerName:'',
-            homeServiceTime:0,
-            repairTime:0,
-            completed: ''
+            engineerName: '',
+            homeServiceTime: '',
+            imageSrc: '',
+            completed: '',
+            showIKnowBtn: true,
+            engineers: [],
+            caption: '',
+            fromQuery : false
         };
     }
 
     detailsUpdate = () => {
-        let path = '/orderdetailsupdate/'+this.state.itemId;
+        let path = '/orderdetailsupdate/' + this.state.itemId;
 
         this.props.history.push(path);
     };
+    returnUp = () => {
+        let path = '/repairmanagement';
+        if (this.state.fromQuery){
+            path = '/statusquery';
+        }
+        this.props.history.push(path);
+    }
 
-    componentDidMount() {
+    componentWillMount() {
         // console.log(this.props.match.params.id);
+        let showIKnowBtn = this.props.match.params.showIKnowBtn;
+        if (showIKnowBtn === 'false') {
+            showIKnowBtn = false;
+        } else {
+            showIKnowBtn = true;
+        }
+        let status = this.props.match.params.status;
+        if (status === 'new'){
+            this.setState({
+                caption: '待接'
+            });
+        } else if (status === 'handling'){
+          this.setState({
+            caption: '处理中'
+          });
+        } else {
+          this.setState({
+            caption: '已完成'
+          });
+        }
+        let fromQueryParam = this.props.match.params.fromQuery;
+        if (fromQueryParam == 'true'){
+            this.setState({
+              fromQuery: true
+            });
+        }else {
+          this.setState({
+            fromQuery: false
+          });
+        }
+
         this.setState({
-            itemId: this.props.match.params.id
+            itemId: this.props.match.params.id,
+            showIKnowBtn: showIKnowBtn
         });
         let itemId = this.props.match.params.id;
+
         this.getStatusById(itemId);
+
+
+
+        // let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
+        // var request = $.ajax({
+        //     url: url,
+        //     method: "GET",
+        //     contentType: "application/json; charset=utf-8"
+        // });
+
+        // var self = this;
+
+        // request.done(function (msg) {
+        //     if (msg) {
+        //         const jsticketObject = JSON.parse(msg);
+        //         const jsapiticket = jsticketObject.jsapi_ticket;
+        //         const appId = jsticketObject.appId;
+        //         const url = 'http://xn.geekx.cn/repairsubmit';
+        //         const jsApiObject = sign(jsapiticket, url);
+        //         wx.config({
+        //             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        //             appId: appId, // 必填，公众号的唯一标识
+        //             jsApiList: ['startRecord',
+        //                 'stopRecord',
+        //                 'onVoiceRecordEnd',
+        //                 'playVoice',
+        //                 'previewImage',
+        //                 'chooseImage',
+        //                 'uploadImage',
+        //                 'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        //             jsapi_ticket: jsApiObject.jsapi_ticket,
+        //             nonceStr: jsApiObject.nonceStr,
+        //             timestamp: jsApiObject.timestamp,
+        //             url: jsApiObject.url,
+        //             signature: jsApiObject.signature
+        //         });
+        //         wx.ready(function () {
+
+        //             $('#priviewimage').on('click', function (event) {
+        //                 wx.previewImage({
+        //                     current: self.state.imageSrc,
+        //                     urls: [
+        //                         self.state.imageSrc,
+        //                     ]
+        //                 });
+        //             });
+
+        //         });
+        //     }
+
+        // });
+
+        // request.fail(function (jqXHR, textStatus) {
+        //     self.setState({
+        //         errorMsg: '出错了，请刷新重试，或者联系管理员'
+        //     });
+        //     alert('出错了，请刷新重试，或者联系管理员');
+        //     console.log("Request failed: " + textStatus)
+        // });
+
+
     }
 
     getStatusById = (itemId) => {
@@ -94,9 +201,8 @@ class OrderDetails extends Component {
                     billAddress: orderdetails.BillAddress,
                     companyAddress: orderdetails.CompanyAddress,
                     troubleDetail: orderdetails.BugDetail,
-                    engineerName:orderdetails.OrderLog.Engineer.Name,
-                    homeServiceTime:Util.timeStamp2TString(orderdetails.OrderLog.Engineer.Homeservicetime),
-                    repairTime:Util.timeStamp2TString(orderdetails.OrderLog.Engineer.RepairTime),
+                    engineers: orderdetails.OrderLog.Engineers,
+
                     completed: orderdetails.Status
                 });
 
@@ -121,7 +227,7 @@ class OrderDetails extends Component {
             <div className={'orderbackground'}>
                 <Page className="input">
                     <Cell className={'titlebar'}>
-                        <CellHeader onClick={() => {window.history.go(-1)}} style={{width: '20%', height: '65px', marginTop: '25px' }} >
+                        <CellHeader onClick={() => { window.history.go(-1) }} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
                             <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                             <div className={'titlebarback'}>
                                 返回
@@ -132,13 +238,14 @@ class OrderDetails extends Component {
                             报修状态查询
                   </CellBody>
                         <CellFooter style={{ width: '20%' }} >
-                            <img style={{ width: '30px',display:'none' }} src='/images/menu12@2x.png' />
+                            <img style={{ width: '30px', display: 'none' }} src='/images/menu12@2x.png' />
                         </CellFooter>
                     </Cell>
                     {/* <img src='/images/touying@2x.png' /> */}
                     <div className={'touying'}>
+
                         <img className={'dian'} src='/images/dian@2x.png' />
-                        <div style={{ color: '#1887fc', }} className={'diancontent'}>您的报修单号</div>
+                        <div style={{ color: '#1887fc', }} className={'diancontent'}>该报修单号( {this.state.caption} )</div>
                         <div style={{ color: 'grey', }} className={'diancontentright'}>{this.state.itemId}</div>
                     </div>
                     <Form className={'orderborder'}>
@@ -251,39 +358,94 @@ class OrderDetails extends Component {
                             </CellBody>
                         </FormCell>
                     </Form>
-                    {/* <CellsTips>Form Footer Tips</CellsTips> */}
-                    {/* <CellsTitle>故障细节</CellsTitle> */}
                     <Form className={'orderborder'}>
                         <FormCell>
                             <CellHeader>
-                                <Label style={{ color: '#000' }}>工程师姓名:</Label>
+                                <Label style={{ color: '#000' }}>语音描述:</Label>
                             </CellHeader>
-                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
-                                {this.state.engineerName}
-                            </CellBody>
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                                <Label style={{ color: '#000' }}>上门时间:</Label>
+                                <div style={{ width: '100%' }}><div style={{ width: '100%', margin: '0px' }} className={'savedradio'}>点击播放录音</div></div>
                             </CellHeader>
                             <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
-                                {this.state.homeServiceTime}
-                            </CellBody>
-                        </FormCell>
-                        <FormCell>
-                            <CellHeader>
-                                <Label style={{ color: '#000' }}>维修时间:</Label>
-                            </CellHeader>
-                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
-                                {this.state.repairTime}
                             </CellBody>
                         </FormCell>
                     </Form>
+                    <Form className={'orderborder'}>
+                        <FormCell>
+                            <CellHeader>
+                                <Label style={{ color: '#000' }}>图片描述:</Label>
+                            </CellHeader>
+                        </FormCell>
+                        <FormCell>
+                            <CellHeader>
+                                <div style={{ width: '100%' }}><img className={'savedimage'} src='/images/delete.png' /></div>
+                            </CellHeader>
+                            <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                            </CellBody>
+                        </FormCell>
+                    </Form>
+                    {/* <CellsTips>Form Footer Tips</CellsTips> */}
+                    {/* <CellsTitle>故障细节</CellsTitle> */}
+                    {this.state.engineers.slice(0).reverse().map(engineer =>
 
-                    <ButtonArea className={this.state.completed === 'completed'? 'hideKnowBtn' : 'showKnowBtn'}>
-                        <Button onClick={this.detailsUpdate.bind(this)}>
-                            我知道了
+                        <Form className={'orderborder'}>
+
+                            <FormCell>
+                                <CellHeader>
+                                    <Label style={{ color: '#000' }}>工程师姓名:</Label>
+                                </CellHeader>
+                                <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                    {engineer['Name']}
+                                </CellBody>
+                            </FormCell>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label style={{ color: '#000' }}>工程师手机:</Label>
+                                </CellHeader>
+                                <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                    {engineer['Mobile']}
+                                </CellBody>
+                            </FormCell>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label style={{ color: '#000' }}>上门/维修时间:</Label>
+                                </CellHeader>
+                                <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                    {Util.timeStamp2TString(engineer['Homeservicetime'])}
+                                </CellBody>
+                            </FormCell>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label style={{ color: '#000' }}>选项:</Label>
+                                </CellHeader>
+                                <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                    {engineer['SelectedOption']}
+                                </CellBody>
+                            </FormCell>
+                            <FormCell>
+                                <CellHeader>
+                                    <Label style={{ color: '#000' }}>备注:</Label>
+                                </CellHeader>
+                                <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
+                                    {engineer['Notes']}
+                                </CellBody>
+                            </FormCell>
+                        </Form>
+                    )}
+
+
+                    <ButtonArea className={(this.state.completed === 'completed' || !this.state.showIKnowBtn) ? 'hideKnowBtn' : 'showKnowBtn'} direction="horizontal">
+                    
+                        <Button onClick={this.returnUp.bind(this)}>
+                            返回
                         </Button>
+                        
+                        <Button className={!this.state.showIKnowBtn ? 'hideKnowBtn' : 'showKnowBtn'} style = {{margin: '0 auto' }}  onClick={this.detailsUpdate.bind(this)}>
+                            处理
+                        </Button>
+
                     </ButtonArea>
 
 

@@ -11,6 +11,8 @@ import {
     MediaBoxTitle
 } from '../../packages';
 import './menu.css';
+import $ from 'jquery';
+
 const repairsubmiticon = <img src="/images/baoxiu-@2x.png" />
 const statusqueryicon = <img src="/images/cahxun@2x.png" />
 const repairmanagementicon = <img src="/images/guanli-@2x.png" />
@@ -20,8 +22,18 @@ class Menu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            admin: false
         };
+        let adminParam = this.props.match.params.admin;
+        if (adminParam === 'admin') {
+          this.state = {
+            admin: true,
+          };
+        }
+    }
+
+    componentWillMount() {
+
     }
 
     menuItemClick = (pageId) => {
@@ -58,11 +70,11 @@ class Menu extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader onClick={this.closePage.bind(this)} style={{width:'20%', height: '65px', marginTop: '25px' }} >
-                        <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
-                        <div className={'titlebarback'}>
-                            返回
-                     </div>
+                    <CellHeader style={{width:'20%', height: '65px', marginTop: '25px' }} >
+                        {/*<img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />*/}
+                        {/*<div className={'titlebarback'}>*/}
+                            {/*返回*/}
+                     {/*</div>*/}
                     </CellHeader>
 
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
@@ -86,7 +98,7 @@ class Menu extends Component {
 
                     </MediaBoxBody>
                 </MediaBox>
-                <MediaBox key={3} type="appmsg" href="javascript:void(0);" onClick={this.menuItemClick.bind(this, '3')}>
+                <MediaBox className={this.state.admin ? 'showRepairManagement': 'hideRepairManagement'} key={3} type="appmsg" href="javascript:void(0);" onClick={this.menuItemClick.bind(this, '3')}>
                     <MediaBoxHeader>{repairmanagementicon}</MediaBoxHeader>
                     <MediaBoxBody>
                         <MediaBoxTitle>{'报修管理'}</MediaBoxTitle>

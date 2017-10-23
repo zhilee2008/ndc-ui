@@ -1,7 +1,7 @@
 @charset "UTF-8";
 .weui-btn {
   background-color: #1887fc !important;
-  margin-bottom: 20px; }
+  margin-bottom: 20px !important; }
 
 .weui-cells:before {
   border-top: none !important; }
@@ -117,13 +117,18 @@
   -moz-user-select: none;
   background-image: url("/images/yuiyn@2x.png");
   background-color: currentColor !important;
-  width: 31px !important;
-  height: 40px !important;
+  width: 20px !important;
+  height: 30px !important;
+  -moz-background-size: 100% 100%;
+  background-size: 100% 100%;
   margin: 40px 0px 0px 20px; }
 
+.radioimage:after {
+  border: 0px !important; }
+
 .imagebutton {
-  margin: 62px 0px 0px 20px;
-  width: 20px; }
+  margin: 65px 0px 0px 20px;
+  width: 25px; }
 
 .videoimage {
   margin: 0px 0px 0px 0px;
@@ -131,13 +136,31 @@
 
 .savedradio {
   float: left;
-  padding-left: 5px;
   font-size: 12px;
-  width: 50px;
+  width: 30%;
+  border-radius: 10px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  background-color: #04be02;
   border: 1px solid lightgrey;
-  margin: 10px 0 10px 10px; }
+  margin: 0px 0 10px 10px; }
 
 .deleteradio {
+  /* margin-top: 5px; */
   margin-left: 0px;
-  width: 30px;
-  padding-top: 5px; }
+  width: 20px;
+  /* padding-top: 5px;  */ }
+
+.savedimage {
+  border: 1px solid lightgrey;
+  height: 50px;
+  margin-left: 10px; }
+
+.deleteimage {
+  margin-bottom: 15px;
+  margin-left: 0px;
+  width: 20px; }
+
+.savedimagecontainer {
+  overflow: -webkit-paged-x; }
