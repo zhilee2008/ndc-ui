@@ -122,7 +122,8 @@ class RepairManagementItems extends Component {
           path = path + '/true'
         }
         path = path + '/' + this.state.status + '/false';
-        this.props.history.push(path);
+        // this.props.history.push(path);
+        window.location.href=path;
     };
 
     topOrder = (itemId) => {
