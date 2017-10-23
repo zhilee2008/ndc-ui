@@ -425,9 +425,6 @@ class RepairForm extends Component {
             ],
         };
 
-    };
-
-    componentWillMount() {
         let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
         var request = $.ajax({
             url: url,
@@ -445,7 +442,7 @@ class RepairForm extends Component {
                 const url = 'http://xn.geekx.cn/repairsubmit';
                 const jsApiObject = sign(jsapiticket, url);
                 wx.config({
-                    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                     appId: appId, // 必填，公众号的唯一标识
                     jsApiList: ['startRecord',
                         'stopRecord',
@@ -472,6 +469,11 @@ class RepairForm extends Component {
             alert('录音和上传图片功能暂不可用');
             console.log("Request failed: " + textStatus)
         });
+
+    };
+
+    componentWillMount() {
+        
     }
 
     componentDidMount() {
@@ -645,7 +647,7 @@ class RepairForm extends Component {
         wx.ready(function () {
             wx.uploadVoice({
                 localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                isShowProgressTips: 1, // 默认为1，显示进度提示
+                isShowProgressTips: 0, // 默认为1，显示进度提示
                 success: function (res) {
                     var serverId = res.serverId; // 返回音频的服务器端ID
                     // alert(JSON.stringify(res));
