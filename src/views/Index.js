@@ -42,19 +42,20 @@ class Index extends Component {
             if (codes.length >= 1){
               let codeValue = codes[1];
               this.state.code = codeValue;
+              this.authentication()
             }
           }
         }
 
       }else {
-        console.log('没有code');
+        alert('没有code');
       }
     }
 
 
 
     authentication = () => {
-
+      alert('认证中');
       let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-code/" + this.state.code;
       var request = $.ajax({
         url: url,
