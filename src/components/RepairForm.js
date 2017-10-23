@@ -602,7 +602,7 @@ class RepairForm extends Component {
                 }
             },
             fail: function (res) {
-                alert(JSON.stringify(res));
+                // alert(JSON.stringify(res));
             }
         });
 
@@ -685,13 +685,13 @@ class RepairForm extends Component {
                     }, () => {
                         let count = 0;
                         for (let id of self.state.imageIdArr) {
-                            alert(id)
+                            // alert(id)
                             wx.uploadImage({
                                 localId: id,
                                 isShowProgressTips: 0,
                                 success: function (res) {
-                                    alert('succ');
-                                    alert(res);
+                                    // alert('succ');
+                                    // alert(res);
                                     var serverId = res.serverId; // 返回音频的服务器端ID
                                     self.state.imageMediaIdArr.push(serverId);
                                     count++;
@@ -700,8 +700,8 @@ class RepairForm extends Component {
                                     }
                                 },
                                 fail: function (res) {
-                                    alert('fail');
-                                    alert(res);
+                                    // alert('fail');
+                                    // alert(res);
                                     count++;
                                     if (count === self.state.imageIdArr.length) {
                                         self.sendRequest();
