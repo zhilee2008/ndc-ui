@@ -95,7 +95,7 @@ class Index extends Component {
     render() {
         return (
             <div>
-                <Toast icon="loading" show={true}>跳转中...</Toast>
+                <Toast icon="loading" show={true}>加载中...</Toast>
             </div>
         );
     }
