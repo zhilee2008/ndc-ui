@@ -574,19 +574,7 @@ class RepairForm extends Component {
                                 })
                                 for (var i = 0; i < res.localIds.length; i++) {
                                     // alert("id:"+res.localIds[i]);
-                                    wx.getLocalImgData({
-                                        localId: res.localIds, // 图片的localID
-                                        success: function (res) {
-                                            alert("data" + JSON.stringify(res));
-                                            var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
-                                            self.addImageDev(localData);
-                                            self.state.imageUrlArr.push(localData);
-
-                                        },
-                                        fail: function (res) {
-                                            alert(JSON.stringify(res));
-                                        }
-                                    });
+                                    displayIOSImage(res.localIds[i]);
                                 }
                             }
                         }
@@ -601,7 +589,21 @@ class RepairForm extends Component {
         });
 
     }
+    displayIOSImage = (imageId) => {
+        wx.getLocalImgData({
+            localId: imageId, // 图片的localID
+            success: function (res) {
+                alert("data" + JSON.stringify(res));
+                var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
+                self.addImageDev(localData);
+                self.state.imageUrlArr.push(localData);
 
+            },
+            fail: function (res) {
+                alert(JSON.stringify(res));
+            }
+        });
+    }
     validRepairForm = () => {
         if (this.state.company === '') {
             this.setState({
