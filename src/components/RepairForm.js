@@ -572,9 +572,9 @@ class RepairForm extends Component {
                                 self.setState({
                                     imageIdArr: res.localIds,
                                 })
-                                for (let id of res.localIds) {
+                                for (var i=0;i<res.localIds.length;i++) {
                                     wx.getLocalImgData({
-                                        localId: id, // 图片的localID
+                                        localId: res.localIds[i], // 图片的localID
                                         success: function (res) {
 
                                             var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
