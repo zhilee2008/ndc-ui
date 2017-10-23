@@ -70,6 +70,7 @@ class Index extends Component {
 
         if (msg) {
             alert(msg)
+            alert(msg === 'admin')
             if (msg === 'admin'){
                 path = path + '/admin'
             }else {
