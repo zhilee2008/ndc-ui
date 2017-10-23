@@ -613,7 +613,8 @@ class RepairForm extends Component {
                 var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
                 self.addImageDev(localData);
                 self.state.imageUrlArr.push(localData);
-                if (i + 1 > localids.length) {
+                alert(i+1);
+                if (i + 1 < localids.length) {
                     self.shownImage(localids[i + 1], localids, i + 1);
                 }
             },
