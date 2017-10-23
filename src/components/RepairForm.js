@@ -687,10 +687,13 @@ class RepairForm extends Component {
                     }, () => {
                         let count = 0;
                         for (let id of self.state.imageIdArr) {
+                            alert(id)
                             wx.uploadImage({
                                 localId: id,
                                 isShowProgressTips: 0,
                                 success: function (res) {
+                                    alert('succ');
+                                    alert(res);
                                     var serverId = res.serverId; // 返回音频的服务器端ID
                                     self.state.imageMediaIdArr.push(serverId);
                                     count++;
@@ -699,6 +702,8 @@ class RepairForm extends Component {
                                     }
                                 },
                                 fail: function (res) {
+                                    alert('fail');
+                                    alert(res);
                                     count++;
                                     if (count === self.state.imageIdArr.length) {
                                         self.sendRequest();
@@ -718,7 +723,7 @@ class RepairForm extends Component {
                         wx.uploadImage({
                             localId: id,
                             success: function (res) {
-                                alert('success');
+                               
                                 var serverId = res.serverId; // 返回音频的服务器端ID
                                 self.state.imageMediaIdArr.push(serverId);
                                 count++;
@@ -727,7 +732,7 @@ class RepairForm extends Component {
                                 }
                             },
                             fail: function (res) {
-                                alert('fail');
+                                
                                 count++;
                                 if (count === self.state.imageIdArr.length) {
                                     self.sendRequest();
