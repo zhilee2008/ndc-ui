@@ -33,7 +33,7 @@ class OrderDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            itemId: '',
+            itemId: this.props.match.params.id,
             title: '订单信息',
             companyName: '',
             name: '',
@@ -55,8 +55,54 @@ class OrderDetails extends Component {
             showIKnowBtn: true,
             engineers: [],
             caption: '',
-            fromQuery : false
+            fromQuery: false,
+            imageUrlArr: ['/images/delete.png','/images/delete.png','/images/delete.png']
         };
+
+        let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
+        var request = $.ajax({
+            url: url,
+            method: "GET",
+            contentType: "application/json; charset=utf-8"
+        });
+
+        var self = this;
+
+        request.done(function (msg) {
+            if (msg) {
+                const jsticketObject = JSON.parse(msg);
+                const jsapiticket = jsticketObject.jsapi_ticket;
+                const appId = jsticketObject.appId;
+                const url = 'http://xn.geekx.cn/orderdetailsupdate/' + self.props.match.params.id;
+                sign(jsapiticket, url, (jsApiObject) => {
+                    // alert(JSON.stringify(jsApiObject));
+                    wx.config({
+                        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                        appId: appId, // 必填，公众号的唯一标识
+                        jsApiList: [
+                            'playVoice',
+                            'previewImage',
+                            'getLocalImgData',], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                        jsapi_ticket: jsApiObject.jsapi_ticket,
+                        nonceStr: jsApiObject.nonceStr,
+                        timestamp: jsApiObject.timestamp,
+                        url: jsApiObject.url,
+                        signature: jsApiObject.signature
+                    });
+                });
+                // alert(jsApiObject);
+            }
+
+        });
+
+        request.fail(function (jqXHR, textStatus) {
+            self.setState({
+                errorMsg: '录音和上传图片功能暂不可用'
+            });
+            alert('录音和上传图片功能暂不可用');
+            console.log("Request failed: " + textStatus)
+        });
+
     }
 
     detailsUpdate = () => {
@@ -66,11 +112,13 @@ class OrderDetails extends Component {
     };
     returnUp = () => {
         let path = '/repairmanagement';
-        if (this.state.fromQuery){
+        if (this.state.fromQuery) {
             path = '/statusquery';
         }
         this.props.history.push(path);
     }
+
+
 
     componentWillMount() {
         // console.log(this.props.match.params.id);
@@ -81,98 +129,51 @@ class OrderDetails extends Component {
             showIKnowBtn = true;
         }
         let status = this.props.match.params.status;
-        if (status === 'new'){
+        if (status === 'new') {
             this.setState({
                 caption: '待接'
             });
-        } else if (status === 'handling'){
-          this.setState({
-            caption: '处理中'
-          });
+        } else if (status === 'handling') {
+            this.setState({
+                caption: '处理中'
+            });
         } else {
-          this.setState({
-            caption: '已完成'
-          });
+            this.setState({
+                caption: '已完成'
+            });
         }
         let fromQueryParam = this.props.match.params.fromQuery;
-        if (fromQueryParam == 'true'){
+        if (fromQueryParam == 'true') {
             this.setState({
-              fromQuery: true
+                fromQuery: true
             });
-        }else {
-          this.setState({
-            fromQuery: false
-          });
+        } else {
+            this.setState({
+                fromQuery: false
+            });
         }
 
         this.setState({
-            itemId: this.props.match.params.id,
+            // itemId: this.props.match.params.id,
             showIKnowBtn: showIKnowBtn
         });
         let itemId = this.props.match.params.id;
 
         this.getStatusById(itemId);
 
+    }
 
+    showImage(src) {
+        const self = this;
+        // alert(src);
+        wx.ready(function () {
 
-        // let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
-        // var request = $.ajax({
-        //     url: url,
-        //     method: "GET",
-        //     contentType: "application/json; charset=utf-8"
-        // });
+            wx.previewImage({
+                current: src,
+                urls: self.state.imageUrlArr
+            });
 
-        // var self = this;
-
-        // request.done(function (msg) {
-        //     if (msg) {
-        //         const jsticketObject = JSON.parse(msg);
-        //         const jsapiticket = jsticketObject.jsapi_ticket;
-        //         const appId = jsticketObject.appId;
-        //         const url = 'http://xn.geekx.cn/repairsubmit';
-        //         const jsApiObject = sign(jsapiticket, url);
-        //         wx.config({
-        //             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        //             appId: appId, // 必填，公众号的唯一标识
-        //             jsApiList: ['startRecord',
-        //                 'stopRecord',
-        //                 'onVoiceRecordEnd',
-        //                 'playVoice',
-        //                 'previewImage',
-        //                 'chooseImage',
-        //                 'uploadImage',
-        //                 'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-        //             jsapi_ticket: jsApiObject.jsapi_ticket,
-        //             nonceStr: jsApiObject.nonceStr,
-        //             timestamp: jsApiObject.timestamp,
-        //             url: jsApiObject.url,
-        //             signature: jsApiObject.signature
-        //         });
-        //         wx.ready(function () {
-
-        //             $('#priviewimage').on('click', function (event) {
-        //                 wx.previewImage({
-        //                     current: self.state.imageSrc,
-        //                     urls: [
-        //                         self.state.imageSrc,
-        //                     ]
-        //                 });
-        //             });
-
-        //         });
-        //     }
-
-        // });
-
-        // request.fail(function (jqXHR, textStatus) {
-        //     self.setState({
-        //         errorMsg: '出错了，请刷新重试，或者联系管理员'
-        //     });
-        //     alert('出错了，请刷新重试，或者联系管理员');
-        //     console.log("Request failed: " + textStatus)
-        // });
-
-
+        });
     }
 
     getStatusById = (itemId) => {
@@ -202,7 +203,7 @@ class OrderDetails extends Component {
                     companyAddress: orderdetails.CompanyAddress,
                     troubleDetail: orderdetails.BugDetail,
                     engineers: orderdetails.OrderLog.Engineers,
-
+                    imageUrlArr: orderdetails.OrderLog.imageUrlArr,
                     completed: orderdetails.Status
                 });
 
@@ -380,11 +381,18 @@ class OrderDetails extends Component {
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                                <div style={{ width: '100%' }}><img className={'savedimage'} src='/images/delete.png' /></div>
+                                <div className={'savedimagecontainer'} style={{ paddingBottom: '5px' }} id="imagecontainerview">
+                                    {this.state.imageUrlArr.map(url => 
+                                        <div style={{ float: 'left' }}><img onClick={this.showImage.bind(this,url)} class='savedimage' src={url} /></div>
+                                    )
+                                    }
+
+                                </div>
                             </CellHeader>
                             <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                             </CellBody>
                         </FormCell>
+
                     </Form>
                     {/* <CellsTips>Form Footer Tips</CellsTips> */}
                     {/* <CellsTitle>故障细节</CellsTitle> */}
@@ -437,12 +445,12 @@ class OrderDetails extends Component {
 
 
                     <ButtonArea className={(this.state.completed === 'completed' || !this.state.showIKnowBtn) ? 'hideKnowBtn' : 'showKnowBtn'} direction="horizontal">
-                    
+
                         <Button onClick={this.returnUp.bind(this)}>
                             返回
                         </Button>
-                        
-                        <Button className={!this.state.showIKnowBtn ? 'hideKnowBtn' : 'showKnowBtn'} style = {{margin: '0 auto' }}  onClick={this.detailsUpdate.bind(this)}>
+
+                        <Button className={!this.state.showIKnowBtn ? 'hideKnowBtn' : 'showKnowBtn'} style={{ margin: '0 auto' }} onClick={this.detailsUpdate.bind(this)}>
                             处理
                         </Button>
 
