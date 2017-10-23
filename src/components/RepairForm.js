@@ -574,20 +574,7 @@ class RepairForm extends Component {
                                 })
                                 // for (var i = 0; i < res.localIds.length; i++) {
                                     // alert("id:"+res.localIds[i]);
-                                    self.shownImage(res.localIds[0],res.localIds);
-                                    // wx.getLocalImgData({
-                                    //     localId: res.localIds[i], // 图片的localID
-                                    //     success: function (res) {
-                                    //         alert("data" + JSON.stringify(res));
-                                    //         var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
-                                    //         self.addImageDev(localData);
-                                    //         self.state.imageUrlArr.push(localData);
-                                    //         shownImage(res[i+1],res);
-                                    //     },
-                                    //     fail: function (res) {
-                                    //         alert(JSON.stringify(res));
-                                    //     }
-                                    // });
+                                    self.displayIOSImage(res.localIds[i]);
                                 // }
                             }
                         }
@@ -602,23 +589,21 @@ class RepairForm extends Component {
         });
 
     }
-
-    shownImage(id,localids){
+    displayIOSImage = (imageId) => {
         wx.getLocalImgData({
-            localId: id, // 图片的localID
+            localId: imageId, // 图片的localID
             success: function (res) {
                 alert("data" + JSON.stringify(res));
                 var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
                 self.addImageDev(localData);
                 self.state.imageUrlArr.push(localData);
-                shownImage(localIds[i+1],localids);
+
             },
             fail: function (res) {
                 alert(JSON.stringify(res));
             }
         });
     }
-
     validRepairForm = () => {
         if (this.state.company === '') {
             this.setState({
