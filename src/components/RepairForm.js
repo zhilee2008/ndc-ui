@@ -441,7 +441,7 @@ class RepairForm extends Component {
                 const appId = jsticketObject.appId;
                 const url = 'http://xn.geekx.cn/repairsubmit';
                 sign(jsapiticket, url,(jsApiObject)=>{
-                    alert(JSON.stringify(jsApiObject));
+                    // alert(JSON.stringify(jsApiObject));
                     wx.config({
                         debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                         appId: appId, // 必填，公众号的唯一标识
@@ -554,7 +554,7 @@ class RepairForm extends Component {
                             }
                         }
                         if (isIOS) {
-                            // alert('arr' + res);
+                            alert(self.state.imagecount + res.localIds.length);
                             if (self.state.imagecount + res.localIds.length > 9) {
                                 alert('每次最多允许上传9张图片');
                             } else {
