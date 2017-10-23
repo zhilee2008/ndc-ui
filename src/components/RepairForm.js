@@ -396,6 +396,7 @@ class RepairForm extends Component {
             imageMediaId: '',
             imageMediaIdArr: [],
             imageUrlArr: [],
+            imagecount: 0,
             warningStyle: {
                 buttons: [
                     {
@@ -463,7 +464,7 @@ class RepairForm extends Component {
                 });
                 wx.ready(function () {
 
-                    let START,  END;
+                    let START, END;
 
                     $('#talk_btn').on('touchstart', function (event) {
                         event.preventDefault();
@@ -513,7 +514,7 @@ class RepairForm extends Component {
                     $('#addimagebutton').on('click', function (event) {
                         // alert('image');
                         wx.chooseImage({
-                            count: 3,
+                            count: 9,
                             sourceType: ['album', 'camera'],
                             success: function (res) {
                                 // alert('imageuploadsuccessful');
@@ -524,26 +525,36 @@ class RepairForm extends Component {
                                 var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
                                 var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
                                 if (isAndroid) {
-                                    for (let id of res.localIds) {
-                                        self.addImageDev(id);
-                                        self.state.imageUrlArr.push(id);
+                                    if (self.state.imagecount + res.localIds.length > 9) {
+                                        alert('每次最多允许上传9张图片');
+                                    } else {
+                                        for (let id of res.localIds) {
+                                            self.addImageDev(id);
+                                            self.state.imageUrlArr.push(id);
+                                        }
                                     }
                                 }
                                 if (isIOS) {
                                     // alert('arr' + res);
-                                    for (let id of res.localIds) {
-                                        wx.getLocalImgData({
-                                            localId: id, // 图片的localID
-                                            success: function (res) {
-                                                var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-                                                self.addImageDev(localData);
-                                                self.state.imageUrlArr.push(localData);
-                                            }
-                                        });
+                                    if (self.state.imagecount + res.localIds.length > 9) {
+                                        alert('每次最多允许上传9张图片');
+                                    } else {
+                                        for (let id of res.localIds) {
+                                            wx.getLocalImgData({
+                                                localId: id, // 图片的localID
+                                                success: function (res) {
+                                                    var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+                                                    self.addImageDev(localData);
+                                                    self.state.imageUrlArr.push(localData);
+                                                }
+                                            });
+                                        }
                                     }
-
                                 }
 
+                                // self.setState({
+                                //     imagecount: imagecount + res.localIds.length,
+                                // })
                             }
                         });
                     });
@@ -685,7 +696,7 @@ class RepairForm extends Component {
                             }
                         });
                     }
-                    
+
                 }
             });
 
