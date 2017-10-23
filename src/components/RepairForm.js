@@ -684,6 +684,7 @@ class RepairForm extends Component {
                         for (let id of self.state.imageIdArr) {
                             wx.uploadImage({
                                 localId: id,
+                                isShowProgressTips: -1,
                                 success: function (res) {
                                     var serverId = res.serverId; // 返回音频的服务器端ID
                                     self.state.imageMediaIdArr.push(serverId);
