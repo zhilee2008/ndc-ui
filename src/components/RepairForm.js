@@ -427,8 +427,7 @@ class RepairForm extends Component {
 
     };
 
-    componentDidMount() {
-
+    componentWillMount() {
         let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
         var request = $.ajax({
             url: url,
@@ -462,104 +461,6 @@ class RepairForm extends Component {
                     url: jsApiObject.url,
                     signature: jsApiObject.signature
                 });
-                wx.ready(function () {
-
-                    let START, END;
-
-                    $('#talk_btn').on('touchstart', function (event) {
-                        event.preventDefault();
-                        START = new Date().getTime();
-                        recordTimer = setTimeout(function () {
-                            wx.startRecord({
-                                success: function () {
-                                    localStorage.rainAllowRecord = 'true';
-                                    self.setState({
-                                        showWarn: true,
-                                    })
-                                },
-                                cancel: function () {
-                                    alert('用户拒绝授权录音');
-                                }
-                            });
-                        }, 300);
-                    });
-                    $('#talk_btn').on('touchend', function (event) {
-                        event.preventDefault();
-                        END = new Date().getTime();
-                        if ((END - START) < 300) {
-                            END = 0;
-                            START = 0;
-                            //小于300ms，不录音
-                            clearTimeout(recordTimer);
-                        } else {
-                            // alert('s1');
-                            wx.stopRecord({
-                                success: function (res) {
-                                    // alert('s2');
-                                    var localId = res.localId;
-                                    self.setState({
-                                        audioId: localId,
-                                        showWarn: false,
-                                        radioText: localId
-                                    })
-                                    self.addRadioDev(localId);
-                                },
-                                fail: function (res) {
-                                    alert('录音功能暂不可用:' + JSON.stringify(res));
-                                }
-                            });
-                        }
-                    });
-
-                    $('#addimagebutton').on('click', function (event) {
-                        // alert('image');
-                        wx.chooseImage({
-                            count: 9,
-                            sourceType: ['album', 'camera'],
-                            success: function (res) {
-                                // alert('imageuploadsuccessful');
-                                self.setState({
-                                    imageIdArr: res.localIds,
-                                })
-                                var u = navigator.userAgent, app = navigator.appVersion;
-                                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
-                                var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-                                if (isAndroid) {
-                                    if (self.state.imagecount + res.localIds.length > 9) {
-                                        alert('每次最多允许上传9张图片');
-                                    } else {
-                                        for (let id of res.localIds) {
-                                            self.addImageDev(id);
-                                            self.state.imageUrlArr.push(id);
-                                        }
-                                    }
-                                }
-                                if (isIOS) {
-                                    // alert('arr' + res);
-                                    if (self.state.imagecount + res.localIds.length > 9) {
-                                        alert('每次最多允许上传9张图片');
-                                    } else {
-                                        for (let id of res.localIds) {
-                                            wx.getLocalImgData({
-                                                localId: id, // 图片的localID
-                                                success: function (res) {
-                                                    var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-                                                    self.addImageDev(localData);
-                                                    self.state.imageUrlArr.push(localData);
-                                                }
-                                            });
-                                        }
-                                    }
-                                }
-
-                                // self.setState({
-                                //     imagecount: imagecount + res.localIds.length,
-                                // })
-                            }
-                        });
-                    });
-
-                });
             }
 
         });
@@ -570,6 +471,108 @@ class RepairForm extends Component {
             });
             alert('录音和上传图片功能暂不可用');
             console.log("Request failed: " + textStatus)
+        });
+    }
+
+    componentDidMount() {
+
+        wx.ready(function () {
+
+            let START, END;
+
+            $('#talk_btn').on('touchstart', function (event) {
+                event.preventDefault();
+                START = new Date().getTime();
+                recordTimer = setTimeout(function () {
+                    wx.startRecord({
+                        success: function () {
+                            localStorage.rainAllowRecord = 'true';
+                            self.setState({
+                                showWarn: true,
+                            })
+                        },
+                        cancel: function () {
+                            alert('用户拒绝授权录音');
+                        }
+                    });
+                }, 300);
+            });
+            $('#talk_btn').on('touchend', function (event) {
+                event.preventDefault();
+                END = new Date().getTime();
+                if ((END - START) < 300) {
+                    END = 0;
+                    START = 0;
+                    //小于300ms，不录音
+                    clearTimeout(recordTimer);
+                } else {
+                    // alert('s1');
+                    wx.stopRecord({
+                        success: function (res) {
+                            // alert('s2');
+                            var localId = res.localId;
+                            self.setState({
+                                audioId: localId,
+                                showWarn: false,
+                                radioText: localId
+                            })
+                            self.addRadioDev(localId);
+                        },
+                        fail: function (res) {
+                            alert('录音功能暂不可用:' + JSON.stringify(res));
+                        }
+                    });
+                }
+            });
+
+            $('#addimagebutton').on('click', function (event) {
+                // alert('image');
+                wx.chooseImage({
+                    count: 9,
+                    sourceType: ['album', 'camera'],
+                    success: function (res) {
+                        // alert('imageuploadsuccessful');
+                        self.setState({
+                            imageIdArr: res.localIds,
+                        })
+                        var u = navigator.userAgent, app = navigator.appVersion;
+                        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+                        var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                        if (isAndroid) {
+                            if (self.state.imagecount + res.localIds.length > 9) {
+                                alert('每次最多允许上传9张图片');
+                            } else {
+                                for (let id of res.localIds) {
+                                    self.addImageDev(id);
+                                    self.state.imageUrlArr.push(id);
+                                }
+                            }
+                        }
+                        if (isIOS) {
+                            // alert('arr' + res);
+                            if (self.state.imagecount + res.localIds.length > 9) {
+                                alert('每次最多允许上传9张图片');
+                            } else {
+                                for (let id of res.localIds) {
+                                    wx.getLocalImgData({
+                                        localId: id, // 图片的localID
+                                        success: function (res) {
+                                            var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
+                                            self.addImageDev(localData);
+                                            self.state.imageUrlArr.push(localData);
+                                        }
+                                    });
+                                }
+                            }
+                        }
+
+                        // self.setState({
+                        //     imagecount: imagecount + res.localIds.length,
+                        // })
+                    }
+                });
+            });
+
         });
 
     }
@@ -910,11 +913,14 @@ class RepairForm extends Component {
         // alert(src);
         // $('#imagecontainer').empty();
         // const imagediv = "<div style='float:left'><div id='" + localId + "' class='savedimage'>点击查看图片</div><img class='deleteimage' src='/images/delete.png' /></div>";
-
+        const self = this;
         const imagediv = "<div style='float:left'><img class='savedimage'  src='" + src + "' /><img class='deleteimage' src='/images/delete.png' /></div>";
         $('#imagecontainer').append(imagediv);
         $('.deleteimage').click(function (e) {
             e.target.parentNode.remove();
+            self.setState({
+                imageUrlArr: self.state.imageUrlArr.remove(e.target.src)
+            });
         });
         $('.savedimage').click(function (e) {
             wx.previewImage({
