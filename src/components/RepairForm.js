@@ -574,7 +574,7 @@ class RepairForm extends Component {
                                 })
                                 for (var i = 0; i < res.localIds.length; i++) {
                                     // alert("id:"+res.localIds[i]);
-                                    displayIOSImage(res.localIds[i]);
+                                    self.displayIOSImage(res.localIds[i]);
                                 }
                             }
                         }
