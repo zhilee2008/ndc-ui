@@ -1194,7 +1194,7 @@ class RepairForm extends Component {
                                 <CellBody>
                                     <TextArea name='bugDetail'
                                         value={this.state.bugDetail}
-                                        onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
+                                        onChange={this.handleChange.bind(this)} placeholder="输入故障细节或者录音" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
                             <div style={{ height: '30px' }} id="buttoncontainer"></div>
