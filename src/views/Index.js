@@ -55,9 +55,9 @@ class Index extends Component {
 
 
     authentication = () => {
-      alert('认证中');
+
       let url = process.env.REACT_APP_HTTP_PREFIX + "repairs/weixin-code/" + this.state.code;
-      alert(url);
+
       var request = $.ajax({
         url: url,
         method: "GET",
@@ -65,12 +65,11 @@ class Index extends Component {
       });
 
       var self = this;
-      let path = '/menu/';
+      let path = '/menu';
       request.done(function (msg) {
 
         if (msg) {
-            alert(msg)
-            alert(msg === 'admin')
+
             if (msg === 'admin'){
                 path = path + '/admin'
             }else {
@@ -85,7 +84,7 @@ class Index extends Component {
       });
 
       request.fail(function (jqXHR, textStatus) {
-        alert('failed');
+
         path = path + '/common';
         self.props.history.push(path);
         console.log("Request failed: " + textStatus)
