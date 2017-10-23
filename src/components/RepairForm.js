@@ -678,7 +678,7 @@ class RepairForm extends Component {
         wx.ready(function () {
             wx.uploadVoice({
                 localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                isShowProgressTips: false, // 默认为1，显示进度提示
+                isShowProgressTips: 0, // 默认为1，显示进度提示
                 success: function (res) {
                     var serverId = res.serverId; // 返回音频的服务器端ID
                     // alert(JSON.stringify(res));
@@ -689,7 +689,7 @@ class RepairForm extends Component {
                         for (let id of self.state.imageIdArr) {
                             wx.uploadImage({
                                 localId: id,
-                                isShowProgressTips: -1,
+                                isShowProgressTips: 0,
                                 success: function (res) {
                                     var serverId = res.serverId; // 返回音频的服务器端ID
                                     self.state.imageMediaIdArr.push(serverId);
