@@ -56,7 +56,7 @@ class OrderDetails extends Component {
             engineers: [],
             caption: '',
             fromQuery: false,
-            imageUrlArr: ['/images/delete.png','/images/delete.png','/images/delete.png']
+            imageUrlArr: ['/images/delete.png', '/images/delete.png', '/images/delete.png']
         };
 
         let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
@@ -73,7 +73,7 @@ class OrderDetails extends Component {
                 const jsticketObject = JSON.parse(msg);
                 const jsapiticket = jsticketObject.jsapi_ticket;
                 const appId = jsticketObject.appId;
-                const url = 'http://xn.geekx.cn/orderdetailsupdate/' + self.props.match.params.id;
+                const url = 'http://xn.geekx.cn/orderdetails/' + self.props.match.params.id + '/' + self.props.match.params.showIKnowBtn + '/' + self.props.match.params.status + '/' + self.props.match.params.fromQuery;
                 sign(jsapiticket, url, (jsApiObject) => {
                     // alert(JSON.stringify(jsApiObject));
                     wx.config({
@@ -382,8 +382,8 @@ class OrderDetails extends Component {
                         <FormCell>
                             <CellHeader>
                                 <div className={'savedimagecontainer'} style={{ paddingBottom: '5px' }} id="imagecontainerview">
-                                    {this.state.imageUrlArr.map(url => 
-                                        <div style={{ float: 'left' }}><img onClick={this.showImage.bind(this,url)} class='savedimage' src={url} /></div>
+                                    {this.state.imageUrlArr.map(url =>
+                                        <div style={{ float: 'left' }}><img onClick={this.showImage.bind(this, url)} class='savedimage' src={url} /></div>
                                     )
                                     }
 
