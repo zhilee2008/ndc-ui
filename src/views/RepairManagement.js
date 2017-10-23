@@ -46,7 +46,8 @@ class RepairManagement extends Component {
                 return;
             }
         }
-        this.props.history.push(path);
+        window.location.href=path;
+        // this.props.history.push(path);
     };
 
     componentDidMount() {
