@@ -578,6 +578,7 @@ class RepairForm extends Component {
                                         localId: res.localIds, // 图片的localID
                                         success: function (res) {
                                             alert("data"+JSON.stringify(res));
+                                            alert(res.localData);
                                             // var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
                                             for(let localData of res.localData){
                                                 self.addImageDev(localData);
