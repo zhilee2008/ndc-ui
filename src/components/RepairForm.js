@@ -1209,7 +1209,7 @@ class RepairForm extends Component {
                                     <img id="addimagebutton" src='/images/tupian@2x.png' className={"imagebutton"} />
                                 </CellHeader>
                                 <CellBody>
-                                    <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
+                                    <TextArea name='files' placeholder="上传相关照片" rows="3"></TextArea>
                                     {/* <img onClick={this.addVideo.bind(this)} src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /> */}
                                 </CellBody>
 
