@@ -50,7 +50,6 @@ class StatusQuery extends Component {
         });
     }
 
-  //TODO bug fix, 需要确定返回到admin还是common
   backToIndex = () =>{
     //window.history.go(-1)
     let path = localStorage.getItem("path");
