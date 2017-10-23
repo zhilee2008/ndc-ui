@@ -572,22 +572,23 @@ class RepairForm extends Component {
                                 self.setState({
                                     imageIdArr: res.localIds,
                                 })
-                                for (var i = 0; i < res.localIds.length; i++) {
+                                // for (var i = 0; i < res.localIds.length; i++) {
                                     // alert("id:"+res.localIds[i]);
-                                    wx.getLocalImgData({
-                                        localId: res.localIds[i], // 图片的localID
-                                        success: function (res) {
-                                            alert("data" + JSON.stringify(res));
-                                            var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
-                                            self.addImageDev(localData);
-                                            self.state.imageUrlArr.push(localData);
-
-                                        },
-                                        fail: function (res) {
-                                            alert(JSON.stringify(res));
-                                        }
-                                    });
-                                }
+                                    self.shownImage(res.localIds[0],res.localIds);
+                                    // wx.getLocalImgData({
+                                    //     localId: res.localIds[i], // 图片的localID
+                                    //     success: function (res) {
+                                    //         alert("data" + JSON.stringify(res));
+                                    //         var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
+                                    //         self.addImageDev(localData);
+                                    //         self.state.imageUrlArr.push(localData);
+                                    //         shownImage(res[i+1],res);
+                                    //     },
+                                    //     fail: function (res) {
+                                    //         alert(JSON.stringify(res));
+                                    //     }
+                                    // });
+                                // }
                             }
                         }
 
@@ -600,6 +601,22 @@ class RepairForm extends Component {
 
         });
 
+    }
+
+    shownImage(id,localids){
+        wx.getLocalImgData({
+            localId: id, // 图片的localID
+            success: function (res) {
+                alert("data" + JSON.stringify(res));
+                var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
+                self.addImageDev(localData);
+                self.state.imageUrlArr.push(localData);
+                shownImage(localIds[i+1],localids);
+            },
+            fail: function (res) {
+                alert(JSON.stringify(res));
+            }
+        });
     }
 
     validRepairForm = () => {
@@ -715,7 +732,7 @@ class RepairForm extends Component {
                         wx.uploadImage({
                             localId: id,
                             success: function (res) {
-                               
+
                                 var serverId = res.serverId; // 返回音频的服务器端ID
                                 self.state.imageMediaIdArr.push(serverId);
                                 count++;
@@ -724,7 +741,7 @@ class RepairForm extends Component {
                                 }
                             },
                             fail: function (res) {
-                                
+
                                 count++;
                                 if (count === self.state.imageIdArr.length) {
                                     self.sendRequest();
