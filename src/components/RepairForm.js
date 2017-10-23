@@ -574,23 +574,7 @@ class RepairForm extends Component {
                                 })
                                 for (var i = 0; i < res.localIds.length; i++) {
                                     // alert("id:"+res.localIds[i]);
-<<<<<<< HEAD
                                     displayIOSImage(res.localIds[i]);
-=======
-                                    wx.getLocalImgData({
-                                        localId: res.localIds[i], // 图片的localID
-                                        success: function (res) {
-                                            alert("data" + JSON.stringify(res));
-                                            var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
-                                            self.addImageDev(localData);
-                                            self.state.imageUrlArr.push(localData);
-
-                                        },
-                                        fail: function (res) {
-                                            alert(JSON.stringify(res));
-                                        }
-                                    });
->>>>>>> 0f4be97dd3b3bc9b122a80586424cdea6b7066f8
                                 }
                             }
                         }
