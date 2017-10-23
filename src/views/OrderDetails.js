@@ -202,7 +202,7 @@ class OrderDetails extends Component {
                     companyAddress: orderdetails.CompanyAddress,
                     troubleDetail: orderdetails.BugDetail,
                     engineers: orderdetails.OrderLog.Engineers,
-                    imageurls: orderdetails.OrderLog.imageurls,
+                    imageurls: orderdetails.ImageUrls,
                     completed: orderdetails.Status
                 });
 
