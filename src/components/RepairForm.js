@@ -574,8 +574,18 @@ class RepairForm extends Component {
                                 })
                                 for (var i = 0; i < res.localIds.length; i++) {
                                     // alert("id:"+res.localIds[i]);
-                                    self.showImage(res.localIds[i], () => {
-                                        return;
+                                    wx.getLocalImgData({
+                                        localId: res.localIds, // 图片的localID
+                                        success: function (res) {
+                                            alert("data" + JSON.stringify(res));
+                                            var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
+                                            self.addImageDev(localData);
+                                            self.state.imageUrlArr.push(localData);
+
+                                        },
+                                        fail: function (res) {
+                                            alert(JSON.stringify(res));
+                                        }
                                     });
                                 }
                             }
@@ -590,24 +600,6 @@ class RepairForm extends Component {
 
         });
 
-    }
-
-    showImage(id, cb) {
-        const self = this;
-        wx.getLocalImgData({
-            localId: id, // 图片的localID
-            success: function (res) {
-                alert("data" + JSON.stringify(res));
-                alert(res.localData);
-                var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
-                self.addImageDev(localData);
-                self.state.imageUrlArr.push(localData);
-                cb();
-            },
-            fail: function (res) {
-                alert("fail:" + JSON.stringify(res));
-            }
-        });
     }
 
     validRepairForm = () => {
@@ -678,7 +670,7 @@ class RepairForm extends Component {
         wx.ready(function () {
             wx.uploadVoice({
                 localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                isShowProgressTips: false, // 默认为1，显示进度提示
+                isShowProgressTips: -1, // 默认为1，显示进度提示
                 success: function (res) {
                     var serverId = res.serverId; // 返回音频的服务器端ID
                     // alert(JSON.stringify(res));
@@ -689,7 +681,6 @@ class RepairForm extends Component {
                         for (let id of self.state.imageIdArr) {
                             wx.uploadImage({
                                 localId: id,
-                                isShowProgressTips: -1,
                                 success: function (res) {
                                     var serverId = res.serverId; // 返回音频的服务器端ID
                                     self.state.imageMediaIdArr.push(serverId);
