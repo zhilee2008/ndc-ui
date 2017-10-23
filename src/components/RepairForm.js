@@ -539,10 +539,12 @@ class RepairForm extends Component {
                         // alert('imageuploadsuccessful');
                         self.setState({
                             imageIdArr: res.localIds,
+                            imagecount:self.state.imagecount + res.localIds.length
                         })
                         var u = navigator.userAgent, app = navigator.appVersion;
                         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
                         var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                        
                         if (isAndroid) {
                             if (self.state.imagecount + res.localIds.length > 9) {
                                 alert('每次最多允许上传9张图片');
