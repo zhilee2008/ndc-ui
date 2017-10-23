@@ -89,11 +89,18 @@ class StatusQuery extends Component {
         });
     };
     //TODO bug fix, 需要确定返回到admin还是common
+    backToIndex = () =>{
+        //window.history.go(-1)
+      let path = localStorage.getItem("path");
+      alert(path);
+      this.props.history.push('/meun/'+ path);
+    };
+
     render() {
         return (
             <div style={{ textAlign: 'center' }}>
                 <Cell className={'titlebar'}>
-                    <CellHeader onClick={() => { window.history.go(-1) }} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
+                    <CellHeader onClick={this.backToIndex} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
                         <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                         <div className={'titlebarback'}>
                             返回

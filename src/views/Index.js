@@ -42,7 +42,7 @@ class Index extends Component {
             if (codes.length >= 1){
               let codeValue = codes[1];
               this.state.code = codeValue;
-              this.authentication()
+              this.authentication();
             }
           }
         }
@@ -71,13 +71,16 @@ class Index extends Component {
         if (msg) {
 
             if (msg === 'admin'){
+                localStorage.setItem("path", "admin");
                 path = path + '/admin'
             }else {
                 path = path + '/common'
+                localStorage.setItem("path", "common");
             }
 
         }else {
             path = path + '/common';
+            localStorage.setItem("path", "common");
         }
 
         self.props.history.push(path);
@@ -86,6 +89,7 @@ class Index extends Component {
       request.fail(function (jqXHR, textStatus) {
 
         path = path + '/common';
+        localStorage.setItem("path", "common");
         self.props.history.push(path);
         console.log("Request failed: " + textStatus)
       });
