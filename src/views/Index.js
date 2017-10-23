@@ -83,14 +83,16 @@ class Index extends Component {
             localStorage.setItem("path", "common");
         }
 
-        self.props.router.push(path);
+        // self.props.router.push(path);
+        window.location.href = path;
       });
 
       request.fail(function (jqXHR, textStatus) {
 
         path = path + '/common';
         localStorage.setItem("path", "common");
-        self.props.router.push(path);
+        // self.props.router.push(path);
+        window.location.href = path;
         console.log("Request failed: " + textStatus)
       });
 
