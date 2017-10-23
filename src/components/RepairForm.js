@@ -545,7 +545,7 @@ class RepairForm extends Component {
                         var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
                         
                         if (isAndroid) {
-                            if (self.state.imagecount + res.localIds.length > 9) {
+                            if (self.state.imagecount > 9) {
                                 alert('每次最多允许上传9张图片');
                                 self.setState({
                                     imagecount:self.state.imagecount - res.localIds.length
@@ -561,8 +561,8 @@ class RepairForm extends Component {
                             }
                         }
                         if (isIOS) {
-                            alert(self.state.imagecount + res.localIds.length);
-                            if (self.state.imagecount + res.localIds.length > 9) {
+                            alert(self.state.imagecount);
+                            if (self.state.imagecount > 9) {
                                 alert('每次最多允许上传9张图片');
                                 self.setState({
                                     imagecount:self.state.imagecount - res.localIds.length
