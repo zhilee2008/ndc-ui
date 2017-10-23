@@ -670,7 +670,7 @@ class RepairForm extends Component {
         wx.ready(function () {
             wx.uploadVoice({
                 localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
-                isShowProgressTips: 0, // 默认为1，显示进度提示
+                isShowProgressTips: -1, // 默认为1，显示进度提示
                 success: function (res) {
                     var serverId = res.serverId; // 返回音频的服务器端ID
                     // alert(JSON.stringify(res));
@@ -1197,7 +1197,7 @@ class RepairForm extends Component {
                                 <CellBody>
                                     <TextArea name='bugDetail'
                                         value={this.state.bugDetail}
-                                        onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
+                                        onChange={this.handleChange.bind(this)} placeholder="输入故障细节或者录音" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
                             <div style={{ height: '30px' }} id="buttoncontainer"></div>
