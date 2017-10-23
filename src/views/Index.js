@@ -84,11 +84,12 @@ class Index extends Component {
       });
 
       request.fail(function (jqXHR, textStatus) {
-
+        alert('failed');
+        path = path + '/common';
+        this.props.history.push(path);
         console.log("Request failed: " + textStatus)
       });
-      path = path + '/common';
-      this.props.history.push(path);
+
     };
 
     render() {
