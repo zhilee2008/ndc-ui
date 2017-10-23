@@ -582,6 +582,9 @@ class RepairForm extends Component {
                                             self.addImageDev(localData);
                                             self.state.imageUrlArr.push(localData);
 
+                                        },
+                                        fail: function (res) {
+                                            alert(res);
                                         }
                                     });
                                 }
@@ -1222,7 +1225,7 @@ class RepairForm extends Component {
                     </ButtonArea>
                     <Dialog type="ios" title={this.state.style1.title} buttons={this.state.style1.buttons} show={this.state.showIOS1}>
                         <b>提示</b>
-                        <p>您的报修单已生成,请截屏记录或保留短信</p>
+                        <p>您的保修单已生成,请截屏记录或保留短信</p>
                         报修单号:{this.state.orderId}
                     </Dialog>
                     <Dialog type="ios" title={'警告'} buttons={this.state.warningStyle.buttons} show={this.state.showWarningDialog}>
