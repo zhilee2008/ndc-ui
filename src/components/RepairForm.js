@@ -538,7 +538,6 @@ class RepairForm extends Component {
                     success: function (res) {
                         // alert('imageuploadsuccessful');
                         self.setState({
-                            imageIdArr: res.localIds,
                             imagecount:self.state.imagecount + res.localIds.length
                         })
                         var u = navigator.userAgent, app = navigator.appVersion;
@@ -548,7 +547,13 @@ class RepairForm extends Component {
                         if (isAndroid) {
                             if (self.state.imagecount + res.localIds.length > 9) {
                                 alert('每次最多允许上传9张图片');
+                                self.setState({
+                                    imagecount:self.state.imagecount - res.localIds.length
+                                })
                             } else {
+                                self.setState({
+                                    imageIdArr: res.localIds,
+                                })
                                 for (let id of res.localIds) {
                                     self.addImageDev(id);
                                     self.state.imageUrlArr.push(id);
@@ -559,7 +564,13 @@ class RepairForm extends Component {
                             alert(self.state.imagecount + res.localIds.length);
                             if (self.state.imagecount + res.localIds.length > 9) {
                                 alert('每次最多允许上传9张图片');
+                                self.setState({
+                                    imagecount:self.state.imagecount - res.localIds.length
+                                })
                             } else {
+                                self.setState({
+                                    imageIdArr: res.localIds,
+                                })
                                 for (let id of res.localIds) {
                                     wx.getLocalImgData({
                                         localId: id, // 图片的localID
