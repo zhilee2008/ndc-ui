@@ -65,9 +65,9 @@ class Index extends Component {
       });
 
       var self = this;
-
+      let path = '/menu/';
       request.done(function (msg) {
-        let path = '/menu/';
+
         if (msg) {
             alert(msg)
             if (msg === 'admin'){
@@ -83,13 +83,11 @@ class Index extends Component {
       });
 
       request.fail(function (jqXHR, textStatus) {
-        self.setState({
-          errorMsg: '出错了，请刷新重试，或者联系管理员'
-        });
-        alert('出错了，请刷新重试，或者联系管理员');
+
         console.log("Request failed: " + textStatus)
       });
-
+      path = path + '/common';
+      this.props.history.push(path);
     };
 
     render() {
