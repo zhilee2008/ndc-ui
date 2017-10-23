@@ -56,7 +56,8 @@ class Index extends Component {
 
     authentication = () => {
       alert('认证中');
-      let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-code/" + this.state.code;
+      let url = process.env.REACT_APP_HTTP_PREFIX + "repairs/weixin-code/" + this.state.code;
+      alert(url);
       var request = $.ajax({
         url: url,
         method: "GET",
