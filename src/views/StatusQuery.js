@@ -50,7 +50,14 @@ class StatusQuery extends Component {
         });
     }
 
-    queryItemClick = () => {
+  //TODO bug fix, 需要确定返回到admin还是common
+  backToIndex = () =>{
+    //window.history.go(-1)
+    let path = localStorage.getItem("path");
+
+    this.props.history.push('/menu/'+ path);
+  };
+  queryItemClick = () => {
         if (this.state.itemId === "") {
             this.setState({
                 validElement: '请输入订单号',
@@ -87,13 +94,6 @@ class StatusQuery extends Component {
             });
             return;
         });
-    };
-    //TODO bug fix, 需要确定返回到admin还是common
-    backToIndex = () =>{
-        //window.history.go(-1)
-      let path = localStorage.getItem("path");
-      alert(path);
-      this.props.history.push('/meun/'+ path);
     };
 
     render() {
