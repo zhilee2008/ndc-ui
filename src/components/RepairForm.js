@@ -721,25 +721,25 @@ class RepairForm extends Component {
 
             let count = 0;
             for (let id of self.state.imageIdArr) {
-                alert(id)
+                // alert(id)
                 wx.uploadImage({
                     localId: id,
                     isShowProgressTips: 0,
                     success: function (res) {
-                        alert('succ');
+                        // alert('succ');
                         // alert(res);
                         var serverId = res.serverId; // 返回音频的服务器端ID
                         self.state.imageMediaIdArr.push(serverId);
-                        alert(self.state.imageMediaIdArr);
+                        // alert(self.state.imageMediaIdArr);
                         count++;
                         if (count === self.state.imageIdArr.length) {
-                            alert('sending request');
+                            // alert('sending request');
                             self.sendRequest();
                         }
                     },
                     fail: function (res) {
-                        alert('fail');
-                        alert(res);
+                        // alert('fail');
+                        // alert(res);
                         count++;
                         if (count === self.state.imageIdArr.length) {
                             self.sendRequest();
@@ -762,30 +762,36 @@ class RepairForm extends Component {
                 localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
                 isShowProgressTips: 0, // 默认为1，显示进度提示
                 success: function (res) {
+                    alert('upload voice succ');
                     var serverId = res.serverId; // 返回音频的服务器端ID
-                    // alert(JSON.stringify(res));
+                    alert(JSON.stringify(res));
                     self.setState({
                         audioMediaId: serverId
                     }, () => {
+                        alert('callback for self.setstate audiomediaid');
                         let count = 0;
                         for (let id of self.state.imageIdArr) {
-                            // alert(id)
+                            alert(id)
                             wx.uploadImage({
                                 localId: id,
                                 isShowProgressTips: 0,
                                 success: function (res) {
-                                    // alert('succ');
-                                    // alert(res);
+                                    alert('succ');
+                                    alert(res);
                                     var serverId = res.serverId; // 返回音频的服务器端ID
                                     self.state.imageMediaIdArr.push(serverId);
+                                    alert(self.state.imageMediaIdArr);
                                     count++;
+                                    alert(count);
+                                    alert(count === self.state.imageIdArr.length);
                                     if (count === self.state.imageIdArr.length) {
+                                        alert('sending request')
                                         self.sendRequest();
                                     }
                                 },
                                 fail: function (res) {
-                                    // alert('fail');
-                                    // alert(res);
+                                    alert('fail');
+                                    alert(res);
                                     count++;
                                     if (count === self.state.imageIdArr.length) {
                                         self.sendRequest();
@@ -800,6 +806,8 @@ class RepairForm extends Component {
                     });
                 },
                 fail: function (res) {
+                    alert('fail');
+                    alert(res);
                     let count = 0;
                     for (let id of self.state.imageIdArr) {
                         wx.uploadImage({
