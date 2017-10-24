@@ -387,7 +387,7 @@ class OrderDetails extends Component {
                         <FormCell>
                             <CellHeader>
                                 {
-                                    this.state.audioMediaId !== '' ? '' : <div style={{ width: '100%' }}><div onClick={this.playVoice.bind(this, this.state.audioMediaId)} style={{ width: '100%', margin: '0px' }} className={'savedradio'}>点击播放录音</div></div>
+                                    this.state.audioMediaId === '' ? '' : <div style={{ width: '100%' }}><div onClick={this.playVoice.bind(this, this.state.audioMediaId)} style={{ width: '100%', margin: '0px' }} className={'savedradio'}>点击播放录音</div></div>
                                 }
 
                             </CellHeader>
