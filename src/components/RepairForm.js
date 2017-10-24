@@ -356,7 +356,7 @@ const firstDeviceTypetems = [
 const firstDeviceElements = [];
 const secondDeviceElements = [];
 const thirdDeviceElements = [];
-const recordTimer = null;
+let recordTimer = null;
 // const radiodiv =<div><div id={'recordbutton'} onClick={this.playRadio.bind(this)} className={'savedradio'}>录音{radioCount}</div><img id={'deleteradiobutton'} className={'deleteradio'} src={'/images/delete.png'} /></div>;
 const radioCount = 1;
 
@@ -425,6 +425,8 @@ class RepairForm extends Component {
             ],
         };
 
+        this.syncUpload = this.syncUpload.bind(this);
+
         let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
         var request = $.ajax({
             url: url,
@@ -474,6 +476,24 @@ class RepairForm extends Component {
             console.log("Request failed: " + textStatus)
         });
 
+    };
+
+    syncUpload = (localIds) => {
+        alert(localIds);
+        var localId = localIds.pop();
+        wx.uploadImage({
+            localId: localId,
+            isShowProgressTips: 1,
+            success: function (res) {
+                var serverId = res.serverId;
+                if(localIds.length > 0){
+                    this.syncUpload(localIds);
+                }else {
+                    alert('sending request');
+                    this.sendRequest();
+                }
+            }
+        });
     };
 
     componentWillMount() {
@@ -803,25 +823,10 @@ class RepairForm extends Component {
             });
 
         });
-    }
+    };
 
-    syncUpload = (localIds) => {
-        alert(localIds);
-	    var localId = localIds.pop();
-	    wx.uploadImage({
-	        localId: localId,
-	        isShowProgressTips: 1,
-	        success: function (res) {
-	            var serverId = res.serverId; 
-	            if(localIds.length > 0){
-	               syncUpload(localIds);
-	            }else {
-                    alert('sending request');
-                    this.sendRequest();
-                }
-	       }
-	    });
-    }
+
+
 
     sendRequest() {
         alert('添加保修单');
