@@ -493,9 +493,9 @@ class RepairForm extends Component {
                     wx.startRecord({
                         success: function () {
                             localStorage.rainAllowRecord = 'true';
-                            self.setState({
-                                showWarn: true,
-                            })
+                            // self.setState({
+                            //     showWarn: true,
+                            // })
                         },
                         cancel: function () {
                             alert('用户拒绝授权录音');
