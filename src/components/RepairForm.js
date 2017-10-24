@@ -769,40 +769,8 @@ class RepairForm extends Component {
                         audioMediaId: serverId
                     }, () => {
                         // alert('callback for self.setstate audiomediaid');
-                        let count = 0;
-                        for (let id of self.state.imageIdArr) {
-                            // alert(id)
-                            wx.uploadImage({
-                                localId: id,
-                                isShowProgressTips: 0,
-                                success: function (res) {
-                                    alert('succ');
-                                    
-                                    var serverId = res.serverId; // 返回音频的服务器端ID
-                                    self.state.imageMediaIdArr.push(serverId);
-                                    alert(self.state.imageMediaIdArr);
-                                    count = count + 1;
-                                    alert(count);
-                                    alert(self.state.imageIdArr.length);
-                                    if (count === self.state.imageIdArr.length) {
-                                        alert('sending request')
-                                        self.sendRequest();
-                                    }
-                                },
-                                fail: function (res) {
-                                    // alert('fail');
-                                    // alert(res);
-                                    count++;
-                                    if (count === self.state.imageIdArr.length) {
-                                        self.sendRequest();
-                                    }
-                                }
-                            });
-                        }
-                        // alert('count:'+count+'++self.state.imageIdArr.length:'+self.state.imageIdArr.length);
-                        // if (count === self.state.imageIdArr.length) {
-                        //     self.sendRequest();
-                        // }
+                        self.syncUpload(self.state.imageIdArr)
+                        
                     });
                 },
                 fail: function (res) {
@@ -818,7 +786,7 @@ class RepairForm extends Component {
                                 self.state.imageMediaIdArr.push(serverId);
                                 count++;
                                 if (count === self.state.imageIdArr.length) {
-                                    self.sendRequest();
+                                    
                                 }
                             },
                             fail: function (res) {
@@ -835,6 +803,24 @@ class RepairForm extends Component {
             });
 
         });
+    }
+
+    syncUpload = (localIds) => {
+        alert(localIds);
+	    var localId = localIds.pop();
+	    wx.uploadImage({
+	        localId: localId,
+	        isShowProgressTips: 1,
+	        success: function (res) {
+	            var serverId = res.serverId; 
+	            if(localIds.length > 0){
+	               syncUpload(localIds);
+	            }else {
+                    alert('sending request');
+                    this.sendRequest();
+                }
+	       }
+	    });
     }
 
     sendRequest() {
