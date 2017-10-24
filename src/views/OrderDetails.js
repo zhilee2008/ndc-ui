@@ -75,7 +75,7 @@ class OrderDetails extends Component {
                 const jsapiticket = jsticketObject.jsapi_ticket;
                 const appId = jsticketObject.appId;
                 const url = 'http://ndc.way-may.com/orderdetails/' + self.props.match.params.id + '/' + self.props.match.params.showIKnowBtn + '/' + self.props.match.params.status + '/' + self.props.match.params.fromQuery;
-                alert(url);
+               
                 sign(jsapiticket, url, (jsApiObject) => {
                     // alert(JSON.stringify(jsApiObject));
                     wx.config({
