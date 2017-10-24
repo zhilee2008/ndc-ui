@@ -115,10 +115,10 @@
   -webkit-user-select: none;
   /*禁用手机浏览器的用户选择功能 */
   -moz-user-select: none;
-  background-image: url("/images/yuiyn@2x.png");
+  background-image: url("/images/yuiyn@3x.png");
   background-color: currentColor !important;
-  width: 20px !important;
-  height: 30px !important;
+  width: 35px !important;
+  height: 40px !important;
   -moz-background-size: 100% 100%;
   background-size: 100% 100%;
   margin: 40px 0px 0px 20px; }
