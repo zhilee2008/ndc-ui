@@ -757,7 +757,7 @@ class RepairForm extends Component {
 
         });
     }
-    syncUpload = (localIds) => {
+    syncUpload = (localIds, self) => {
         alert(localIds);
         var localId = localIds.pop();
         alert(localId)
@@ -768,7 +768,7 @@ class RepairForm extends Component {
                 var serverId = res.serverId;
                 if(localIds.length > 0){
                     alert('localIds.length: ' + localIds.length + 'serverId: ' + serverId);
-                    this.syncUpload(localIds);
+                    self.syncUpload(localIds);
                 }else {
                     alert('sending request');
                     this.sendRequest();
@@ -792,7 +792,7 @@ class RepairForm extends Component {
                         audioMediaId: serverId
                     }, () => {
                         // alert('callback for self.setstate audiomediaid');
-                        self.syncUpload(self.state.imageIdArr)
+                        self.syncUpload(self.state.imageIdArr, self)
                         
                     });
                 },
