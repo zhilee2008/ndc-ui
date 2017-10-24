@@ -760,17 +760,17 @@ class RepairForm extends Component {
     syncUpload = (localIds, self) => {
         // alert(localIds);
         var localId = localIds.pop();
-        alert(localId)
+        // alert(localId)
         wx.uploadImage({
             localId: localId,
-            isShowProgressTips: 1,
+            isShowProgressTips: 0,
             success: function (res) {
                 var serverId = res.serverId;
                 if(localIds.length > 0){
-                    alert('localIds.length: ' + localIds.length + 'serverId: ' + serverId);
+                    // alert('localIds.length: ' + localIds.length + 'serverId: ' + serverId);
                     self.syncUpload(localIds, self);
                 }else {
-                    alert('sending request');
+                    // alert('sending request');
                     self.sendRequest();
                 }
             },
@@ -832,7 +832,7 @@ class RepairForm extends Component {
 
 
     sendRequest() {
-        alert('添加保修单');
+        // alert('添加保修单');
         var payload = {
             company: this.state.company,
             name: this.state.name,
