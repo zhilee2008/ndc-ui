@@ -115,9 +115,11 @@ class StatusQuery extends Component {
                 </Cell>
                 <div style={{ marginTop: '95px' }}>
                     <img style={{ width: '30%' }} src="/images/LOGO@2x.png" />
+                </div>
+                 <div style={{ marginTop: '5px' }}>
+                    <img style={{ width: '30px' }} src="/images/LOGO@2x.png" />
                     <FooterText>{this.state.userId}</FooterText>
                 </div>
-
                 <Form>
                     <FormCell>
                         <CellBody>
