@@ -758,7 +758,7 @@ class RepairForm extends Component {
         });
     }
     syncUpload = (localIds, self) => {
-        alert(localIds);
+        // alert(localIds);
         var localId = localIds.pop();
         alert(localId)
         wx.uploadImage({
@@ -771,7 +771,7 @@ class RepairForm extends Component {
                     self.syncUpload(localIds);
                 }else {
                     alert('sending request');
-                    this.sendRequest();
+                    self.sendRequest();
                 }
             },
 
