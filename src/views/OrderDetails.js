@@ -82,6 +82,7 @@ class OrderDetails extends Component {
                         appId: appId, // 必填，公众号的唯一标识
                         jsApiList: [
                             'playVoice',
+                            'downloadVoice',
                             'previewImage'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
                         jsapi_ticket: jsApiObject.jsapi_ticket,
                         nonceStr: jsApiObject.nonceStr,
