@@ -783,7 +783,7 @@ class RepairForm extends Component {
                                     // alert(self.state.imageMediaIdArr);
                                     count++;
                                     // alert(count);
-                                    // alert(count === self.state.imageIdArr.length);
+                                    alert(self.state.imageIdArr.length);
                                     if (count === self.state.imageIdArr.length) {
                                         alert('sending request')
                                         self.sendRequest();
