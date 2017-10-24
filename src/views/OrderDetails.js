@@ -222,7 +222,7 @@ class OrderDetails extends Component {
                     troubleDetail: orderdetails.BugDetail,
                     engineers: orderdetails.OrderLog.Engineers,
                     imageurls: orderdetails.ImageUrls,
-                    audioMediaId: orderdetails.audiomediaid,
+                    audioMediaId: orderdetails.AudioMediaId,
                     completed: orderdetails.Status
                 });
 
