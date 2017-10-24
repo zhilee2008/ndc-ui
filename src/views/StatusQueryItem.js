@@ -65,7 +65,8 @@ class StatusQueryItem extends Component {
                 path = path + '/new';
             }
             path = path + '/true';
-            this.props.history.push(path);
+            // this.props.history.push(path);
+            window.location.href = path;
         } else {
 
         }
