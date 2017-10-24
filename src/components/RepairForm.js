@@ -771,13 +771,13 @@ class RepairForm extends Component {
                         // alert('callback for self.setstate audiomediaid');
                         let count = 0;
                         for (let id of self.state.imageIdArr) {
-                            alert(id)
+                            // alert(id)
                             wx.uploadImage({
                                 localId: id,
                                 isShowProgressTips: 0,
                                 success: function (res) {
                                     alert('succ');
-                                    alert(res);
+                                    
                                     var serverId = res.serverId; // 返回音频的服务器端ID
                                     self.state.imageMediaIdArr.push(serverId);
                                     alert(self.state.imageMediaIdArr);
