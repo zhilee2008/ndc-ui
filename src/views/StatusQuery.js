@@ -117,7 +117,7 @@ class StatusQuery extends Component {
                     <img style={{ width: '30%' }} src="/images/LOGO@2x.png" />
                 </div>
                  <div style={{ marginTop: '5px' }}>
-                    <img style={{ width: '30px' }} src="/images/LOGO@2x.png" />
+                    <img style={{ width: '30px' }} src="/images/underlogo@2x.png" />
                     <FooterText>{this.state.userId}</FooterText>
                 </div>
                 <Form>
