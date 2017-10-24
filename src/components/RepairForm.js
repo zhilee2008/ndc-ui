@@ -439,7 +439,7 @@ class RepairForm extends Component {
                 const jsticketObject = JSON.parse(msg);
                 const jsapiticket = jsticketObject.jsapi_ticket;
                 const appId = jsticketObject.appId;
-                const url = 'http://xn.geekx.cn/repairsubmit';
+                const url = 'http://ndc.way-may.com/repairsubmit';
                 sign(jsapiticket, url, (jsApiObject) => {
                     // alert(JSON.stringify(jsApiObject));
                     wx.config({
