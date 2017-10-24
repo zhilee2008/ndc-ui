@@ -56,7 +56,8 @@ class OrderDetails extends Component {
             engineers: [],
             caption: '',
             fromQuery: false,
-            imageurls: []
+            imageurls: [],
+            audioMediaId:'',
         };
 
         let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
@@ -162,6 +163,24 @@ class OrderDetails extends Component {
 
     }
 
+    playVoice(mediaId) {
+        const self = this;
+        // alert(src);
+        wx.ready(function () {
+            wx.downloadVoice({
+                serverId: mediaId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+                isShowProgressTips: 0, // 默认为1，显示进度提示
+                success: function (res) {
+                    // voice.localId = res.localId; // 返回音频的本地ID
+                    wx.playVoice({
+                        localId: res.localId
+                    });
+                }
+            });
+
+        });
+    }
+
     showImage(src) {
         const self = this;
         // alert(src);
@@ -203,6 +222,7 @@ class OrderDetails extends Component {
                     troubleDetail: orderdetails.BugDetail,
                     engineers: orderdetails.OrderLog.Engineers,
                     imageurls: orderdetails.ImageUrls,
+                    audioMediaId: orderdetails.audiomediaid,
                     completed: orderdetails.Status
                 });
 
@@ -366,7 +386,10 @@ class OrderDetails extends Component {
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                                <div style={{ width: '100%' }}><div style={{ width: '100%', margin: '0px' }} className={'savedradio'}>点击播放录音</div></div>
+                                {
+                                    this.state.audioMediaId !== '' ? '' : <div style={{ width: '100%' }}><div onClick={this.playVoice.bind(this, this.state.audioMediaId)} style={{ width: '100%', margin: '0px' }} className={'savedradio'}>点击播放录音</div></div>
+                                }
+
                             </CellHeader>
                             <CellBody style={{ marginLeft: '20px', color: 'grey' }}>
                             </CellBody>
