@@ -167,13 +167,13 @@ class OrderDetails extends Component {
     playVoice() {
         const self = this;
         // alert(src);
-        alert('1'+self.state.audioMediaId);
+        // alert('1'+self.state.audioMediaId);
         wx.ready(function () {
             wx.downloadVoice({
                 serverId: self.state.audioMediaId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
                 isShowProgressTips: 0, // 默认为1，显示进度提示
                 success: function (res) {
-                    alert('2'+res.localId);
+                    // alert('2'+res.localId);
                     // voice.localId = res.localId; // 返回音频的本地ID
                     wx.playVoice({
                         localId: res.localId
