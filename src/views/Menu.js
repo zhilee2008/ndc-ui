@@ -26,9 +26,9 @@ class Menu extends Component {
         };
         let adminParam = this.props.match.params.admin;
         if (adminParam === 'admin') {
-          this.state = {
-            admin: true,
-          };
+            this.state = {
+                admin: true,
+            };
         }
     }
 
@@ -48,7 +48,8 @@ class Menu extends Component {
             path = '/repairmanagement';
         }
 
-        this.props.history.push(path);
+        // this.props.history.push(path);
+        window.location.href = path;
     };
 
     closePage = () => {
@@ -70,18 +71,18 @@ class Menu extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader style={{width:'20%', height: '65px', marginTop: '25px' }} >
+                    <CellHeader style={{ width: '20%', height: '65px', marginTop: '25px' }} >
                         {/*<img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />*/}
                         {/*<div className={'titlebarback'}>*/}
-                            {/*返回*/}
-                     {/*</div>*/}
+                        {/*返回*/}
+                        {/*</div>*/}
                     </CellHeader>
 
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
                         NDC在线报修
                   </CellBody>
                     <CellFooter style={{ width: '20%' }} >
-                        <img style={{ width: '30px',display:'none' }} src='/images/menu12@2x.png' />
+                        <img style={{ width: '30px', display: 'none' }} src='/images/menu12@2x.png' />
                     </CellFooter>
                 </Cell>
 
@@ -98,7 +99,7 @@ class Menu extends Component {
 
                     </MediaBoxBody>
                 </MediaBox>
-                <MediaBox className={this.state.admin ? 'showRepairManagement': 'hideRepairManagement'} key={3} type="appmsg" href="javascript:void(0);" onClick={this.menuItemClick.bind(this, '3')}>
+                <MediaBox className={this.state.admin ? 'showRepairManagement' : 'hideRepairManagement'} key={3} type="appmsg" href="javascript:void(0);" onClick={this.menuItemClick.bind(this, '3')}>
                     <MediaBoxHeader>{repairmanagementicon}</MediaBoxHeader>
                     <MediaBoxBody>
                         <MediaBoxTitle>{'报修管理'}</MediaBoxTitle>

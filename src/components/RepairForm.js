@@ -440,10 +440,10 @@ class RepairForm extends Component {
                 const jsapiticket = jsticketObject.jsapi_ticket;
                 const appId = jsticketObject.appId;
                 const url = 'http://xn.geekx.cn/repairsubmit';
-                sign(jsapiticket, url,(jsApiObject)=>{
-                    alert(JSON.stringify(jsApiObject));
+                sign(jsapiticket, url, (jsApiObject) => {
+                    // alert(JSON.stringify(jsApiObject));
                     wx.config({
-                        debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                        debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
                         appId: appId, // 必填，公众号的唯一标识
                         jsApiList: ['startRecord',
                             'stopRecord',
@@ -451,6 +451,7 @@ class RepairForm extends Component {
                             'playVoice',
                             'previewImage',
                             'chooseImage',
+                            'getLocalImgData',
                             'uploadImage',
                             'uploadVoice'], // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
                         jsapi_ticket: jsApiObject.jsapi_ticket,
@@ -476,7 +477,7 @@ class RepairForm extends Component {
     };
 
     componentWillMount() {
-        
+
     }
 
     componentDidMount() {
@@ -538,15 +539,22 @@ class RepairForm extends Component {
                     success: function (res) {
                         // alert('imageuploadsuccessful');
                         self.setState({
-                            imageIdArr: res.localIds,
+                            imagecount: self.state.imagecount + res.localIds.length
                         })
                         var u = navigator.userAgent, app = navigator.appVersion;
                         var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
                         var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
                         if (isAndroid) {
-                            if (self.state.imagecount + res.localIds.length > 9) {
+                            if (self.state.imagecount > 9) {
                                 alert('每次最多允许上传9张图片');
+                                self.setState({
+                                    imagecount: self.state.imagecount - res.localIds.length
+                                })
                             } else {
+                                self.setState({
+                                    imageIdArr: res.localIds,
+                                })
                                 for (let id of res.localIds) {
                                     self.addImageDev(id);
                                     self.state.imageUrlArr.push(id);
@@ -554,20 +562,17 @@ class RepairForm extends Component {
                             }
                         }
                         if (isIOS) {
-                            // alert('arr' + res);
-                            if (self.state.imagecount + res.localIds.length > 9) {
+                            // alert(self.state.imagecount);
+                            if (self.state.imagecount > 9) {
                                 alert('每次最多允许上传9张图片');
+                                self.setState({
+                                    imagecount: self.state.imagecount - res.localIds.length
+                                })
                             } else {
-                                for (let id of res.localIds) {
-                                    wx.getLocalImgData({
-                                        localId: id, // 图片的localID
-                                        success: function (res) {
-                                            var localData = res.localData; // localData是图片的base64数据，可以用img标签显示
-                                            self.addImageDev(localData);
-                                            self.state.imageUrlArr.push(localData);
-                                        }
-                                    });
-                                }
+                                self.setState({
+                                    imageIdArr: res.localIds,
+                                })
+                                self.shownImage(res.localIds[0], res.localIds, 0);
                             }
                         }
 
@@ -578,6 +583,27 @@ class RepairForm extends Component {
                 });
             });
 
+        });
+
+    }
+
+    shownImage(id, localids, i) {
+        const self = this;
+        wx.getLocalImgData({
+            localId: id, // 图片的localID
+            success: function (res) {
+                // alert("data" + JSON.stringify(res));
+                var localData = res.localData.replace('jgp', 'jpeg'); // localData是图片的base64数据，可以用img标签显示
+                self.addImageDev(localData);
+                self.state.imageUrlArr.push(localData);
+                // alert(i+1);
+                if (i + 1 < localids.length) {
+                    self.shownImage(localids[i + 1], localids, i + 1);
+                }
+            },
+            fail: function (res) {
+                // alert(JSON.stringify(res));
+            }
         });
 
     }
@@ -647,6 +673,88 @@ class RepairForm extends Component {
             showLoading: true
         });
         const self = this;
+
+        if (self.state.audioId === '' && self.state.imageIdArr.length === 0) {
+            self.sendRequest();
+        } else if (self.state.audioId === '') {
+            //upload image
+            self.uploadImageOnly();
+        } else if (self.state.imageIdArr.length === 0) {
+            //upload audio
+            self.uploadAudioOnly();
+        } else {
+            //upload all
+            self.uploadImageAndAudio();
+        }
+
+        wx.error(function (res) {
+            self.sendRequest();
+            console.log('err', res)
+        })
+    };
+
+    uploadAudioOnly() {
+        const self = this;
+        wx.ready(function () {
+            wx.uploadVoice({
+                localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                isShowProgressTips: 0, // 默认为1，显示进度提示
+                success: function (res) {
+                    var serverId = res.serverId; // 返回音频的服务器端ID
+                    // alert(JSON.stringify(res));
+                    self.setState({
+                        audioMediaId: serverId
+                    });
+                    self.sendRequest();
+                },
+                fail: function (res) {
+                    self.sendRequest();
+                }
+            });
+
+        });
+    }
+
+    uploadImageOnly() {
+        const self = this;
+        wx.ready(function () {
+
+            let count = 0;
+            for (let id of self.state.imageIdArr) {
+                // alert(id)
+                wx.uploadImage({
+                    localId: id,
+                    isShowProgressTips: 0,
+                    success: function (res) {
+                        // alert('succ');
+                        // alert(res);
+                        var serverId = res.serverId; // 返回音频的服务器端ID
+                        self.state.imageMediaIdArr.push(serverId);
+                        count++;
+                        if (count === self.state.imageIdArr.length) {
+                            self.sendRequest();
+                        }
+                    },
+                    fail: function (res) {
+                        // alert('fail');
+                        // alert(res);
+                        count++;
+                        if (count === self.state.imageIdArr.length) {
+                            self.sendRequest();
+                        }
+                    }
+                });
+            }
+            // alert('count:'+count+'++self.state.imageIdArr.length:'+self.state.imageIdArr.length);
+            // if (count === self.state.imageIdArr.length) {
+            //     self.sendRequest();
+            // }
+
+        });
+    }
+
+    uploadImageAndAudio() {
+        const self = this;
         wx.ready(function () {
             wx.uploadVoice({
                 localId: self.state.audioId, // 需要上传的音频的本地ID，由stopRecord接口获得
@@ -659,9 +767,13 @@ class RepairForm extends Component {
                     }, () => {
                         let count = 0;
                         for (let id of self.state.imageIdArr) {
+                            // alert(id)
                             wx.uploadImage({
                                 localId: id,
+                                isShowProgressTips: 0,
                                 success: function (res) {
+                                    // alert('succ');
+                                    // alert(res);
                                     var serverId = res.serverId; // 返回音频的服务器端ID
                                     self.state.imageMediaIdArr.push(serverId);
                                     count++;
@@ -670,6 +782,8 @@ class RepairForm extends Component {
                                     }
                                 },
                                 fail: function (res) {
+                                    // alert('fail');
+                                    // alert(res);
                                     count++;
                                     if (count === self.state.imageIdArr.length) {
                                         self.sendRequest();
@@ -678,9 +792,9 @@ class RepairForm extends Component {
                             });
                         }
                         // alert('count:'+count+'++self.state.imageIdArr.length:'+self.state.imageIdArr.length);
-                        if (count === self.state.imageIdArr.length) {
-                            self.sendRequest();
-                        }
+                        // if (count === self.state.imageIdArr.length) {
+                        //     self.sendRequest();
+                        // }
                     });
                 },
                 fail: function (res) {
@@ -689,6 +803,7 @@ class RepairForm extends Component {
                         wx.uploadImage({
                             localId: id,
                             success: function (res) {
+
                                 var serverId = res.serverId; // 返回音频的服务器端ID
                                 self.state.imageMediaIdArr.push(serverId);
                                 count++;
@@ -697,6 +812,7 @@ class RepairForm extends Component {
                                 }
                             },
                             fail: function (res) {
+
                                 count++;
                                 if (count === self.state.imageIdArr.length) {
                                     self.sendRequest();
@@ -709,7 +825,7 @@ class RepairForm extends Component {
             });
 
         });
-    };
+    }
 
     sendRequest() {
         console.log('添加保修单');
@@ -924,6 +1040,7 @@ class RepairForm extends Component {
         $('.deleteimage').click(function (e) {
             e.target.parentNode.remove();
             self.setState({
+                imagecount: self.state.imagecount - 1,
                 imageUrlArr: self.state.imageUrlArr.remove(e.target.src)
             });
         });
@@ -1176,7 +1293,7 @@ class RepairForm extends Component {
                                 <CellBody>
                                     <TextArea name='bugDetail'
                                         value={this.state.bugDetail}
-                                        onChange={this.handleChange.bind(this)} placeholder="输入故障细节" rows="3"></TextArea>
+                                        onChange={this.handleChange.bind(this)} placeholder="输入故障细节或者录音" rows="3"></TextArea>
                                 </CellBody>
                             </FormCell>
                             <div style={{ height: '30px' }} id="buttoncontainer"></div>
@@ -1188,7 +1305,7 @@ class RepairForm extends Component {
                                     <img id="addimagebutton" src='/images/tupian@2x.png' className={"imagebutton"} />
                                 </CellHeader>
                                 <CellBody>
-                                    <TextArea name='files' placeholder="上传相关文件与视频" rows="3"></TextArea>
+                                    <TextArea name='files' placeholder="上传相关照片" rows="3"></TextArea>
                                     {/* <img onClick={this.addVideo.bind(this)} src='/images/shipin@2x.png' onClick={this.addVideo.bind(this)} className={"videoimage"} /> */}
                                 </CellBody>
 
@@ -1204,7 +1321,7 @@ class RepairForm extends Component {
                     </ButtonArea>
                     <Dialog type="ios" title={this.state.style1.title} buttons={this.state.style1.buttons} show={this.state.showIOS1}>
                         <b>提示</b>
-                        <p>您的保修单已生成,请截屏记录或保留短信</p>
+                        <p>您的报修单已生成,请截屏记录或保留短信</p>
                         报修单号:{this.state.orderId}
                     </Dialog>
                     <Dialog type="ios" title={'警告'} buttons={this.state.warningStyle.buttons} show={this.state.showWarningDialog}>
