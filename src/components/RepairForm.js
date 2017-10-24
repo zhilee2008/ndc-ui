@@ -425,7 +425,6 @@ class RepairForm extends Component {
             ],
         };
 
-        this.syncUpload = this.syncUpload.bind(this);
 
         let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
         var request = $.ajax({
@@ -478,23 +477,7 @@ class RepairForm extends Component {
 
     };
 
-    syncUpload = (localIds) => {
-        alert(localIds);
-        var localId = localIds.pop();
-        wx.uploadImage({
-            localId: localId,
-            isShowProgressTips: 1,
-            success: function (res) {
-                var serverId = res.serverId;
-                if(localIds.length > 0){
-                    this.syncUpload(localIds);
-                }else {
-                    alert('sending request');
-                    this.sendRequest();
-                }
-            }
-        });
-    };
+
 
     componentWillMount() {
 
@@ -774,6 +757,26 @@ class RepairForm extends Component {
 
         });
     }
+    syncUpload = (localIds) => {
+        alert(localIds);
+        var localId = localIds.pop();
+        alert(localId)
+        wx.uploadImage({
+            localId: localId,
+            isShowProgressTips: 1,
+            success: function (res) {
+                var serverId = res.serverId;
+                if(localIds.length > 0){
+                    alert('localIds.length: ' + localIds.length + 'serverId: ' + serverId);
+                    this.syncUpload(localIds);
+                }else {
+                    alert('sending request');
+                    this.sendRequest();
+                }
+            },
+
+        });
+    };
 
     uploadImageAndAudio() {
         const self = this;
