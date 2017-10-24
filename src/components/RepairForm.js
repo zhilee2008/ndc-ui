@@ -768,7 +768,7 @@ class RepairForm extends Component {
                 var serverId = res.serverId;
                 if(localIds.length > 0){
                     alert('localIds.length: ' + localIds.length + 'serverId: ' + serverId);
-                    self.syncUpload(localIds);
+                    self.syncUpload(localIds, self);
                 }else {
                     alert('sending request');
                     self.sendRequest();
