@@ -781,8 +781,8 @@ class RepairForm extends Component {
                                     var serverId = res.serverId; // 返回音频的服务器端ID
                                     self.state.imageMediaIdArr.push(serverId);
                                     // alert(self.state.imageMediaIdArr);
-                                    count++;
-                                    // alert(count);
+                                    count = count + 1;
+                                    alert(count);
                                     alert(self.state.imageIdArr.length);
                                     if (count === self.state.imageIdArr.length) {
                                         alert('sending request')
