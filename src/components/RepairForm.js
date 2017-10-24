@@ -721,23 +721,25 @@ class RepairForm extends Component {
 
             let count = 0;
             for (let id of self.state.imageIdArr) {
-                // alert(id)
+                alert(id)
                 wx.uploadImage({
                     localId: id,
                     isShowProgressTips: 0,
                     success: function (res) {
-                        // alert('succ');
+                        alert('succ');
                         // alert(res);
                         var serverId = res.serverId; // 返回音频的服务器端ID
                         self.state.imageMediaIdArr.push(serverId);
+                        alert(self.state.imageMediaIdArr);
                         count++;
                         if (count === self.state.imageIdArr.length) {
+                            alert('sending request');
                             self.sendRequest();
                         }
                     },
                     fail: function (res) {
-                        // alert('fail');
-                        // alert(res);
+                        alert('fail');
+                        alert(res);
                         count++;
                         if (count === self.state.imageIdArr.length) {
                             self.sendRequest();
