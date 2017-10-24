@@ -766,6 +766,7 @@ class RepairForm extends Component {
             isShowProgressTips: 0,
             success: function (res) {
                 var serverId = res.serverId;
+                self.state.imageMediaIdArr.push(serverId);
                 if(localIds.length > 0){
                     // alert('localIds.length: ' + localIds.length + 'serverId: ' + serverId);
                     self.syncUpload(localIds, self);
