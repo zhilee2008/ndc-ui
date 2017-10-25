@@ -1071,21 +1071,26 @@ class RepairForm extends Component {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                    <CellHeader onClick={() => { window.history.go(-1) }} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
-                     {this.state.isIos? '':
-                        <div className={'titlebarback'}>
-                        <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
-                            返回
-                        </div>
-}
-                    </CellHeader>
+                    {
+                        this.state.isIos? '' :
+                            <CellHeader onClick={() => { window.history.go(-1) }} style={{ width: '20%', height: '65px', marginTop: '25px'  }}>
+                                <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
+                                <div className={'titlebarback'}>
+                                    返回
+                                </div>
+                            </CellHeader>
+                    }
 
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
                         我要报修
                     </CellBody>
-                    <CellFooter style={{ width: '20%', }} >
-                        <img style={{ width: '30px', display: 'none' }} src='/images/menu12@2x.png' />
-                    </CellFooter>
+                    {
+                        this.state.isIos? '' :
+                            <CellFooter style={{ width: '20%', }} >
+                                <img style={{ width: '30px', display: 'none' }} src='/images/menu12@2x.png' />
+                            </CellFooter>
+                    }
+
                 </Cell>
                 <div className={"repair-header-wrapper"}>
                     <div className={"repair-header-wrapper-image"}>
