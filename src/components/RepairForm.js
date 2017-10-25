@@ -423,8 +423,13 @@ class RepairForm extends Component {
                     url: '',
                 }
             ],
+            isIos: true,
         };
-
+        var u = navigator.userAgent,
+           app = navigator.appVersion;
+       //var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+       var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+       this.state.isIos = isIOS
 
         let url = process.env.REACT_APP_HTTP_PREFIX + "/repairs/weixin-jsapiticket";
         var request = $.ajax({
@@ -1067,10 +1072,12 @@ class RepairForm extends Component {
             <div>
                 <Cell className={'titlebar'}>
                     <CellHeader onClick={() => { window.history.go(-1) }} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
-                        <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
+                     {this.state.isIos? '':
                         <div className={'titlebarback'}>
+                        <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                             返回
                         </div>
+}
                     </CellHeader>
 
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
