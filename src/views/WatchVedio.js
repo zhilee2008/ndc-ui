@@ -16,23 +16,12 @@ import Page from '../components/page';
 import iconSrc from '../../public/images/chuli.png';
 
 class WatchVedio extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isIos: false,
-        };
-        var u = navigator.userAgent,
-        app = navigator.appVersion;
-    //var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
-    var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-    this.state.isIos = isIOS;
-    };
+    
     render() {
         return (
             <div>
                 <Cell className={'titlebar'}>
-                {
-                    this.state.isIos? '' :
+           
                      <CellHeader onClick={() => { window.history.go(-1) }} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
                      <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
                      <div className={'titlebarback'}>
@@ -40,17 +29,16 @@ class WatchVedio extends Component {
       </div>
                  </CellHeader>
 
-                }
+             
                     
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
                         培训视频
           </CellBody>
-          {
-              this.state.isIos? '' :
+      
               <CellFooter style={{ width: '20%' }} >
               <img style={{ width: '30px', display: 'none' }} src='/images/menu12@2x.png' />
           </CellFooter>
-          }
+         
                     
                 </Cell>
                 <Cells>
