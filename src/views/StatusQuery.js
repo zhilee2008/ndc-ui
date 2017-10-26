@@ -35,7 +35,13 @@ class StatusQuery extends Component {
             },
             showWarningDialog: false,
             validElement: '',
+            isIos: false,
         };
+        var u = navigator.userAgent,
+        app = navigator.appVersion;
+    //var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+    var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+    this.state.isIos = isIOS;
     }
 
     hideWarningDialog = () => {
@@ -99,19 +105,27 @@ class StatusQuery extends Component {
         return (
             <div style={{ textAlign: 'center' }}>
                 <Cell className={'titlebar'}>
+                {
+                    this.state.isIos? '' :
                     <CellHeader onClick={this.backToIndex} style={{ width: '20%', height: '65px', marginTop: '25px' }} >
-                        <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
-                        <div className={'titlebarback'}>
-                            返回
-         </div>
-                    </CellHeader>
+                    <img style={{ float: 'left', height: '25px', marginTop: '8px' }} src='/images/jiantu@2x.png' />
+                    <div className={'titlebarback'}>
+                        返回
+     </div>
+                </CellHeader>
+                }
+                    
 
                     <CellBody style={{ textAlign: 'center' }} className={'titlebarcontent'}>
                         报修状态查询
                   </CellBody>
-                    <CellFooter style={{ width: '20%' }} >
-                        <img style={{ width: '30px',display:'none' }} src='/images/menu12@2x.png' />
-                    </CellFooter>
+                  {
+                     this.state.isIos? '' :
+                     <CellFooter style={{ width: '20%' }} >
+                     <img style={{ width: '30px',display:'none' }} src='/images/menu12@2x.png' />
+                     </CellFooter>
+                  }
+                    
                 </Cell>
                 <div style={{ marginTop: '95px' }}>
                     <img style={{ width: '30%' }} src="/images/LOGO@2x.png" />
