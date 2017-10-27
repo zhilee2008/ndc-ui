@@ -41,6 +41,7 @@ class RepairManagementItems extends Component {
           orderId: '',
           title: '',
           isIos: false,
+            screenHeight: '800px'
         };
         var u = navigator.userAgent,
         app = navigator.appVersion;
@@ -50,9 +51,12 @@ class RepairManagementItems extends Component {
     }
 
     componentWillMount() {
+        let screenHeight = document.documentElement.clientHeight;
+        alert(screenHeight);
         // console.log(this.props.match.params.id);
         this.setState({
-            status: this.props.match.params.status
+            status: this.props.match.params.status,
+            screenHeight: screenHeight + 'px'
         }, ()=> {
           if (this.state.status === 'new'){
               this.setState({
@@ -70,6 +74,7 @@ class RepairManagementItems extends Component {
         });
         let status = this.props.match.params.status;
         this.getListByStatus(status);
+        alert(this.state.screenHeight);
     }
 
     hideWarningDialog = () => {
@@ -216,6 +221,7 @@ class RepairManagementItems extends Component {
                         }
                     }, 1000)
                 }}
+                style={{height: this.state.screenHeight}}
             >
                 <Page className="infinite" style={{minHeight: '800px'}}>
                     <Cell className={'titlebar'}>
