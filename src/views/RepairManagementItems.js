@@ -266,7 +266,7 @@ class RepairManagementItems extends Component {
                             })
                         }
                     </Cells>
-                    <Dialog type="ios" title={'警告'} buttons={this.state.warningStyle.buttons} show={this.state.showWarningPanel}>
+                    <Dialog type="default" title={'警告'} buttons={this.state.warningStyle.buttons} show={this.state.showWarningPanel}>
                       确定要删除订单{this.state.orderId}吗?
                     </Dialog>
                 </Page>

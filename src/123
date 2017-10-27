@@ -1,0 +1,53 @@
+#!/bin/bash
+#on production
+mv /root/js/ndc-ui/.env /root/js/ndc-ui/.temp
+cp /root/js/ndc-ui/.env_production /root/js/ndc-ui/.env
+new_branch=`date "+%Y-%m-%d-%s"`
+git fetch origin master:$new_branch
+git merge $new_branch
+npm run build
+mv /usr/share/nginx/html /usr/share/nginx/$new_branch
+mv build/ /usr/share/nginx/html
+cp /root/js/ndc-ui/MP_verify_* /usr/share/nginx/html
+echo "restart the nginx service"
+service nginx restart
+echo "upgrade successfully !"
+
+
+
+
+
+/root/js/ndc-ui
+
+
+
+
+#!/bin/bash
+new_branch=`date "+%Y-%m-%d-%s"`
+echo "The new branch is $new_branch"
+cd /root/work/spark
+git fetch origin master:$new_branch
+git merge $new_branch
+#go build -o $new_branch main.go
+ps -efww |grep -w "onLine" |grep -v grep |cut -c 9-15|xargs kill -9
+go build -o onLine main.go
+nohup /root/work/spark/onLine > /root/work/spark/beego.log &
+
+
+/root/work/spark
+
+
+
+http://ndc.way-may.com/
+
+
+{ "_id" : ObjectId("59ec2032abd7ca488d879e23"), "openid" : "oMq_B1fs4ImJ9e1aWgiqveR3Mn-I", "code" : "021iQqxn0asiOp1o18yn0NOrxn0iQqxm", "nickname" : "VISION", "city" : "Haidian", "headimgurl" : "http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJ3ibxzHoq1wI2dUlETT3ogylLKKCe5ic3fHfrxGfAPMuf5OT3LwMicvMrG34iaK6BXSa4886VXPiae6eA/0", "privilege" : [ ], "sex" : 1, "language" : "en", "province" : "Beijing", "country" : "CN" }
+{ "_id" : ObjectId("59ec2032abd7ca488d879e2c"), "openid" : "", "headimgurl" : "", "code" : "071IACST0m8r3V1O66UT0OitST0IACSK", "nickname" : "", "sex" : 0, "language" : "", "city" : "", "province" : "", "country" : "", "privilege" : [ ] }
+{ "_id" : ObjectId("59ec2279abd7ca488d879e3d"), "openid" : "oMq_B1cbNG4DAUP2P-C73AZme6yY", "language" : "zh_CN", "province" : "Beijing", "privilege" : [ ], "nickname" : "杜谦", "city" : "Changping", "country" : "CN", "headimgurl" : "http://wx.qlogo.cn/mmopen/vi_32/OlvdBvTqDLezyaZriceHW69HGxXlcUBoaVQTDcQAvTcBfRzxs96xWib2XiaicRX44aOHHcl4lg5jBe39JhhfNvNReg/0", "code" : "02120o8o0Ezo3p1LSF9o0hzb8o020o8I", "sex" : 1 }
+{ "_id" : ObjectId("59ec22a3abd7ca488d879e4e"), "openid" : "oMq_B1W7bh2hvSt6a8-fE0hWGDFk", "privilege" : [ ], "nickname" : "非典型程序员", "sex" : 0, "language" : "zh_CN", "province" : "", "headimgurl" : "/0", "code" : "0119o77E1MzD000v0Z5E1eYb7E19o77t", "city" : "", "country" : "" }
+{ "_id" : ObjectId("59ec443cabd7ca488d879ecf"), "openid" : "oMq_B1QlQOwTA2w2gystNUAypTv0", "city" : "Haidian", "province" : "Beijing", "code" : "0711KKZh19vsSz019YZh1t6AZh11KKZF", "sex" : 1, "language" : "zh_CN", "headimgurl" : "http://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83eribruRNsI0I1vBMhYk3fPFnMkqMK4xibB4cjic2v3taLiagunibtfkTFB88IqqWCvicXUu4r4OsJHX57QQ/0", "privilege" : [ ], "nickname" : "暴走的肥肥兔🏂", "country" : "CN" }
+{ "_id" : ObjectId("59ec9372abd7ca488d87a880"), "openid" : "oMq_B1ZgZvVR9LJ_Cfr8ku8JEM_I", "nickname" : "Lily", "sex" : 2, "city" : "Chaoyang", "province" : "Beijing", "privilege" : [ ], "code" : "061jCmyV129SeT0Zq0xV1RN0yV1jCmy3", "language" : "zh_CN", "country" : "CN", "headimgurl" : "http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJsaUFGrvdfAttH7rR4dW4hmiaKplFO0J5vVHbDLE2SxIdfOicH8uicQkX5WIiafPWAIw3FZY7RsJX72w/0" }
+{ "_id" : ObjectId("59ecb736abd7ca488d87ae8e"), "openid" : "oMq_B1QfqSPKaPIf2FbSeRhPMHkw", "nickname" : "富士山下", "country" : "", "headimgurl" : "http://wx.qlogo.cn/mmopen/vi_32/94aU1rXicSmhABjbz8qkRIyPVzUtnauXpqNzXLficPVTXwpFptD8U0nibBZJ4oBKqAzGFy1tHicT9Vrbrunxr9dYAg/0", "privilege" : [ ], "code" : "071JgBsi2FInxF0gp8ui2vgEsi2JgBs4", "sex" : 0, "language" : "zh_CN", "city" : "", "province" : "" }
+{ "_id" : ObjectId("59ed7ce0abd7ca488d87b6e2"), "openid" : "oMq_B1fa1SNmsWvikunEuVTzEyQA", "city" : "East", "province" : "Beijing", "country" : "CN", "headimgurl" : "http://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83erR5VSSVWvrRqKlhntvfcxpL7up9TR7ymw1icTg1q6zAGQAXmGH0QS1AynjRhxZndTAfICIjiaicbxdg/0", "privilege" : [ ], "sex" : 2, "language" : "zh_CN", "nickname" : "🎀Super大蒙蒙🎀", "code" : "021DAimw160Mrc0E1qlw1ovnmw1DAim3" }
+{ "_id" : ObjectId("59ed7de9abd7ca488d87b6eb"), "openid" : "oMq_B1QkSmIwh96AruU72ISX2Pk4", "nickname" : "咖啡店里听故事的猫", "sex" : 2, "language" : "zh_CN", "province" : "Dubayy", "headimgurl" : "http://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJI5q4R1DkwmsVy1RrUAh7owtDZWY7gEu1BOlwElJ9FPx3mZObxEgetxgLdx7YWU6g9zqwdkeicu4Q/0", "code" : "0816zeW60RVRVK1D8aW6071dW606zeW4", "privilege" : [ ], "city" : "", "country" : "AE" }
+{ "_id" : ObjectId("59ed86a0abd7ca488d87b8ec"), "openid" : "oMq_B1V7GbUK27Iqst7W0rwg-be8", "code" : "011QnJI321rYbL0OAFH32rDKI32QnJIf", "sex" : 0, "language" : "zh_CN", "province" : "", "country" : "", "headimgurl" : "http://wx.qlogo.cn/mmopen/vi_32/kKNVTKmYSNoaWpn1sCEm7Z0k40oMYvWKFMvDgutYpW7AKsc3c409ZXvzJUlzHxVTXIrLkF9p6iclpCJnbXNuGSw/0", "privilege" : [ ], "nickname" : "施家邦小编", "city" : "" }
