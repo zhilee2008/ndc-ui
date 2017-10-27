@@ -217,7 +217,7 @@ class RepairManagementItems extends Component {
                     }, 1000)
                 }}
             >
-                <Page className="infinite" >
+                <Page className="infinite" style={{minHeight: '800px'}}>
                     <Cell className={'titlebar'}>
                     {
                         this.state.isIos? '' :

@@ -24,3 +24,6 @@
 
 .weui-mask {
   background: rgba(0, 0, 0, 0.2) !important; }
+
+.default-min-height {
+  min-height: 800px; }
