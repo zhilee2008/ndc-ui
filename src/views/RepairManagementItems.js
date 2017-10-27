@@ -215,9 +215,8 @@ class RepairManagementItems extends Component {
                         if (this.state.items.length > 5) {
                             finish()
                         } else {
-                            this.setState({
-                                items: this.state.items.concat([this.state.items.length])
-                            }, () => resolve())
+                            resolve()
+
                         }
                     }, 1000)
                 }}
