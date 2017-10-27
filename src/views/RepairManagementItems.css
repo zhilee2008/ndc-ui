@@ -27,3 +27,6 @@
 
 .default-min-height {
   min-height: 800px; }
+
+.react-weui-infiniteloader__content {
+  min-height: 800px !important; }

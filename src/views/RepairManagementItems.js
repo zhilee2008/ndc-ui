@@ -223,7 +223,7 @@ class RepairManagementItems extends Component {
                 }}
                 style={{height: this.state.screenHeight}}
             >
-                <Page className="infinite" style={{minHeight: '800px'}}>
+                <Page className="infinite" style={{height: '1024px'}}>
                     <Cell className={'titlebar'}>
                     {
                         this.state.isIos? '' :
