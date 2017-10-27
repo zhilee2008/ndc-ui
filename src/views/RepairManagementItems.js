@@ -261,14 +261,15 @@ class RepairManagementItems extends Component {
                                                 <Button type="warn" className={'delete-order-btn'} onClick={this.confirmDeleteOrder.bind(this, itemId)}>删除</Button>
                                             </ButtonArea>
                                         </CellFooter>
+                                        <Dialog type="default" title={'警告'} buttons={this.state.warningStyle.buttons} show={this.state.showWarningPanel}>
+                      确定要删除订单{this.state.orderId}吗?
+                    </Dialog>
                                     </Cell>
                                 )
                             })
                         }
                     </Cells>
-                    <Dialog type="default" title={'警告'} buttons={this.state.warningStyle.buttons} show={this.state.showWarningPanel}>
-                      确定要删除订单{this.state.orderId}吗?
-                    </Dialog>
+                    
                 </Page>
             </InfiniteLoader>
         )
