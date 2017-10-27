@@ -52,11 +52,11 @@ class RepairManagementItems extends Component {
 
     componentWillMount() {
         let screenHeight = document.documentElement.clientHeight;
-        alert(screenHeight);
+        // alert(screenHeight);
         // console.log(this.props.match.params.id);
         this.setState({
             status: this.props.match.params.status,
-            screenHeight: screenHeight + 'px'
+            screenHeight: screenHeight
         }, ()=> {
           if (this.state.status === 'new'){
               this.setState({
@@ -74,7 +74,7 @@ class RepairManagementItems extends Component {
         });
         let status = this.props.match.params.status;
         this.getListByStatus(status);
-        alert(this.state.screenHeight);
+
     }
 
     hideWarningDialog = () => {
