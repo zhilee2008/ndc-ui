@@ -540,6 +540,9 @@ class RepairForm extends Component {
                     END = 0;
                     START = 0;
                     //小于300ms，不录音
+                    self.setState({
+                        showWarn: false
+                    });
                     clearTimeout(recordTimer);
                 } else {
                     // alert('s1');
