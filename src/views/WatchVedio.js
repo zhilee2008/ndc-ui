@@ -91,12 +91,11 @@ class WatchVedio extends Component {
                     <Cell onClick={this.showLink}>
                         <CellBody className={'cellTitle'}>
                             烟草行业
-                </CellBody>
+                        </CellBody>
                         <CellFooter>
                             {
                                 this.state.showlink? <img src='/images/jiantou_xia@2x.png' style={{marginRight:'20px'}} /> : <img src='/images/jiantou@2x.png' style={{marginRight:'20px'}} />
                             }
-                            
                         </CellFooter>
                     </Cell>
                     { !this.state.showlink? "" :

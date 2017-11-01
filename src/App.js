@@ -11,6 +11,7 @@ import RepairManagementItems from './views/RepairManagementItems';
 import OrderDetails from './views/OrderDetails';
 import OrderDetailsUpdate from './views/OrderDetailsUpdate';
 import WatchVedio from './views/WatchVedio';
+import PDFViewer from './views/PDFViewer';
 import Index from './views/Index';
 
 import './App.css';
@@ -77,6 +78,11 @@ class App extends Component {
         path: '/watchvedio',
         exact: true,
         main: () => <WatchVedio/>
+      },
+      {
+       path: '/viewpdf/:id',
+       exact: true,
+       main: () => <PDFViewer/>
       },
       {
         path: '/test',
