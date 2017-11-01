@@ -526,6 +526,9 @@ class RepairForm extends Component {
                         },
                         cancel: function () {
                             // alert('用户拒绝授权录音');
+                            self.setState({
+                               showWarn: false
+                            });
                         }
                     });
                 }, 300);
@@ -559,6 +562,9 @@ class RepairForm extends Component {
                         },
                         fail: function (res) {
                             // alert('录音功能暂不可用:' + JSON.stringify(res));
+                            self.setState({
+                               showWarn: false
+                            });
                         }
                     });
                 }
