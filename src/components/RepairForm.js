@@ -491,14 +491,16 @@ class RepairForm extends Component {
     componentDidMount() {
 
         if(!localStorage.userAllowRecord || localStorage.userAllowRecord !== 'true'){
-            wx.startRecord({
-                success: function(){
-                    localStorage.userAllowRecord = 'true';
-                    wx.stopRecord();
-                },
-                cancel: function () {
-                    alert('用户拒绝授权录音');
-                }
+            wx.ready(function () {
+                wx.startRecord({
+                    success: function(){
+                        localStorage.userAllowRecord = 'true';
+                        wx.stopRecord();
+                    },
+                    cancel: function () {
+                        alert('用户拒绝授权录音');
+                    }
+                });
             });
         }
 
