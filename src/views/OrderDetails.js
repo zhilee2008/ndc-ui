@@ -59,6 +59,7 @@ class OrderDetails extends Component {
             imageurls: [],
             audioMediaId:'',
             isIos: false,
+            showRecordTips: false
         };
         var u = navigator.userAgent,
         app = navigator.appVersion;
@@ -106,7 +107,7 @@ class OrderDetails extends Component {
             self.setState({
                 errorMsg: '录音和上传图片功能暂不可用'
             });
-            alert('录音和上传图片功能暂不可用');
+            // alert('录音和上传图片功能暂不可用');
             console.log("Request failed: " + textStatus)
         });
 
@@ -181,8 +182,19 @@ class OrderDetails extends Component {
                 success: function (res) {
                     // alert('2'+res.localId);
                     // voice.localId = res.localId; // 返回音频的本地ID
+                    self.setState({
+                        showRecordTips: true
+                    });
                     wx.playVoice({
                         localId: res.localId
+                    });
+                    wx.onVoicePlayEnd({
+                        success: function (res) {
+                            var localId = res.localId; // 返回音频的本地ID
+                            self.setState({
+                                showRecordTips: false
+                            });
+                        }
                     });
                 }
             });
@@ -495,7 +507,7 @@ class OrderDetails extends Component {
 
                     </ButtonArea>
 
-
+                    <Toptips type="warn" show={this.state.showRecordTips}>录音播放中...</Toptips>
                 </Page>
             </div>
         );
