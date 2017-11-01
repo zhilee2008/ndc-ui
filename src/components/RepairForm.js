@@ -1321,7 +1321,10 @@ class RepairForm extends Component {
                             <FormCell style={{ paddingBottom: '0px' }} className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>故障细节</Label>
-                                    <Button id="talk_btn" className={'radioimage'} {(localStorage.userAllowRecord && localStorage.userAllowRecord === 'true')? '': 'disabled'}>&nbsp;</Button>
+                                    {(localStorage.userAllowRecord && localStorage.userAllowRecord === 'true') ?
+                                        <Button id="talk_btn">&nbsp;</Button> :
+                                        <Button id="talk_btn" disabled>&nbsp;</Button>
+                                    }
                                 </CellHeader>
                                 <CellBody>
                                     <TextArea name='bugDetail'
