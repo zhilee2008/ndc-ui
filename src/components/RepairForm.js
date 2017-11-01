@@ -1322,8 +1322,8 @@ class RepairForm extends Component {
                                 <CellHeader>
                                     <Label>故障细节</Label>
                                     {(localStorage.userAllowRecord && localStorage.userAllowRecord === 'true') ?
-                                        <Button id="talk_btn">&nbsp;</Button> :
-                                        <Button id="talk_btn" disabled>&nbsp;</Button>
+                                        <Button id="talk_btn" className={'radioimage'}>&nbsp;</Button> :
+                                        <Button id="talk_btn" className={'radioimage'} disabled>&nbsp;</Button>
                                     }
                                 </CellHeader>
                                 <CellBody>
