@@ -1323,7 +1323,7 @@ class RepairForm extends Component {
                                     <Label>故障细节</Label>
                                     {(localStorage.userAllowRecord && localStorage.userAllowRecord === 'true') ?
                                         <Button id="talk_btn" className={'radioimage'}>&nbsp;</Button> :
-                                        录音不可用
+                                        '录音不可用'
                                     }
                                 </CellHeader>
                                 <CellBody>
