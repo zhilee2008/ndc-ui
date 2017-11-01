@@ -476,7 +476,7 @@ class RepairForm extends Component {
             self.setState({
                 errorMsg: '录音和上传图片功能暂不可用'
             });
-            alert('录音和上传图片功能暂不可用');
+            // alert('录音和上传图片功能暂不可用');
             console.log("Request failed: " + textStatus)
         });
 
@@ -498,7 +498,7 @@ class RepairForm extends Component {
                         wx.stopRecord();
                     },
                     cancel: function () {
-                        alert('用户拒绝授权录音');
+                        // alert('用户拒绝授权录音');
                     }
                 });
             });
@@ -525,13 +525,16 @@ class RepairForm extends Component {
                             })
                         },
                         cancel: function () {
-                            alert('用户拒绝授权录音');
+                            // alert('用户拒绝授权录音');
                         }
                     });
                 }, 300);
             });
             $('#talk_btn').on('touchend', function (event) {
                 event.preventDefault();
+                if (!localStorage.userAllowRecord || localStorage.userAllowRecord !== 'true'){
+                    return
+                }
                 END = new Date().getTime();
                 if ((END - START) < 300) {
                     END = 0;
@@ -552,7 +555,7 @@ class RepairForm extends Component {
                             self.addRadioDev(localId);
                         },
                         fail: function (res) {
-                            alert('录音功能暂不可用:' + JSON.stringify(res));
+                            // alert('录音功能暂不可用:' + JSON.stringify(res));
                         }
                     });
                 }
