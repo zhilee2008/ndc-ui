@@ -123,8 +123,23 @@
   background-size: 100% 100%;
   margin: 40px 0px 0px 20px; }
 
+.not-allow-radioimage {
+    -webkit-user-select: none;
+    /*禁用手机浏览器的用户选择功能 */
+    -moz-user-select: none;
+    background-image: url("/images/mic_off.svg");
+    background-color: currentColor !important;
+    width: 35px !important;
+    height: 40px !important;
+    -moz-background-size: 100% 100%;
+    background-size: 100% 100%;
+    margin: 40px 0px 0px 20px; }
+
 .radioimage:after {
   border: 0px !important; }
+
+.not-allow-radioimage:after {
+    border: 0px !important; }
 
 .imagebutton {
   margin: 65px 0px 0px 20px;

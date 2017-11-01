@@ -512,6 +512,9 @@ class RepairForm extends Component {
 
             $('#talk_btn').on('touchstart', function (event) {
                 event.preventDefault();
+                if (!localStorage.userAllowRecord || localStorage.userAllowRecord !== 'true'){
+                    return
+                }
                 START = new Date().getTime();
                 recordTimer = setTimeout(function () {
                     wx.startRecord({
@@ -1323,7 +1326,7 @@ class RepairForm extends Component {
                                     <Label>故障细节</Label>
                                     {(localStorage.userAllowRecord && localStorage.userAllowRecord === 'true') ?
                                         <Button id="talk_btn" className={'radioimage'}>&nbsp;</Button> :
-                                        '录音不可用'
+                                        <Button id="talk_btn" className={'not-allow-radioimage'}>&nbsp;</Button>
                                     }
                                 </CellHeader>
                                 <CellBody>
