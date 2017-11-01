@@ -535,6 +535,9 @@ class RepairForm extends Component {
             });
             $('#talk_btn').on('touchend', function (event) {
                 event.preventDefault();
+                self.setState({
+                    showWarn: false
+                });
                 if (!localStorage.userAllowRecord || localStorage.userAllowRecord !== 'true'){
                     return
                 }
@@ -564,6 +567,11 @@ class RepairForm extends Component {
                             // alert('录音功能暂不可用:' + JSON.stringify(res));
                             self.setState({
                                showWarn: false
+                            });
+                        },
+                        complete: function () {
+                            self.setState({
+                                showWarn: false
                             });
                         }
                     });
