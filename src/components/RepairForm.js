@@ -485,6 +485,11 @@ class RepairForm extends Component {
 
 
     componentWillMount() {
+
+    }
+
+    componentDidMount() {
+
         if(!localStorage.userAllowRecord || localStorage.userAllowRecord !== 'true'){
             wx.startRecord({
                 success: function(){
@@ -496,9 +501,8 @@ class RepairForm extends Component {
                 }
             });
         }
-    }
 
-    componentDidMount() {
+
         const self = this;
         wx.ready(function () {
 
