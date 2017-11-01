@@ -192,6 +192,14 @@ class OrderDetailsUpdate extends Component {
         request.done(function (msg) {
             if (msg) {
                 const orderdetails = JSON.parse(msg);
+                let engineers = orderdetails.OrderLog.Engineers;
+                let lastEngineerName = "";
+                let lastEngineerMobile = "";
+                if (engineers){
+                    let lastEngineer = engineers[engineers.length - 1];
+                    lastEngineerName = lastEngineer['Name'];
+                    lastEngineerMobile = lastEngineer['Mobile'];
+                }
                 self.setState({
                     companyName: orderdetails.Company,
                     name: orderdetails.Name,
@@ -205,14 +213,15 @@ class OrderDetailsUpdate extends Component {
                     billAddress: orderdetails.BillAddress,
                     companyAddress: orderdetails.CompanyAddress,
                     troubleDetail: orderdetails.BugDetail,
-                    engineerName: orderdetails.OrderLog.Engineer.Name,
-                    engineerMobile: orderdetails.OrderLog.Engineer.Mobile,
+
+                    engineerName: lastEngineerName,
+                    engineerMobile: lastEngineerMobile,
                     //engineerOpention: orderdetails.Opention,
-                    homeServiceTime: Util.timeStamp2TString(orderdetails.OrderLog.Engineer.Homeservicetime),
-                    repairTime: Util.timeStamp2TString(orderdetails.OrderLog.Engineer.RepairTime),
-                    fixCompleted: orderdetails.OrderLog.Engineer.Complete,
-                    smsUser: orderdetails.OrderLog.Engineer.Smsuser,
-                    notes: orderdetails.OrderLog.Engineer.Notes,
+                    // homeServiceTime: Util.timeStamp2TString(orderdetails.OrderLog.Engineer.Homeservicetime),
+                    // repairTime: Util.timeStamp2TString(orderdetails.OrderLog.Engineer.RepairTime),
+                    // fixCompleted: orderdetails.OrderLog.Engineer.Complete,
+                    // smsUser: orderdetails.OrderLog.Engineer.Smsuser,
+                    // notes: orderdetails.OrderLog.Engineer.Notes,
                 });
 
             }
@@ -382,6 +391,7 @@ class OrderDetailsUpdate extends Component {
                                 <Label style={{ color: '#000' }}>工程师姓名</Label>
                             </CellHeader>
                             <CellBody>
+
                                 <Select value={this.state.engineerName} onChange={this.handleEngineerNameChange.bind(this)} data={this.state.engineerData} />
 
                             </CellBody>
