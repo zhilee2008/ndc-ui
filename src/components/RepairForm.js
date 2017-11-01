@@ -485,7 +485,17 @@ class RepairForm extends Component {
 
 
     componentWillMount() {
-
+        if(!localStorage.userAllowRecord || localStorage.userAllowRecord !== 'true'){
+            wx.startRecord({
+                success: function(){
+                    localStorage.userAllowRecord = 'true';
+                    wx.stopRecord();
+                },
+                cancel: function () {
+                    alert('用户拒绝授权录音');
+                }
+            });
+        }
     }
 
     componentDidMount() {
@@ -500,7 +510,7 @@ class RepairForm extends Component {
                 recordTimer = setTimeout(function () {
                     wx.startRecord({
                         success: function () {
-                            localStorage.rainAllowRecord = 'true';
+                            localStorage.userAllowRecord = 'true';
                             self.setState({
                                 showWarn: true,
                             })
