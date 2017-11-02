@@ -12,6 +12,7 @@ import OrderDetails from './views/OrderDetails';
 import OrderDetailsUpdate from './views/OrderDetailsUpdate';
 import WatchVedio from './views/WatchVedio';
 import PDFViewer from './views/PDFViewer';
+import VideoViewer from './views/VideoViewer';
 import Index from './views/Index';
 
 import './App.css';
@@ -83,6 +84,11 @@ class App extends Component {
        path: '/viewpdf/:id',
        exact: true,
        main: () => <PDFViewer/>
+      },
+      {
+          path: '/viewvideo/:id',
+          exact: true,
+          main: () => <VideoViewer/>
       },
       {
         path: '/test',
