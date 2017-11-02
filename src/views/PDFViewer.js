@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import PDF from 'react-pdf-js';
 import {
     ButtonArea,
     Button,
@@ -23,7 +22,8 @@ import {
     Cell,
 } from '../../packages';
 import Page from '../components/page';
-
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css";
 
 class PDFViewer extends Component {
 
@@ -32,63 +32,37 @@ class PDFViewer extends Component {
         this.state = {
             itemId: this.props.match.params.id,
             title: '',
-
+            images: [
+                {
+                    original: 'http://res.cloudinary.com/keystone-demo/image/upload/c_fit,h_450,w_750/z2gnsu37720vhtwrmtg4.png',
+                    thumbnail: 'http://res.cloudinary.com/keystone-demo/image/upload/c_fit,h_450,w_750/z2gnsu37720vhtwrmtg4.png',
+                },
+                {
+                    original: 'http://res.cloudinary.com/keystone-demo/image/upload/c_fit,h_450,w_750/kw1uehpbrq510hnmepgq.jpg',
+                    thumbnail: 'http://res.cloudinary.com/keystone-demo/image/upload/c_fit,h_450,w_750/kw1uehpbrq510hnmepgq.jpg'
+                },
+                {
+                    original: 'http://res.cloudinary.com/keystone-demo/image/upload/c_fit,h_450,w_750/ao01g3lmucmlvtu8relb.jpg',
+                    thumbnail: 'http://res.cloudinary.com/keystone-demo/image/upload/c_fit,h_450,w_750/ao01g3lmucmlvtu8relb.jpg'
+                }
+            ]
         };
+
         var u = navigator.userAgent,
         app = navigator.appVersion;
         var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
         this.state.isIos = isIOS;
-
     }
 
     componentWillMount() {
 
     }
 
-    onDocumentComplete = (pages) => {
-        this.setState({ page: 1, pages });
+    handleImageLoad(event) {
+        console.log('Image loaded ', event.target)
     }
-
-    onPageComplete = (page) => {
-        this.setState({ page });
-    }
-
-    handlePrevious = () => {
-        this.setState({ page: this.state.page - 1 });
-    }
-
-    handleNext = () => {
-        this.setState({ page: this.state.page + 1 });
-    }
-
-    renderPagination = (page, pages) => {
-        let previousButton = <li className="previous" onClick={this.handlePrevious} style={{width: '40%', float: 'left', textAlign: 'right'}}><a href="#"><i className="fa fa-arrow-left"></i>上一页</a></li>;
-        if (page === 1) {
-            previousButton = <li className="previous disabled"  style={{width: '40%', float: 'left', textAlign: 'right'}}><a href="#"><i className="fa fa-arrow-left"></i>上一页</a></li>;
-        }
-        let nextButton = <li className="next" onClick={this.handleNext}  style={{width: '40%', float: 'right'}}><a href="#">下一页<i className="fa fa-arrow-right"></i></a></li>;
-        if (page === pages) {
-            nextButton = <li className="next disabled"  style={{width: '40%', float: 'right'}}><a href="#">下一页<i className="fa fa-arrow-right"></i></a></li>;
-        }
-        return (
-            <nav>
-                <ul className="pager" style={{listStyle: 'none'}}>
-                    {previousButton}
-                    {nextButton}
-                </ul>
-            </nav>
-        );
-    }
-
-
-
 
     render() {
-        let pagination = null;
-        if (this.state.pages) {
-            pagination = this.renderPagination(this.state.page, this.state.pages);
-        }
-
         return (
             <div>
                 <Page className="input">
@@ -114,9 +88,14 @@ class PDFViewer extends Component {
                         }
                     </Cell>
 
-                    <div style={{marginTop: '5px'}}>
-                        <PDF file="http://ndc.way-may.com/img/demo.pdf" onDocumentComplete={this.onDocumentComplete} onPageComplete={this.onPageComplete} page={this.state.page} />
-                        {pagination}
+                    <div style={{marginTop: '2px'}}>
+                        <ImageGallery
+                            items={this.state.images}
+                            slideInterval={2000}
+                            onImageLoad={this.handleImageLoad}
+                            infinite={false}
+                            showThumbnails={false}
+                        />
                     </div>
 
 
