@@ -424,6 +424,7 @@ class RepairForm extends Component {
                 }
             ],
             isIos: true,
+            allowRecord: localStorage.userAllowRecord
         };
         var u = navigator.userAgent,
            app = navigator.appVersion;
@@ -486,15 +487,15 @@ class RepairForm extends Component {
 
     componentWillMount() {
 
-    }
-
-    componentDidMount() {
-
+        let self = this;
         if(!localStorage.userAllowRecord || localStorage.userAllowRecord !== 'true'){
             wx.ready(function () {
                 wx.startRecord({
                     success: function(){
                         localStorage.userAllowRecord = 'true';
+                        self.setState({
+                            allowRecord: localStorage.userAllowRecord
+                        });
                         wx.stopRecord();
                     },
                     cancel: function () {
@@ -504,6 +505,9 @@ class RepairForm extends Component {
             });
         }
 
+    }
+
+    componentDidMount() {
 
         const self = this;
         wx.ready(function () {
@@ -512,9 +516,10 @@ class RepairForm extends Component {
 
             $('#talk_btn').on('touchstart', function (event) {
                 event.preventDefault();
-                if (!localStorage.userAllowRecord || localStorage.userAllowRecord !== 'true'){
-                    return
+                if (!self.state.allowRecord || self.state.allowRecord !== 'true'){
+                    return;
                 }
+
                 START = new Date().getTime();
                 recordTimer = setTimeout(function () {
                     wx.startRecord({
@@ -522,6 +527,7 @@ class RepairForm extends Component {
                             localStorage.userAllowRecord = 'true';
                             self.setState({
                                 showWarn: true,
+                                allowRecord: localStorage.userAllowRecord
                             })
                         },
                         cancel: function () {
@@ -538,9 +544,10 @@ class RepairForm extends Component {
                 self.setState({
                     showWarn: false
                 });
-                if (!localStorage.userAllowRecord || localStorage.userAllowRecord !== 'true'){
-                    return
+                if (!self.state.allowRecord || self.state.allowRecord !== 'true'){
+                    return;
                 }
+
                 END = new Date().getTime();
                 if ((END - START) < 300) {
                     END = 0;
@@ -1344,7 +1351,7 @@ class RepairForm extends Component {
                             <FormCell style={{ paddingBottom: '0px' }} className={"weui-label-align-top"}>
                                 <CellHeader>
                                     <Label>故障细节</Label>
-                                    {(localStorage.userAllowRecord && localStorage.userAllowRecord === 'true') ?
+                                    {(this.state.allowRecord && this.state.allowRecord === 'true') ?
                                         <Button id="talk_btn" className={'radioimage'}>&nbsp;</Button> :
                                         <Button id="talk_btn" className={'not-allow-radioimage'}>&nbsp;</Button>
                                     }
