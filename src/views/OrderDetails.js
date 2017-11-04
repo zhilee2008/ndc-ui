@@ -59,7 +59,8 @@ class OrderDetails extends Component {
             imageurls: [],
             audioMediaId:'',
             isIos: false,
-            showRecordTips: false
+            showRecordTips: false,
+            audioMeidUrl: '',
         };
         var u = navigator.userAgent,
         app = navigator.appVersion;
@@ -244,7 +245,8 @@ class OrderDetails extends Component {
                     engineers: orderdetails.OrderLog.Engineers,
                     imageurls: orderdetails.ImageUrls,
                     audioMediaId: orderdetails.AudioMediaId,
-                    completed: orderdetails.Status
+                    completed: orderdetails.Status,
+                    audioMeidUrl: orderdetails.AudioMeidUrl
                 });
 
             }
@@ -416,7 +418,10 @@ class OrderDetails extends Component {
                         <FormCell>
                             <CellHeader>
                                 {
-                                    this.state.audioMediaId === '' ? '' : <div style={{ width: '100%' }}><div onClick={this.playVoice.bind(this)} style={{ width: '100%', margin: '0px' }} className={'savedradio'}>点击播放录音</div></div>
+                                    this.state.audioMeidUrl === '' ? '' :
+                                <audio controls="controls" volume="1.0" style={{backgroundColor: 'white'}}>
+                                    <source src={this.state.audioMeidUrl} type="audio/mp3"/>
+                                </audio>
                                 }
 
                             </CellHeader>
